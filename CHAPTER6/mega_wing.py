@@ -45,7 +45,7 @@ class Game:
         #○└┐インスタンスを初期化する
             #○背景を初期化する
             #○自機を初期化する
-            #○敵を初期化する
+            #○敵機を初期化する
             #○弾(自機)を初期化する
             #○弾(敵機)を初期化する
             #○爆発を初期化する
@@ -114,7 +114,7 @@ class Game:
 		#┬
 		#◎└┐敵機を更新する
         for tmpObj in self.objEnemie.copy():
-			#│＼（すべての敵を処理し終えた）
+			#│＼（すべての敵機を処理し終えた）
 			#│ ▼繰り返し処理を抜ける
             #●敵機を更新する
             tmpObj.update()
@@ -143,9 +143,9 @@ class Game:
             #●弾(自機)を更新する
             tmpObj.update()
             #│
-            #◎└┐敵機との衝突判定を行う
+            #◎└┐すべての敵機との衝突判定を行う
             for tmpObjEnemy in self.objEnemie.copy():
-                #│＼（すべての敵を処理し終えた）
+                #│＼（すべての敵機を処理し終えた場合）
                 #│ ▼繰り返し処理を抜ける
                 #│
                 #●敵機との衝突を調べる
@@ -218,12 +218,12 @@ class Game:
             self.TimePlay += 1
             self.Level = self.TimePlay // 450 + 1
             #│
-            #◇┐敵を出現させる
+            #◇┐敵機を出現させる
             tmpInterval = max(60 - self.Level * 10, 10)
             if self.TimePlay % tmpInterval == 0:
             #　├→（出現タイミングの場合）
-                #○機体タイプをランダムに求める
-                #●求めた機体タイプで、敵機を生成する
+                #○機種をランダムに求める
+                #●求めた機種で、敵機を生成する
                 tmpKind  = pyxel.rndi(classEnemy.TYPE_A, classEnemy.TYPE_C)
                 classEnemy(self, tmpKind, self.Level, pyxel.rndi(0, 112), -8)
                 #┴
@@ -265,9 +265,9 @@ class Game:
 		#　└┐（その他）
 			#┴
         #│
-        #◎└┐敵を描画する
+        #◎└┐敵機を描画する
         for tmpObj in self.objEnemie:
-            #│＼（すべての敵を処理し終えた場合）
+            #│＼（すべての敵機を処理し終えた場合）
             #│ ▼繰り返し処理を抜ける
             #│
             #●描画する
@@ -340,9 +340,9 @@ class Game:
             #●自機を抹消する
             self.objPlayer = None
             #│
-            #●敵をクリアする
-            #●弾(自分)と敵を削除する
-            #●弾(敵機)と敵を削除する
+            #●敵機をクリアする
+            #●弾(自分)と敵機を削除する
+            #●弾(敵機)と敵機を削除する
             self.objEnemie.clear()
             self.objBullet_Player.clear()
             self.objBullet_Enemy.clear()
@@ -583,9 +583,9 @@ class classPlayer:
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 class classEnemy:
     #┬
-    #□機体タイプＡ
-    #□機体タイプＢ
-    #□機体タイプＣ
+    #□機種Ａ
+    #□機種Ｂ
+    #□機種Ｃ
     TYPE_A = 0
     TYPE_B = 1
     TYPE_C = 2
@@ -636,9 +636,9 @@ class classEnemy:
         #○生存時間をカウントする
         self.TimeLife += 1
         #│
-        #◇┐敵を更新する
+        #◇┐敵機を更新する
         if self.Type == classEnemy.TYPE_A:
-        #　├→（機体タイプが『Ａ』の場合）
+        #　├→（機種が『Ａ』の場合）
             #○前方に移動させる
             self.Y += 1.2
             #│
@@ -660,7 +660,7 @@ class classEnemy:
             #┴　┴
         #　│
         elif self.Type == classEnemy.TYPE_B:
-        #　├→（機体タイプが『Ｂ』の場合）
+        #　├→（機種が『Ｂ』の場合）
             #○前方に移動する
             self.Y += 1
             #│
@@ -679,7 +679,7 @@ class classEnemy:
             #┴　┴
         #　│
         elif self.Type == classEnemy.TYPE_C:
-        #　├→（機体タイプが『Ｃ』の場合）
+        #　├→（機種が『Ｃ』の場合）
             #○前方に移動する
             self.Y += 0.8
             #│
