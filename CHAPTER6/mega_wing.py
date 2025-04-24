@@ -14,10 +14,13 @@ class Game:
     #□ゲームオーバー画面
     SCENE_TITLE     = 0
     SCENE_PLAY      = 1 
-    SCENE_GAMEOVER  = 2 
+    SCENE_GAMEOVER  = 2
+    #│
+    #□ゲームオーバー表示待ち(単位：フレーム)
+    WAIT_GAMEOVER   = 180
     #┴
 	#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-	#┃０．初期化処理 
+	#┃【公　開】０．初期化処理 
 	#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     def __init__(self):
 		#┬
@@ -56,7 +59,7 @@ class Game:
         #│
         #○└┐最終準備
             #●背景を生成する(背景はシーンによらず常に存在する)
-            #●タイトル画面を表示する
+            #●タイトル画面を準備する
             #○ゲームの実行を開始する
             #┴
         classScreen(self)
@@ -64,35 +67,35 @@ class Game:
         pyxel.run(self.update, self.draw)
         #┴
 	#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-	#┃１．更新処理
+	#┃【非公開】１．更新処理
 	#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     def update(self):
 		#┬
         #●背景を更新する
         self.objScreen.update()
         #│
-        #○└┐キャラクタを更新する
-            #○自機を更新する
-            #○敵機を更新する
+        #○└┐1.キャラクタを更新する
+            #○1.1.自機を更新する
+            #○1.2.敵機を更新する
         self.update_Player()
         self.update_Enemie()
             #┴
 		#│
-        #○└┐弾を更新する
-            #○弾(自機)を更新する
-            #○弾(敵機)を更新する
+        #○└┐2.弾を更新する
+            #○2.1.弾(自機)を更新する
+            #○2.2.弾(敵機)を更新する
         self.update_BulletPlayer()
         self.update_BulletEnemy()
             #┴
 		#│
-        #○└┐その他を更新する
-            #●破壊を更新する
-            #●画面を更新する
+        #○└┐3.その他を更新する
+            #●3.1.破壊を更新する
+            #●3.2.画面を更新する
         self.update_Crush()
         self.update_Scene()
         #┴　┴
         #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        #┃1-x.弾(自機)を更新
+        #┃【非公開】1-1.1.弾(自機)を更新
         #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     def update_Player(self):
 		#┬
@@ -105,7 +108,7 @@ class Game:
 		#　└┐（その他）
         #┴　┴
         #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        #┃1-x.敵機を更新
+        #┃【非公開】1-1.2.敵機を更新
         #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     def update_Enemie(self):
 		#┬
@@ -128,7 +131,7 @@ class Game:
             #　└┐（その他）
         #┴　┴　┴
         #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        #┃1-x.弾(自機)を更新
+        #┃【非公開】1-2.1.弾(自機)を更新
         #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     def update_BulletPlayer(self):
 		#┬
@@ -154,7 +157,7 @@ class Game:
                     tmpObjEnemy.Sub_Collision() 
         #┴　┴　┴　┴
         #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        #┃1-x.弾(敵機)を更新
+        #┃【非公開】1-2.2.弾(敵機)を更新
         #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     def update_BulletEnemy(self):
 		#┬
@@ -178,7 +181,7 @@ class Game:
                     self.objPlayer.Sub_Collision()
         #┴　┴　┴　┴
         #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        #┃1-x.破壊を更新
+        #┃【非公開】1-3.1.破壊を更新
         #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     def update_Crush(self):
 		#┬
@@ -191,7 +194,7 @@ class Game:
             tmpObj.update()
         #┴　┴
         #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        #┃1-x.更新
+        #┃【非公開】1-3.2.更新
         #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     def update_Scene(self):
         #◇┐シーンを更新する
@@ -201,7 +204,7 @@ class Game:
             if pyxel.btnp(pyxel.KEY_RETURN):
             #　├→（リターンキーが押された場合）
                 #○BGMの再生を止める
-                #●プレー画面を表示する
+                #●プレー画面を準備する
                 pyxel.stop()
                 self.Sub_Scene(self.SCENE_PLAY)
                 #┴
@@ -229,22 +232,22 @@ class Game:
         #　│
         elif self.Scene == self.SCENE_GAMEOVER:
         #　├→（シーンが『ゲームオーバー』の場合）
-            #◇┐画面表示時間を減らす
-            if self.TimeDisplay > 0:
+            #◇┐待ち時間を減らす
+            if self.TimeGameover > 0:
             #　├→（画面表示時間が残っている場合）
-                #●画面表示時間をカウントダウンする
-                self.TimeDisplay -= 1
+                #●待ち時間をカウントダウンする
+                self.TimeGameover -= 1
                 #┴
             #　│
             else:
             #　└┐（その他）
-                #●タイトル画面を表示する
+                #●タイトル画面を準備する
                 self.Sub_Scene(self.SCENE_TITLE)
             #┴　┴
 		#　└┐（その他）
         #┴　┴
 	#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-	#┃２．描画処理
+	#┃【非公開】２．描画処理
 	#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     def draw(self):
 		#┬
@@ -299,32 +302,36 @@ class Game:
 			#┴
         #│
         #○スコアを描画する
-        pyxel.text(10, 4, f"SCORE {self.Score:5}", 7)
-        #│
         #○レベルを描画する
+        pyxel.text(10, 4, f"SCORE {self.Score:5}", 7)
         pyxel.text(80, 4, f"LEVEL {self.Level:1}", 7)
         #│
         #◇┐シーンを描画する
         if self.Scene == self.SCENE_TITLE:
         #　├→（シーンが『タイトル』の場合）
-            #〇メッセージを表示する
+            #〇タイトル画面を表示する
             pyxel.blt(0, 18, 2, 0, 0, 120, 120, 15)
             pyxel.text(31, 148, "- PRESS ENTER -", 6)
 			#┴
         #　│
         elif self.Scene == self.SCENE_GAMEOVER:
         #　├→（シーンが『ゲームオーバー』の場合）
-            #〇メッセージを表示する
+            #〇ゲームオーバー画面を表示する
             pyxel.text(43, 78, "GAME OVER", 8)
 			#┴
         #　└┐（その他）
         #┴　┴
 	#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-	#┃シーンをセット
+	#┃【公　型】シーンを準備する
+    #┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    #┃【引き数】① 整数型：シーン
 	#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    def Sub_Scene(self, argScene):
+    def Sub_Scene(
+        self,
+        argScene    #① シーン
+        ):
 		#┬
-        #○シーンを引数から求める
+        #○引数を退避する
         self.Scene = argScene
         #│
         #◇┐画面を表示する
@@ -346,9 +353,9 @@ class Game:
         #　│
         elif self.Scene == self.SCENE_PLAY:
         #　├→（シーンが『プレイ中』の場合）
-            #○スコアをリセット(0)する
-            #○プレイ時間をリセット(0)する
-            #○難易度レベルをリセット(1)する
+            #○スコアをリセットする
+            #○プレイ時間をリセットする
+            #○難易度レベルをリセットする
             self.Score      = 0
             self.TimePlay   = 0
             self.Level      = 1
@@ -362,8 +369,8 @@ class Game:
         #　│
         elif self.Scene == self.SCENE_GAMEOVER:
         #　├→（シーンが『ゲームオーバー』の場合）
-            #○画面表示時間を設定する
-            self.TimeDisplay = 60
+            #○待ち時間をセットする
+            self.TimeGameover = self.WAIT_GAMEOVER
             #│
             #●自機を抹消する
             self.objPlayer = None
@@ -379,22 +386,27 @@ class classScreen:
     NUM_STARS = 100 
     #┴
 	#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-	#┃０．初期化処理
+	#┃【公　開】０．初期化処理
+    #┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    #┃【引き数】① OBJ型 ：生成先のオブジェクト
 	#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    def __init__(self, argGame):
+    def __init__(
+        self,
+        argGame     # 生成先のオブジェクト
+        ):
 		#┬
         #○引数を退避する
-        self.Game   = argGame   # ゲームへの参照
+        self.objGame    = argGame   # ゲームへの参照
         #│
         #○基本データを初期化する
-        self.Star   = []        # 星リスト ※座標とベクトル
+        self.Star       = []        # 星リスト ※座標とベクトル
         #│
         #◎└┐すべての星を追加する
         for cnt in range(classScreen.NUM_STARS):
             #│＼（すべての星を処理し終えた場合）
             #│ ▼繰り返し処理を抜ける
             #│
-            #○└┐座標と速度を設定する
+            #○└┐座標と速度を求める
                 #○X座標を求める
                 #○Y座標を求める
                 #○方向の速度を求める
@@ -408,10 +420,10 @@ class classScreen:
             #┴
         #│
         #〇背景を生成する
-        self.Game.objScreen = self
+        self.objGame.objScreen = self
         #┴
 	#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-	#┃１．更新処理
+	#┃【非公開】１．更新処理
 	#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     def update(self):
 		#┬
@@ -432,12 +444,12 @@ class classScreen:
             self.Star[tmpID] = (tmpX, tmpY, tmpVY)
         #┴　┴
 	#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-	#┃２．描画処理
+	#┃【非公開】２．描画処理
 	#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     def draw(self):
 		#┬
         #◇┐銀河を描画する
-        if self.Game.Scene != self.Game.SCENE_TITLE:
+        if self.objGame.Scene != self.objGame.SCENE_TITLE:
         #　├→（シーンが『タイトル』以外の場合）
             #│
             #○銀河を描画する
@@ -467,24 +479,36 @@ class classPlayer:
     SHOT_INTERVAL   = 6 
     #┴
 	#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-	#┃０．初期化処理
+	#┃【公　開】０．初期化処理
+    #┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    #┃【引き数】① OBJ型 ：生成先のオブジェクト
+    #┃　　　　　② 整数型：Ｘ座標
+    #┃　　　　　③ 整数型：Ｙ座標
 	#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    def __init__(self, argGame, argX, argY):
+    def __init__(
+        self,
+        argGame,    # 生成先のオブジェクト
+        argX,       # Ｘ座標
+        argY        # Ｙ座標
+        ):
 		#┬
         #○引数を退避する
-        self.Game       = argGame       # ゲームへの参照
-        self.X          = argX          # X座標
-        self.Y          = argY          # Y座標
+        self.objGame    = argGame
+        self.X          = argX
+        self.Y          = argY
         #│
-        #○基本データを初期化する
-        self.HitArea    = (1, 1, 6, 6)  # 当たり判定の領域
-        self.TimeShot   = 0             # 弾発射までの残り時間
+        #○└┐基本データを初期化する
+            #○当たり判定の領域を初期化する
+            #○弾発射までの残り時間を初期化する
+        self.HitArea    = (1, 1, 6, 6)
+        self.TimeShot   = 0
+            #┴
         #│
         #〇自機を生成する
-        self.Game.objPlayer = self
+        self.objGame.objPlayer  = self
         #┴
 	#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-	#┃１．更新処理
+	#┃【非公開】１．更新処理
 	#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     def update(self):
 		#┬
@@ -512,7 +536,7 @@ class classPlayer:
         #　├→（発射可能で、スペースキーを押した場合）
             #○弾を生成する
             classBullet(
-                self.Game,
+                self.objGame,
                 classBullet.OWNER_PLAYER,
                 self.X, self.Y - 3,
                 -90,
@@ -528,7 +552,7 @@ class classPlayer:
         #　└┐（その他）
         #┴　┴
 	#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-	#┃２．描画処理
+	#┃【非公開】２．描画処理
 	#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     def draw(self):
 		#┬
@@ -536,12 +560,12 @@ class classPlayer:
         pyxel.blt(self.X, self.Y, 0, 0, 0, 8, 8, 0)
         #┴
 	#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-	#┃被弾・衝突
+	#┃【公　型】被弾・衝突を処理する
 	#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     def Sub_Collision(self):
 		#┬
         #●爆発を生成する
-        classCrush(self.Game, self.X + 4, self.Y + 4)
+        classCrush(self.objGame, self.X + 4, self.Y + 4)
         #│
         #○BGMを止める
         #○爆発音を鳴らす
@@ -549,10 +573,10 @@ class classPlayer:
         pyxel.play(0, 2)
         #│
         #○自機を抹消する
-        self.Game.objPlayer = None
+        self.objGame.objPlayer = None
         #│
         #●ゲームオーバー画面を表示する
-        self.Game.Sub_Scene(self.Game.SCENE_GAMEOVER)
+        self.objGame.Sub_Scene(self.objGame.SCENE_GAMEOVER)
         #┴
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃Ⅳ.敵機クラス
@@ -567,28 +591,45 @@ class classEnemy:
     TYPE_C = 2
     #┴
 	#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-	#┃０．初期化処理
+	#┃【公　開】０．初期化処理
+    #┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    #┃【引き数】① OBJ型 ：生成先のオブジェクト
+    #┃　　　　　② 整数型：機種
+    #┃　　　　　③ 整数型：難易度
+    #┃　　　　　④ 整数型：Ｘ座標
+    #┃　　　　　⑤ 整数型：Ｙ座標
 	#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    def __init__(self, argGame, argKind, argLevel, argX, argY):
+    def __init__(
+        self,
+        argGame,    #① 生成先のオブジェクト
+        argType,    #② 機種
+        argLevel,   #③ 難易度
+        argX,       #④ Ｘ座標
+        argY        #⑤ Ｙ座標
+        ):
 		#┬
         #○引数を退避する
-        self.Game       = argGame   # ゲームへの参照
-        self.Type       = argKind   # 敵機のタイプ
-        self.Level      = argLevel  # 難易度
+        self.objGame    = argGame
+        self.Type       = argType
+        self.Level      = argLevel
         self.X          = argX
         self.Y          = argY
         #│
-        #○基本データを初期化する
-        self.HitArea    = (0, 0, 7, 7)      # 当たり判定の領域
-        self.Armor      = self.Level - 1    # 防御力
-        self.TimeLife   = 0                 # 生存時間
-        self.Collided   = False             # 衝突有無
+        #○└┐基本データを初期化する
+            #○当たり判定の領域を初期化する
+            #○防御力を初期化する
+            #○生存時間を初期化する
+            #○衝突有無を初期化する
+        self.HitArea    = (0, 0, 7, 7)
+        self.Armor      = self.Level - 1
+        self.TimeLife   = 0
+        self.Collided   = False
         #│
         #〇敵機リストに追加する
-        self.Game.objEnemie.append(self)
+        self.objGame.objEnemie.append(self)
         #┴
 	#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-	#┃１．更新処理
+	#┃【非公開】１．更新処理
 	#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     def update(self):
 		#┬
@@ -608,7 +649,7 @@ class classEnemy:
                 #●弾を発射する
                 tmpAngle = self.Fun_Angle()
                 classBullet(
-                    self.Game,
+                    self.objGame,
                     classBullet.OWNER_ENEMY,
                     self.X, self.Y,
                     tmpAngle,
@@ -651,7 +692,7 @@ class classEnemy:
                     #│ ▼繰り返し処理を抜ける
                     #○当該の方向に弾を発射する
                     classBullet(
-                        self.Game,
+                        self.objGame,
                         classBullet.OWNER_ENEMY,
                         self.X, self.Y,
                         tmpCnt * 45 + 22,
@@ -665,17 +706,17 @@ class classEnemy:
         if self.Y >= pyxel.height:
         #　├→（画面下から出た場合）
             #◇┐敵機を消す
-            if self in self.Game.objEnemie:
+            if self in self.objGame.objEnemie:
             #　├→（敵が存在する場合）
                 #○敵機リストから抹消する
-                self.Game.objEnemie.remove(self) 
+                self.objGame.objEnemie.remove(self) 
                 #┴
             #　└┐（その他）
             #┴　┴
         #　└┐（その他）
         #┴　┴
 	#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-	#┃２．描画処理
+	#┃【非公開】２．描画処理
 	#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     def draw(self):
 		#┬
@@ -717,7 +758,7 @@ class classEnemy:
                 )
         #┴　┴
 	#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-	#┃被弾
+	#┃【公　型】被弾を処理する
 	#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     def Sub_Collision(self):
 		#┬
@@ -737,25 +778,27 @@ class classEnemy:
             #●爆発エフェクトを生成する
             #○爆発音を鳴らす
             #○スコアを加算する
-            classCrush(self.Game, self.X + 4, self.Y + 4)
+            classCrush(self.objGame, self.X + 4, self.Y + 4)
             pyxel.play(2, 2, resume=True) 
-            self.Game.Score += self.Level * 10
+            self.objGame.Score += self.Level * 10
             #│
             #◇┐敵機を消す
-            if self in self.Game.objEnemie:
+            if self in self.objGame.objEnemie:
             #　├→（敵機リストに存在する場合）
                 #○敵機リストから抹消する
-                self.Game.objEnemie.remove(self)
+                self.objGame.objEnemie.remove(self)
                 #┴
             #　└┐（その他）
         #┴　┴　┴
 	#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-	#┃発射角を得る
+	#┃【公　型】発射角を得る
+    #┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    #┃【戻り値】① 小数型：角度
 	#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     def Fun_Angle(self):
 		#┬
         #○自機を参照する
-        tmpObj = self.Game.objPlayer
+        tmpObj = self.objGame.objPlayer
         #│
         #◇┐角度を求める
         if tmpObj is None: 
@@ -779,23 +822,37 @@ class classBullet:
     OWNER_ENEMY  = 1 
     #┴
 	#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-	#┃０．初期化処理
+	#┃【公　開】０．初期化処理
+    #┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    #┃【引き数】① OBJ型 ：生成先のオブジェクト
+    #┃　　　　　② 整数型：所有者
+    #┃　　　　　③ 整数型：Ｘ座標
+    #┃　　　　　④ 整数型：Ｙ座標
+    #┃　　　　　⑤ 小数型：発射角度
+    #┃　　　　　⑥ 整数型：移動速度
 	#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    def __init__(self, argGame, argOwner, argX, argY, argAngle, argSpeed):
+    def __init__(
+        self,
+        argGame,    #① 生成先のオブジェクト
+        argOwner,   #② 所有者
+        argX,       #③ Ｘ座標
+        argY,       #④ Ｙ座標
+        argAngle,   #⑤ 発射角度
+        argSpeed    #⑥ 移動速度
+        ):
 		#┬
-        #○ゲームを参照する
-        self.Game = argGame
+        #○引数を退避する
+        self.objGame    = argGame
+        self.Owner      = argOwner
+        self.X          = argX
+        self.Y          = argY
         #│
-        #○指定の所有者をセットする
-        self.Owner = argOwner
-        #│
-        #○指定の座標をセットする
-        self.X = argX
-        self.Y = argY
-        #│
-        #○指定のベクトルをセットする
-        self.VectorX = pyxel.cos(argAngle) * argSpeed
-        self.VectorY = pyxel.sin(argAngle) * argSpeed
+        #○└┐基本データを初期化する
+            #○Ｘ軸のベクトル
+            #○Ｙ軸のベクトル
+        self.VectorX    = pyxel.cos(argAngle) * argSpeed
+        self.VectorY    = pyxel.sin(argAngle) * argSpeed
+            #┴
         #│
         #◇┐弾を増やす
         if self.Owner == classBullet.OWNER_PLAYER:
@@ -803,7 +860,7 @@ class classBullet:
             #○当たり判定の領域をセットする
             #〇弾(自機)リストに追加する
             self.HitArea = (2, 1, 5, 6)
-            self.Game.objBullet_Player.append(self)
+            self.objGame.objBullet_Player.append(self)
             #┴
         #│
         else:
@@ -811,10 +868,10 @@ class classBullet:
             #○当たり判定の領域をセットする
             #〇弾(敵機)リストに追加する
             self.HitArea = (2, 2, 5, 5)
-            self.Game.objBullet_Enemy.append(self)
+            self.objGame.objBullet_Enemy.append(self)
         #┴　┴
 	#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-	#┃１．更新処理
+	#┃【非公開】１．更新処理
 	#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     def update(self):
 		#┬
@@ -832,16 +889,16 @@ class classBullet:
             if self.Owner == classBullet.OWNER_PLAYER:
             #　├→（所有者が『自機』の場合）
                 #○弾(自機)リストから抹消する
-                self.Game.objBullet_Player.remove(self)
+                self.objGame.objBullet_Player.remove(self)
                 #┴
             #│
             else:
             #　└┐（その他）
                 #○弾(敵機)リストから抹消する
-                self.Game.objBullet_Enemy.remove(self)
+                self.objGame.objBullet_Enemy.remove(self)
         #┴　┴　┴
 	#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-	#┃３．描画
+	#┃【非公開】３．描画
 	#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     def draw(self):
 		#┬
@@ -850,7 +907,7 @@ class classBullet:
         pyxel.blt(self.X, self.Y, 0, tmpSrcX, 8, 8, 8, 0)
         #┴
 	#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-	#┃命中
+	#┃【公　型】命中を処理する
 	#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     def Sub_Collision(self):
 		#┬
@@ -858,18 +915,18 @@ class classBullet:
         if self.Owner == classBullet.OWNER_PLAYER:
         #　├→（所有者が『自機』の場合）
             #◇┐弾(自機)リストから魔性する
-            if self in self.Game.objBullet_Player:
+            if self in self.objGame.objBullet_Player:
             #　├→（弾(自機)リストに存在する場合）
                 #○弾(自機)リストから抹消する
-                self.Game.objBullet_Player.remove(self)
+                self.objGame.objBullet_Player.remove(self)
                 #┴
             #　└┐（その他）
             #┴　┴
         #　│
-        elif self in self.Game.objBullet_Enemy:
+        elif self in self.objGame.objBullet_Enemy:
         #　├→（弾(敵機)リストに存在する時場合）
             #○弾(敵機)リストから削除する
-            self.Game.objBullet_Enemy.remove(self)
+            self.objGame.objBullet_Enemy.remove(self)
             #┴
         #　└┐（その他）
         #┴　┴
@@ -884,23 +941,32 @@ class classCrush:
     END_RADIUS      = 8 
     #┴
 	#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-	#┃０．初期化処理
+	#┃【公　開】０．初期化処理
+    #┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    #┃【引き数】① OBJ型 ：生成先のオブジェクト
+    #┃　　　　　② 整数型：Ｘ座標
+    #┃　　　　　③ 整数型：Ｙ座標
 	#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    def __init__(self, atgGame, argX, argY):
+    def __init__(
+        self,
+        atgGame,    #① 生成先のオブジェクト
+        argX,       #② Ｘ座標
+        argY        #③ Ｙ座標
+        ):
 		#┬
         #○引数を退避する
-        self.Game = atgGame
-        self.X = argX
-        self.Y = argY
+        self.objGame    = atgGame
+        self.X          = argX
+        self.Y          = argY
         #│
-        #○半径をリセットする
-        self.Radius = classCrush.START_RADIUS
+        #○基本データ(半径)を初期化する
+        self.Radius     = classCrush.START_RADIUS
         #│
         #〇爆発リストに追加する
-        self.Game.objCrush.append(self)
+        self.objGame.objCrush.append(self)
         #┴
 	#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-	#┃１．更新処理
+	#┃【非公開】１．更新処理
 	#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     def update(self):
 		#┬
@@ -909,10 +975,10 @@ class classCrush:
         if self.Radius > classCrush.END_RADIUS:
         #　 ＼（半径が最大になった場合）
             #○爆発リストから抹消する
-            self.Game.objCrush.remove(self)
+            self.objGame.objCrush.remove(self)
         #┴　┴
 	#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-	#┃２．描画処理
+	#┃【非公開】２．描画処理
 	#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     def draw(self):
 		#┬
@@ -921,17 +987,25 @@ class classCrush:
         pyxel.circb(self.X, self.Y, self.Radius, 10)
         #┴
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-#┃衝突の有無を得る
+#┃【公　型】衝突の有無を得る
+#┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+#┃【引き数】① OBJ型 ：対象物（1つ目）
+#┃　　　　　② OBJ型 ：対象物（2つ目）
+#┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+#┃【戻り値】① 論理型：衝突あり：True／衝突なし：False
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-def Fun_Collision(argObj1, argObj2):
+def Fun_Collision(
+    argObj1,    #① 対象物１
+    argObj2     #② 対象物２
+    ):
     #┬
-    #○対象物１の情報をセットする
+    #○対象物１の座標範囲を求める
     tmpObj1_X1 = argObj1.X + argObj1.HitArea[0]
     tmpObj1_Y1 = argObj1.Y + argObj1.HitArea[1]
     tmpObj1_X2 = argObj1.X + argObj1.HitArea[2]
     tmpObj1_Y2 = argObj1.Y + argObj1.HitArea[3]
     #│
-    #○対象物２の情報をセットする
+    #○対象物２の座標範囲を求める
     tmpObj2_x1 = argObj2.X + argObj2.HitArea[0]
     tmpObj2_y1 = argObj2.Y + argObj2.HitArea[1]
     tmpObj2_x2 = argObj2.X + argObj2.HitArea[2]
@@ -944,7 +1018,7 @@ def Fun_Collision(argObj1, argObj2):
         tmpObj1_Y1 > tmpObj2_y2 or
         tmpObj1_Y2 < tmpObj2_y1
     ):
-    #　├→（対象物１と２が重なっていない場合）
+    #　├→（座標範囲が重なっていない場合）
         #▼『衝突なし』を返す
         return False
     #　│
