@@ -333,9 +333,8 @@ class Game:
 			#○タイマーを最初に戻す
 			self.timer_survivor = INTERVAL_SURVIVOR
 			#┴
-		#　│
-		else:
 		#　└┐２．（その他）
+		else:
 			#○タイマーをカウントダウンする
 			self.timer_survivor -= 1
 		#┴　┴
@@ -485,7 +484,7 @@ class Game:
 		if self.ship_x <= argX:
             #○宇宙船の幅を考えて、座標を比較する
 			DiffX = ( argX  - (self.ship_x + 8) )
-        #　└┐（宇宙船が左、対象が右にある場合）
+		#　└┐（その他）
 		else:
             #○対象の幅を考えて、座標を比較する
 			DiffX = (self.ship_x - (argX + arg_width) )
@@ -559,13 +558,9 @@ class Game:
 			# ⑦ 参照イメージの高さ         [8]
 			# ⑧ 透明色                     [0]
 		pyxel.blt(
-			self.ship_x - self.ship_dir * 3 + offset_x,
-			self.ship_y,
-			0,
-			0,
-			0,
-			8 * self.ship_dir,
-			8,
+			self.ship_x - self.ship_dir * 3 + offset_x, self.ship_y,
+			0, 0, 0,
+			8 * self.ship_dir, 8,
 			0,
 		)
 		#│
@@ -579,13 +574,9 @@ class Game:
 			# ⑦ 参照イメージの高さ         [8]
 			# ⑧ 透明色                     [0]
 		pyxel.blt(
-			self.ship_x,
-			self.ship_y + 3 + offset_y,
-			0,
-			8,
-			8,
-			8,
-			8,
+			self.ship_x, self.ship_y + 3 + offset_y,
+			0, 8, 8,
+			8, 8,
 			0,
 		)
 		#│
@@ -671,32 +662,36 @@ class Game:
 			#○キー入力の案内を表示する
 			pyxel.text(90, 70+ i, "- Press SPACE Key or Button -", color)
 		#┴　┴
-		#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-		#┃ジェット噴射
-		#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+	#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+	#┃ジェット噴射(ON/OFF)の判定
+	#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 	def Fn_JetON(self):
 		#┬
 		#◇┐１．キーの状態に合わせて、宇宙船の速度を更新する
-		#　├→（スペースキーかパッドのボタンが押された場合）
 		if pyxel.btn(pyxel.KEY_SPACE)				: return True
 		elif pyxel.btn(pyxel.GAMEPAD1_BUTTON_A)		: return True
 		elif pyxel.btn(pyxel.GAMEPAD1_BUTTON_B)		: return True
 		elif pyxel.btn(pyxel.GAMEPAD1_BUTTON_X)		: return True
 		elif pyxel.btn(pyxel.GAMEPAD1_BUTTON_Y)		: return True
-		else 										: return False
 		#　├→（スペースキーかパッドのボタンが押された場合）
-			#○入力ありにセットする
+			#○『はい』を返す
+			#┴
+		#　└┐（その他）
+		else 										: return False
+			#○『いいえ』を返す
 		#┴　┴
 	def Fn_JetOFF(self):
 		#┬
 		#◇┐１．キーの状態に合わせて、宇宙船の速度を更新する
-		#　├→（スペースキーかパッドのボタンが押された場合）
 		if pyxel.btnr(pyxel.KEY_SPACE)				: return True
 		elif pyxel.btnr(pyxel.GAMEPAD1_BUTTON_A)	: return True
 		elif pyxel.btnr(pyxel.GAMEPAD1_BUTTON_B)	: return True
 		elif pyxel.btnr(pyxel.GAMEPAD1_BUTTON_X)	: return True
 		elif pyxel.btnr(pyxel.GAMEPAD1_BUTTON_Y)	: return True
-		else 										: return False
 		#　├→（スペースキーかパッドのボタンが押された場合）
-			#○入力ありにセットする
+			#○『はい』を返す
+			#┴
+		#　└┐（その他）
+		else 										: return False
+			#○『いいえ』を返す
 		#┴　┴
