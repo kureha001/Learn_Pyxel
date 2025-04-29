@@ -55,8 +55,8 @@ class Game:
 		#│
 		#○２．リソースファイルを読み込む
 		#pyxel.load("res-org.pyxres")		# 最初のリソース
-		#pyxel.load("res-kureha.pyxres")		# 呉羽のリソース
-		pyxel.load("res-sumin.pyxres")		# スー民のリソース
+		pyxel.load("res-kureha.pyxres")		# 呉羽のリソース
+		#pyxel.load("res-sumin.pyxres")		# スー民のリソース
 		#│
 		#○３．シーンを『タイトル』にセットする
 		self.Scene = self.SCENE_TITLE
