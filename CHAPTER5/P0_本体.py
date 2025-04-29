@@ -54,12 +54,14 @@ class Game:
 		pyxel.init(300, 200, title = GAME_TITLE)
 		#│
 		#○２．リソースファイルを読み込む
-		pyxel.load("space_rescue.pyxres")
+		#pyxel.load("res-org.pyxres")		# 最初のリソース
+		pyxel.load("res-kureha.pyxres")		# 呉羽のリソース
+		#pyxel.load("res-sumin.pyxres")		# スー民のリソース
 		#│
 		#○３．シーンを『タイトル』にセットする
 		self.Scene = self.SCENE_TITLE
 		#│
-		#○背景を初期化する
+		#●背景を初期化する
 		self.objScreen	= None
 		classScreen(self)
 		#│
@@ -369,7 +371,6 @@ class Game:
 			#○タイマーを最初に戻す
 			self.timer_meteor = INTERVAL_METEOR
 			#┴
-		#　↓
 		#　└┐２．（その他）
 		else:
 			#│
@@ -391,11 +392,15 @@ class Game:
 		for survivor_x, survivor_y in self.survivors:
 			#│＼（リストの最後の要素を処理した場合）
 			#│ ▼繰り返し処理を抜ける
-			#│
 			#◇┐当該の宇宙飛行士を判定する
 			#　│
 			#　├→（衝突している場合）
-			if self.check_collision(survivor_x, survivor_y):
+			if self.check_collision(
+				survivor_x,     # Ｘ座標
+				survivor_y,     # Ｙ座標
+				8,              # キャラクタの幅
+				0              	# 敏感度
+				):
 				#│
 				#○スコアを1点増やす
 				self.score += 1
@@ -403,7 +408,6 @@ class Game:
 				#○救助音を鳴らす
 				pyxel.play(1, 2)
 				#┴
-			#　↓
 			#　└┐（その他）
 			else:
 				#│
@@ -411,6 +415,7 @@ class Game:
 				new_survivors.append((survivor_x, survivor_y))
 				#┴
 			#┴
+		#│
 		#│
 		#○宇宙飛行士のリストを新しいリストで入れ替える
 		self.survivors = new_survivors
@@ -429,23 +434,24 @@ class Game:
 			#◇当該の隕石を判定する
 			#　│
 			#　├→（衝突している場合）
-			if self.check_collision(meteor_x, meteor_y):
+			if self.check_collision(
+				meteor_x,       # Ｘ座標
+				meteor_y,       # Ｙ座標
+				16,             # キャラクタの幅
+				-1              # 敏感度
+				):
 				#│
 				#○宇宙船の状態を『爆発』にする
 				self.is_exploding	= True
 				#│
-				#○シーンを『タイトル』にセットする
-				self.Scene = self.SCENE_TITLE
+				#○タイトル表示モードを『オン』にする
+				self.Scene 			= self.SCENE_TITLE
 				#│
 				#○発音を鳴らす
 				pyxel.play(1, 3)
 				#┴
-			#　↓
 			#　└┐（その他）※なにもしない
-				#┴
-			#┴
-		#┴
-
+		#┴　┴　┴
 		#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 		#┃【共通関数】宇宙船から一定距離離れた位置を得る 
 		#┃【利用箇所】1.2.2.1.1／1.2.3.1.1
@@ -470,29 +476,50 @@ class Game:
 			#　│
 			#　├→（指定の距離以上に離れている場合）
 				#│
-				#▼関数の処理をやめて、座標を返す
+				#▼座標を返す
 				return (x, y)
 				#┴
-			#　↓
 			#　└┐（その他）※なにもしない
-				#┴
-			#┴
-		#┴
-
+		#┴　┴　┴
 		#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 		#┃【共通関数】宇宙船とオブジェクトの衝突判定 
 		#┃【利用箇所】1.2.4／1.2.5
 		#┃【引　　数】① 対象のX座標
 		#┃　　　　　　② 対象のY座標
+		#┃　　　　　　③ キャラクタの幅（８か１６）
+		#┃　　　　　　④ 敏感度(0：衝突しやすい,マイナス：衝突しにくい)
 		#┃【戻 り 値】衝突判定［True:衝突している／False：衝突していない］
 		#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-	def check_collision(self, x, y):
+	def check_collision(self,
+		argX,			#①Ｘ座標
+		argY,			#②Ｙ座標
+		arg_width,		#③キャラクタの幅
+		argSensitive	#④敏感度
+		):
 		#┬
-		#▼関数の処理をやめて、座標を返す
-		#  ※宇宙船との位置が5ドット以内(XY座標がともに)の場合は衝突
-		return abs(self.ship_x - x) <= 5 and abs(self.ship_y - y) <= 5
-		#┴
+		#◇┐Ｘ座標の重なり具合を求める
+        #　├→（宇宙船が左、対象が右にある場合）
+		if self.ship_x <= argX:
+            #○宇宙船の幅を考えて、座標を比較する
+			DiffX = ( argX  - (self.ship_x + 8) )
+        #　└┐（宇宙船が左、対象が右にある場合）
+		else:
+            #○対象の幅を考えて、座標を比較する
+			DiffX = (self.ship_x - (argX + arg_width) )
+			#┴
+		#│
+		#◇┐Ｙ座標の重なり具合を求める
+		if self.ship_y <= argY:
+        #　├→（宇宙船が上、対象が下にある場合）
+            #○宇宙船の幅を考えて、座標を比較する
+			DiffY = (argY - (self.ship_y + 8) )
+		#　└┐（その他）
+		else:
+            #○対象の幅を考えて、座標を比較する
+			DiffY = (self.ship_y - (argY + arg_width) )
 
+        #▼判定結果を返す
+		return (DiffX <= argSensitive and DiffY <= argSensitive)
 
 	#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 	#┃『２．アプリを描画する』のサブ関数
@@ -514,7 +541,6 @@ class Game:
 		for i in range(num_grads):
 			#│＼（最後のラデーションの数を処理した場合）
 			#│ ▼繰り返し処理を抜ける
-			#│
 			#○ディザリングを有効にする
 			pyxel.dither((i + 1) / num_grads)
 			#│
@@ -531,7 +557,6 @@ class Game:
 		#○ディザリングを無効にする
 		pyxel.dither(1)
 		#┴
-
 		#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 		#┃2-2.宇宙船を描画
 		#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -594,7 +619,6 @@ class Game:
 		#│
 		#◇┐５．宇宙船の状態に合わせて、爆発を描画する
 		if self.is_exploding:
-		#　│
 		#　├→（宇宙船の状態が『爆発』の場合）
 			#│
 			#○爆発を描画する
@@ -604,11 +628,9 @@ class Game:
 			blast_color = pyxel.rndi(7, 10)
 			pyxel.circ(blast_x, blast_y, blast_radius, blast_color)
 			#┴
-		#　│
 		#　└┐（その他）※なにもしない
 			#┴
 		#┴
-
 		#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 		#┃2-3.宇宙飛行士を描画
 		#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -618,12 +640,9 @@ class Game:
 		for survivor_x, survivor_y in self.survivors:
 			#│＼（リストの最後の要素を処理した場合）
 			#│ ▼繰り返し処理を抜ける
-			#│
 			#○当該の宇宙飛行士を描画する
 			pyxel.blt(survivor_x, survivor_y, 0, 16, 0, 8, 8, 0)
-			#┴
-		#┴
-
+		#┴　┴
 		#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 		#┃2-4.隕石を描画
 		#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -635,10 +654,8 @@ class Game:
 			#│ ▼繰り返し処理を抜ける
 			#│
 			#○当該の隕石を描画する
-			pyxel.blt(meteor_x, meteor_y, 0, 24, 0, 8, 8, 0)
-			#┴
-		#┴
-
+			pyxel.blt(meteor_x, meteor_y, 0, 24, 0, 16, 16, 0)
+		#┴　┴
 		#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 		#┃2-5.スコアを描画
 		#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -651,15 +668,12 @@ class Game:
 		for i in range(1, -1, -1):
 			#│＼（影・文字の両方を表示し終えた場合）
 			#│ ▼繰り返し処理を抜ける
-			#│
 			#○影・文字別に色を求める
 			color = 7 if i == 0 else 0
 			#│
 			#○求めた色でスコアを表示する ※影と文字は1ドットずらす
 			pyxel.text(3 + i, 3, score, color)
-			#┴
-		#┴
-
+		#┴　┴
 		#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 		#┃2-6.1.タイトルを描画
 		#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
