@@ -62,6 +62,7 @@ class Game:
 		self.Scene = self.SCENE_TITLE
 		#│
 		#●背景を初期化する
+
 		self.objScreen	= None
 		classScreen(self)
 		#│
@@ -71,7 +72,6 @@ class Game:
 		#○５．アプリの実行を開始する
 		pyxel.run(self.update, self.draw)
 		#┴
-
 	#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 	#┃１．アプリを更新 ※1秒に30回実行
 	#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -84,8 +84,8 @@ class Game:
 		if self.Scene == self.SCENE_TITLE:
 		#　├→（シーンを『タイトル』の場合）
 			#◇┐1.1.エンターキーが押されている場合：
-			#　├→（エンターキーが押されている場合）
-			if pyxel.btnp(pyxel.KEY_RETURN):
+			if self.Fn_JetON():
+			#　├→（ジェット噴射の指示が『ある』場合）
 				#○1.1.1.タイトル表示モードを『プレイ』にする
 				self.Scene = self.SCENE_PLAY
 				#│
@@ -94,7 +94,6 @@ class Game:
 				#┴
 			#▼1.2.関数の処理をここでやめる
 			return
-		#　↓
 		#　└┐（その他）※なにもしない
 			#┴
 		#│
@@ -114,7 +113,6 @@ class Game:
 		#　●2.5.衝突判定（隕石）
 		self.check_meteor()
 		#　┴
-
 	#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 	#┃２．アプリを描画 ※1秒に30回実行
 	#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -139,18 +137,13 @@ class Game:
 		self.draw_score()
 		#│
 		#◇┐６．タイトルモードに合わせて、タイトルを描画する
-		#　│
-		#　├→（シーンが『タイトル』の場合）
 		if self.Scene == self.SCENE_TITLE:
-			#│
+		#　├→（シーンが『タイトル』の場合）
 			#●6.1.タイトルを描画する
 			self.draw_title()
 			#┴
-		#　↓
 		#　└┐（その他）※なにもしない
-			#┴
-		#┴
-
+		#┴　┴
 	#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 	#┃『０．初期化する』『１．アプリを更新する』のサブ関数
 	#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -200,14 +193,20 @@ class Game:
 		self.survivors		= []
 		self.meteors		= []
 
+		#◇┐
 		pyxel.stop()
 		if self.Scene == self.SCENE_TITLE:
+		#　├→（）
 			#○BGMを鳴らす ※繰り返し鳴らす
 			pyxel.playm(0, loop=True)
+			#┴
+		#│
 		elif self.Scene == self.SCENE_PLAY:
+		#　├→（）
+			#○BGMを鳴らす ※繰り返し鳴らす
 			pyxel.playm(1, loop=True)
-		#┴
-
+		#　└┐（その他）
+		#┴　┴
 	#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 	#┃『１．アプリを更新する』のサブ関数
 	#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -217,10 +216,8 @@ class Game:
 	def update_ship(self):
 		#┬
 		#◇┐１．キーの状態に合わせて、宇宙船の速度を更新する
-		#　│
-		#　├→（スペースキーが押されている場合）
-		if pyxel.btn(pyxel.KEY_SPACE):
-			#│
+		if self.Fn_JetON():
+		#　├→（ジェット噴射の指示が『ある』場合）
 			#○噴射状態を「噴射あり」にする
 			self.is_jetting	= True
 			#│
@@ -235,10 +232,8 @@ class Game:
 			#○ジェット音を鳴らす
 			pyxel.play(0, 0, resume=True)
 			#┴
-		#　↓
 		#　└┐（その他）
 		else:
-			#│
 			#○噴射状態を「噴射なし」にする
 			self.is_jetting	= False
 			#│
@@ -247,14 +242,11 @@ class Game:
 			#┴
 		#│
 		#◇┐２．キーの状態に合わせて、次に進む方向を変える
-		#　│
-		#　├→（スペースキーが離された場合）
-		if pyxel.btnr(pyxel.KEY_SPACE):
-			#│
+		if self.Fn_JetOFF():
+		#　├→（ジェット噴射の指示が『ない』場合）
 			#○次に進む方向を反転する
 			self.ship_dir = -self.ship_dir
 			#┴
-		#　↓
 		#　└┐（その他）※なにもしない
 			#┴
 		#│
@@ -266,7 +258,6 @@ class Game:
 			#┴
 		#│
 		#○└┐４．画面の終端位置を求める
-			#│
 			#○右端の位置(右端の８ドット手前)を求める
 			#○下端の位置(下端の８ドット手前)求める
 			#┴
@@ -274,10 +265,8 @@ class Game:
 		max_ship_y = pyxel.height	- 8 
 
 		#◇┐５．宇宙船の座標に合わせて、跳ね返す
-		#　│
-		#　├→（宇宙船の『X座標が左端』をはみ出した場合）
 		if self.ship_x < 0:
-			#│
+		#　├→（宇宙船の『X座標が左端』をはみ出した場合）
 			#○X座標を一番左に戻す
 			self.ship_x		= 0
 			#│
@@ -288,9 +277,8 @@ class Game:
 			pyxel.play(0, 1, resume=True)
 			#┴
 		#　│
-		#　├→（宇宙船の『X座標が右端』をはみ出した場合）
 		elif self.ship_x > max_ship_x:
-			#│
+		#　├→（宇宙船の『X座標が右端』をはみ出した場合）
 			#○X座標を一番右に戻す
 			self.ship_x		= max_ship_x
 			#│
@@ -301,9 +289,8 @@ class Game:
 			pyxel.play(0, 1, resume=True)
 			#┴
 		#　│
-		#　├→（宇宙船の『Y座標が上端』をはみ出した場合）
 		elif self.ship_y < 0:
-			#│
+		#　├→（宇宙船の『Y座標が上端』をはみ出した場合）
 			#○Y座標を一番下に戻す
 			self.ship_y		= 0
 			#│
@@ -314,9 +301,8 @@ class Game:
 			pyxel.play(0, 1, resume=True)
 			#┴
 		#　│
-		#　├→（宇宇宙船の『Y座標が下端』をはみ出した場合）
 		elif self.ship_y > max_ship_y:
-			#│
+		#　├→（宇宇宙船の『Y座標が下端』をはみ出した場合）
 			#○Y座標を一番下に戻す
 			self.ship_y		= max_ship_y
 			#│
@@ -326,11 +312,8 @@ class Game:
 			#○跳ね返り音を鳴らす
 			pyxel.play(0, 1, resume=True)
 			#┴
-		#　↓
 		#　└┐（その他）※なにもしない
-			#┴
-		#┴
-
+		#┴　┴
 		#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 		#┃1-2.2.オブジェクトを追加（宇宙飛行士）
 		#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -350,15 +333,12 @@ class Game:
 			#○タイマーを最初に戻す
 			self.timer_survivor = INTERVAL_SURVIVOR
 			#┴
-		#　↓
-		#　└┐２．（その他）
+		#　│
 		else:
-			#│
+		#　└┐２．（その他）
 			#○タイマーをカウントダウンする
 			self.timer_survivor -= 1
-			#┴
-		#┴
-
+		#┴　┴
 		#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 		#┃1-2.3.オブジェクトを追加（隕石）
 		#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -383,9 +363,7 @@ class Game:
 			#│
 			#○タイマーをカウントダウンする
 			self.timer_meteor -= 1
-			#┴
-		#┴
-
+		#┴　┴
 		#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 		#┃1-2.4.衝突判定（宇宙飛行士）
 		#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -420,14 +398,11 @@ class Game:
 				#│
 				#○宇宙飛行士の新しいリストに追加する
 				new_survivors.append((survivor_x, survivor_y))
-				#┴
-			#┴
-		#│
+			#┴　┴
 		#│
 		#○宇宙飛行士のリストを新しいリストで入れ替える
 		self.survivors = new_survivors
 		#┴
-
 		#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 		#┃1-2.5.衝突判定（隕石）
 		#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -637,8 +612,7 @@ class Game:
 			pyxel.circ(blast_x, blast_y, blast_radius, blast_color)
 			#┴
 		#　└┐（その他）※なにもしない
-			#┴
-		#┴
+		#┴　┴
 		#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 		#┃2-3.宇宙飛行士を描画
 		#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -691,14 +665,38 @@ class Game:
 		for i in range(1, -1, -1):
 			#│＼（影・文字の両方を表示し終えた場合）
 			#│ ▼繰り返し処理を抜ける
-			#│
 			#○影・文字別に色を求める
 			color = 10 if i == 0 else 8
 			#│
-			#○求めた色でタイトルを表示する ※影と文字は1ドットずらす
-			pyxel.text(57, 50 + i, GAME_TITLE, color)
-			#┴
-		#│
-		#○キー入力の案内を表示する
-		pyxel.text(42, 70, "- Press Enter Key -", 3)
-		#┴
+			#○キー入力の案内を表示する
+			pyxel.text(90, 70+ i, "- Press SPACE Key or Button -", color)
+		#┴　┴
+		#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+		#┃ジェット噴射
+		#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+	def Fn_JetON(self):
+		#┬
+		#◇┐１．キーの状態に合わせて、宇宙船の速度を更新する
+		#　├→（スペースキーかパッドのボタンが押された場合）
+		if pyxel.btn(pyxel.KEY_SPACE)				: return True
+		elif pyxel.btn(pyxel.GAMEPAD1_BUTTON_A)		: return True
+		elif pyxel.btn(pyxel.GAMEPAD1_BUTTON_B)		: return True
+		elif pyxel.btn(pyxel.GAMEPAD1_BUTTON_X)		: return True
+		elif pyxel.btn(pyxel.GAMEPAD1_BUTTON_Y)		: return True
+		else 										: return False
+		#　├→（スペースキーかパッドのボタンが押された場合）
+			#○入力ありにセットする
+		#┴　┴
+	def Fn_JetOFF(self):
+		#┬
+		#◇┐１．キーの状態に合わせて、宇宙船の速度を更新する
+		#　├→（スペースキーかパッドのボタンが押された場合）
+		if pyxel.btnr(pyxel.KEY_SPACE)				: return True
+		elif pyxel.btnr(pyxel.GAMEPAD1_BUTTON_A)	: return True
+		elif pyxel.btnr(pyxel.GAMEPAD1_BUTTON_B)	: return True
+		elif pyxel.btnr(pyxel.GAMEPAD1_BUTTON_X)	: return True
+		elif pyxel.btnr(pyxel.GAMEPAD1_BUTTON_Y)	: return True
+		else 										: return False
+		#　├→（スペースキーかパッドのボタンが押された場合）
+			#○入力ありにセットする
+		#┴　┴
