@@ -5,6 +5,7 @@
 #┃Ⅰ.インポート
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 import pyxel
+from P1_背景    import classScreen
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃Ⅱ.定数
@@ -35,20 +36,32 @@ INTERVAL_METEOR		= 210
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃Ⅲ．クラス
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-class OneKeyGame:
+class Game:
+    #┬
+    #□タイトル画面
+    #□プレイ画面
+    #□ゲームオーバー画面
+	SCENE_TITLE     = 0
+	SCENE_PLAY      = 1 
+	SCENE_GAMEOVER  = 2
+    #┴
 	#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 	#┃０．初期化 ※1度だけ実行
 	#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 	def __init__(self):
 		#┬
 		#○１．Pyxelを初期化する
-		pyxel.init(300, 200, title=GAME_TITLE)
+		pyxel.init(300, 200, title = GAME_TITLE)
 		#│
 		#○２．リソースファイルを読み込む
 		pyxel.load("space_rescue.pyxres")
 		#│
-		#○３．イトル表示スイッチを『オン』にする
-		self.title_mode = True
+		#○３．シーンを『タイトル』にセットする
+		self.Scene = self.SCENE_TITLE
+		#│
+		#○背景を初期化する
+		self.objScreen	= None
+		classScreen(self)
 		#│
 		#●４．ゲームをリセットする
 		self.reset_game()
@@ -62,17 +75,17 @@ class OneKeyGame:
 	#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 	def update(self):
 		#┬
-		#◇┐１．タイトル表示モードに合わせて、ゲームの流れを変える
+        #●背景を更新する
+		self.objScreen.update()
 		#　│
-		#　├→（タイトル表示モードが『オン』の場合）
-		if self.title_mode:
-			#│
+		#◇┐１．タイトル表示モードに合わせて、ゲームの流れを変える
+		if self.Scene == self.SCENE_TITLE:
+		#　├→（シーンを『タイトル』の場合）
 			#◇┐1.1.エンターキーが押されている場合：
 			#　├→（エンターキーが押されている場合）
 			if pyxel.btnp(pyxel.KEY_RETURN):
-				#│
-				#○1.1.1.タイトル表示モードを『オフ』にする
-				self.title_mode = False
+				#○1.1.1.タイトル表示モードを『プレイ』にする
+				self.Scene = self.SCENE_PLAY
 				#│
 				#●1.1.2.ゲームをリセットする
 				self.reset_game()
@@ -108,6 +121,9 @@ class OneKeyGame:
 		#●１．空を描画する
 		self.draw_sky()
 		#│
+        #●背景を描画する
+		self.objScreen.draw()
+		#│
 		#●２．宇宙船を描画する
 		self.draw_ship()
 		#│
@@ -122,8 +138,8 @@ class OneKeyGame:
 		#│
 		#◇┐６．タイトルモードに合わせて、タイトルを描画する
 		#　│
-		#　├→（タイトルモードの場合）
-		if self.title_mode:
+		#　├→（シーンが『タイトル』の場合）
+		if self.Scene == self.SCENE_TITLE:
 			#│
 			#●6.1.タイトルを描画する
 			self.draw_title()
@@ -418,8 +434,8 @@ class OneKeyGame:
 				#○宇宙船の状態を『爆発』にする
 				self.is_exploding	= True
 				#│
-				#○タイトル表示モードを『オン』にする
-				self.title_mode		= True
+				#○シーンを『タイトル』にセットする
+				self.Scene = self.SCENE_TITLE
 				#│
 				#○発音を鳴らす
 				pyxel.play(1, 3)
@@ -664,11 +680,3 @@ class OneKeyGame:
 		#○キー入力の案内を表示する
 		pyxel.text(42, 70, "- Press Enter Key -", 3)
 		#┴
-
-#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-#┃Ⅳ.メイン処理
-#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-#┬
-#●ゲームのクラスを実行する
-OneKeyGame()
-#┴
