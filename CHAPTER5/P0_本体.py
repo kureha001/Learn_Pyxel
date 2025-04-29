@@ -55,8 +55,8 @@ class Game:
 		#│
 		#○２．リソースファイルを読み込む
 		#pyxel.load("res-org.pyxres")		# 最初のリソース
-		pyxel.load("res-kureha.pyxres")		# 呉羽のリソース
-		#pyxel.load("res-sumin.pyxres")		# スー民のリソース
+		#pyxel.load("res-kureha.pyxres")		# 呉羽のリソース
+		pyxel.load("res-sumin.pyxres")		# スー民のリソース
 		#│
 		#○３．シーンを『タイトル』にセットする
 		self.Scene = self.SCENE_TITLE
@@ -199,6 +199,13 @@ class Game:
 			#┴
 		self.survivors		= []
 		self.meteors		= []
+
+		pyxel.stop()
+		if self.Scene == self.SCENE_TITLE:
+			#○BGMを鳴らす ※繰り返し鳴らす
+			pyxel.playm(0, loop=True)
+		elif self.Scene == self.SCENE_PLAY:
+			pyxel.playm(1, loop=True)
 		#┴
 
 	#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -226,7 +233,7 @@ class Game:
 			)
 			#│
 			#○ジェット音を鳴らす
-			pyxel.play(0, 0)
+			pyxel.play(0, 0, resume=True)
 			#┴
 		#　↓
 		#　└┐（その他）
@@ -278,7 +285,7 @@ class Game:
 			self.ship_vx	= abs(self.ship_vx)
 			#│
 			#○跳ね返り音を鳴らす
-			pyxel.play(0, 1)
+			pyxel.play(0, 1, resume=True)
 			#┴
 		#　│
 		#　├→（宇宙船の『X座標が右端』をはみ出した場合）
@@ -291,7 +298,7 @@ class Game:
 			self.ship_vx 	= -abs(self.ship_vx)
 			#│
 			#○跳ね返り音を鳴らす
-			pyxel.play(0, 1)
+			pyxel.play(0, 1, resume=True)
 			#┴
 		#　│
 		#　├→（宇宙船の『Y座標が上端』をはみ出した場合）
@@ -304,7 +311,7 @@ class Game:
 			self.ship_vy 	= abs(self.ship_vy)
 			#│
 			#○跳ね返り音を鳴らす
-			pyxel.play(0, 1)
+			pyxel.play(0, 1, resume=True)
 			#┴
 		#　│
 		#　├→（宇宇宙船の『Y座標が下端』をはみ出した場合）
@@ -317,7 +324,7 @@ class Game:
 			self.ship_vy 	= -abs(self.ship_vy)
 			#│
 			#○跳ね返り音を鳴らす
-			pyxel.play(0, 1)
+			pyxel.play(0, 1, resume=True)
 			#┴
 		#　↓
 		#　└┐（その他）※なにもしない
@@ -406,7 +413,7 @@ class Game:
 				self.score += 1
 				#│
 				#○救助音を鳴らす
-				pyxel.play(1, 2)
+				pyxel.play(1, 2, resume=True)
 				#┴
 			#　└┐（その他）
 			else:
@@ -447,8 +454,9 @@ class Game:
 				#○タイトル表示モードを『オン』にする
 				self.Scene 			= self.SCENE_TITLE
 				#│
-				#○発音を鳴らす
-				pyxel.play(1, 3)
+				#○爆破音を鳴らす
+				pyxel.stop()
+				pyxel.play(2, 63, resume=True) 
 				#┴
 			#　└┐（その他）※なにもしない
 		#┴　┴　┴
