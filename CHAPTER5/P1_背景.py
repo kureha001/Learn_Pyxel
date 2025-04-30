@@ -9,7 +9,7 @@ import pyxel
 class classScreen:
     #┬
     #□星の数
-    NUM_STARS = 100 
+    NUM_STARS = 50
     #┴
 	#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 	#┃０．初期化処理
@@ -30,7 +30,6 @@ class classScreen:
         for cnt in range(classScreen.NUM_STARS):
             #│＼（すべての星を処理し終えた場合）
             #│ ▼繰り返し処理を抜ける
-            #│
             #○└┐座標と速度を求める
                 #○X座標をランダムに求める
                 #○Y座標をランダムに求める
@@ -44,6 +43,7 @@ class classScreen:
             self.Star.append((tmpX, tmpY, tmpVY))
             #┴
         #│
+        #〇地平線を描画する
         #〇背景を生成する
         self.objGame.objScreen = self
         #┴
@@ -73,16 +73,45 @@ class classScreen:
 	#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     def draw(self):
 		#┬
-        #◇┐銀河を描画する
-        if self.objGame.Scene != self.objGame.SCENE_TITLE:
-        #　├→（シーンが『タイトル』以外の場合）
-            #│
-            #○銀河を描画する
-            pyxel.blt(0, 0, 1, 0, 0, 120, 160)
-            #┴
-		#　└┐（その他）
+		#●地表を描画する
+		#●星を描画する
+        self.draw_ground()
+        self.draw_star()
+        #┴　┴
+        #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        #┃地表を描画
+        #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    def draw_ground(self):
+		#┬
+		#○空を描画する条件をセットする
+        num_grads	= 4		# グラデーションの数
+        grad_height	= 6		# グラデーションの高さ
+        grad_start_y = pyxel.height - grad_height * num_grads  # 描画開始位置
+		#│
+		#◎└┐グラデーションの数だけ、背景を描画する
+        for i in range(num_grads):
+			#│＼（最後のラデーションの数を処理した場合）
+			#│ ▼繰り返し処理を抜ける
+			#○ディザリングを有効にする
+            pyxel.dither((i + 1) / num_grads)
+			#│
+			#○四角形を描画する
+            pyxel.rect(
+                0,
+                grad_start_y + i * grad_height,
+                pyxel.width,
+                grad_height,
+                1,
+                )
 			#┴
-        #│
+		#│
+		#○ディザリングを無効にする
+        pyxel.dither(1)
+		#┴
+        #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        #┃星を描画
+        #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    def draw_star(self):
         #◎└┐すべての星を描画する
         for tmpX, tmpY, tmpSpeed in self.Star:
 			#│＼（）
