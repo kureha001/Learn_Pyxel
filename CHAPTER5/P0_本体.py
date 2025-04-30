@@ -5,6 +5,7 @@
 #┃Ⅰ.インポート
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 import pyxel
+import time
 from P1_背景    import classScreen
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -26,8 +27,8 @@ SHIP_ACCEL_DOWN 	= 0.02
 MAX_SHIP_SPEED		= 0.8
 #│
 #□└┐出現カウント(30で１秒)
-	#□隕石用
-	#□宇宙飛行士用
+	#□ボスキャラ用
+	#□敵子分用
 	#┴
 INTERVAL_SURVIVOR	= 210
 INTERVAL_METEOR		= 210
@@ -50,26 +51,28 @@ class Game:
 	#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 	def __init__(self):
 		#┬
-		#○１．Pyxelを初期化する
+		#○Pyxelを初期化する
 		pyxel.init(300, 200, title = GAME_TITLE)
 		#│
-		#○２．リソースファイルを読み込む
+		#○リソースファイルを読み込む
 		#pyxel.load("res-org.pyxres")		# 最初のリソース
 		pyxel.load("res-kureha.pyxres")		# 呉羽のリソース
 		#pyxel.load("res-sumin.pyxres")		# スー民のリソース
 		#│
-		#○３．シーンを『タイトル』にセットする
+		#●BGMを初期化する
+		self.init_music()
+		#│
+		#○シーンを『タイトル』にセットする
 		self.Scene = self.SCENE_TITLE
 		#│
-		#●背景を初期化する
-
+		#●背景を生成する
 		self.objScreen	= None
 		classScreen(self)
 		#│
-		#●４．ゲームをリセットする
+		#●ゲームをリセットする
 		self.reset_game()
 		#│
-		#○５．アプリの実行を開始する
+		#○アプリの実行を開始する
 		pyxel.run(self.update, self.draw)
 		#┴
 	#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -79,74 +82,124 @@ class Game:
 		#┬
         #●背景を更新する
 		self.objScreen.update()
-		#　│
-		#◇┐１．タイトル表示モードに合わせて、ゲームの流れを変える
-		if self.Scene == self.SCENE_TITLE:
-		#　├→（シーンを『タイトル』の場合）
-			#◇┐1.1.エンターキーが押されている場合：
+		#│
+		#◇┐シーンに合わせて、ゲームの流れを変える
+		if self.Scene == self.SCENE_GAMEOVER:
+		#　├→（シーンが『ゲームオーバー』の場合）
+			#▼関数の処理をここでやめる
+			return
+		#│
+		elif self.Scene == self.SCENE_TITLE:
+		#　├→（シーンが『タイトル』の場合）
+			#◇┐エンターキーが押されている場合：
 			if self.Fn_JetON():
 			#　├→（ジェット噴射の指示が『ある』場合）
-				#○1.1.1.タイトル表示モードを『プレイ』にする
+				#○タイトル表示モードを『プレイ』にする
 				self.Scene = self.SCENE_PLAY
 				#│
-				#●1.1.2.ゲームをリセットする
+				#●ゲームをリセットする
 				self.reset_game()
 				#┴
-			#▼1.2.関数の処理をここでやめる
+			#▼関数の処理をここでやめる
 			return
 		#　└┐（その他）※なにもしない
 			#┴
 		#│
-		#○┐２．ゲームを更新する
-		#　●2.1.宇宙船を更新する
+		#○┐ゲームを更新する
+		#　●宇宙船を更新する
 		self.update_ship()
 		#　│
-		#　●2.2.オブジェクトを追加する（宇宙飛行士）
-		self.add_survivor()
+		#　●オブジェクトを追加する（敵子分）
+		self.add_henchman()
 		#　│
-		#　●2.3.オブジェクトを追加する（隕石）
-		self.add_meteor()
+		#　●オブジェクトを追加する（ボスキャラ）
+		self.add_boss()
 		#　│
-		#　●2.4.衝突判定（宇宙飛行士）
-		self.check_survivor()
+		#　●接触判定（敵子分）
+		self.check_henchman()
 		#　│
-		#　●2.5.衝突判定（隕石）
-		self.check_meteor()
+		#　●接触判定（ボスキャラ）
+		self.check_boss()
 		#　┴
 	#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 	#┃２．アプリを描画 ※1秒に30回実行
 	#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 	def draw(self):
 		#┬
-		#●１．空を描画する
+		#●空を描画する
 		self.draw_sky()
 		#│
         #●背景を描画する
 		self.objScreen.draw()
 		#│
-		#●２．宇宙船を描画する
+		#●宇宙船を描画する
 		self.draw_ship()
 		#│
-		#●３．宇宙飛行士を描画する
-		self.draw_survivors()
+		#●敵子分を描画する
+		self.draw_henchman()
 		#│
-		#●４．隕石を描画する
-		self.draw_meteors()
+		#●ボスキャラを描画する
+		self.draw_boss()
 		#│
-		#●５．スコアを描画する
+		#●スコアを描画する
 		self.draw_score()
 		#│
-		#◇┐６．タイトルモードに合わせて、タイトルを描画する
+		#◇┐シーンに合わせて、処理を制御する
 		if self.Scene == self.SCENE_TITLE:
 		#　├→（シーンが『タイトル』の場合）
-			#●6.1.タイトルを描画する
+			#●タイトルを描画する
 			self.draw_title()
+			#┴
+		#│
+		elif self.Scene == self.SCENE_GAMEOVER:
+		#　├→（シーンが『ゲームオーバー』の場合）
+			#◇┐爆破音を鳴らす
+			if self.timer_GameOver == 0:
+			#　├→（ゲームオーバー直後の場合）
+				#○爆破音を鳴らす
+				pyxel.stop()
+				pyxel.play(2, 63, resume=True)
+				#┴
+			#│
+			#◇┐ゲームオーバーのシーンを終了する
+			if self.timer_GameOver > 30:
+			#　├→（ゲームオーバーが終了する時間の場合）
+				#○ＢＧＭを鳴らす
+				#○シーンを『タイトル画面』にセットする
+				pyxel.playm(7, loop=True)
+				self.Scene = self.SCENE_TITLE
+			#│
+			#〇ゲームオーバーの経過時間を増やす
+			self.timer_GameOver += 1
 			#┴
 		#　└┐（その他）※なにもしない
 		#┴　┴
 	#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 	#┃『０．初期化する』『１．アプリを更新する』のサブ関数
 	#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+		#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+		#┃BGMを初期化する（ゲームオーバー）
+		#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+	def init_music(self):
+		#┬
+		#○Soundデータを登録する
+		pyxel.sounds[60].mml(
+			"t100 @1 o2 q7 v7 l4" +
+			"l8d4a4g2.fed4c<b->c<a>e4d1.a4>" +
+			"c4<b2.gfe4fga1&a1d4a4g2.fed4c<b->c<a>e4d1."
+			)
+		pyxel.sounds[61].mml(
+			"t100 @0 o1 q7 v4 l2" +
+			"l8dafadbgbd>c<a>c<db-fb-e>c<a>c" +
+			"<daf+adaf+agb-a>c" +
+			"<dafadbgbdbgbdb-g+b-c" +
+			"+aeadaeac+aea<b>ac+adafadbgbd>c" +
+			"<a>c<db-fb-e>c<a>c<daf+adaf+adaf+a"
+			)
+		#│
+		#○Musicデータを登録する
+		pyxel.musics[7].set([60],[61])
+		#┴
 		#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 		#┃【共通関数】ゲームをリセット
 		#┃【利用箇所】0-4／1-1.1.2
@@ -156,12 +209,14 @@ class Game:
 		#□得点（初期値：ゼロ）
 		self.score 			= 0
 		#│
-		#□└┐出現タイマー（初期値：ゼロ）
-			#□宇宙飛行士用
-			#□隕石用
+		#□└┐タイマー（初期値：ゼロ）
+			#□敵子分の出現
+			#□ボスキャラの出現
+			#□ゲームオーバーの経過
 			#┴
-		self.timer_survivor	= 0
-		self.timer_meteor	= 0
+		self.timer_henchman	= 0
+		self.timer_boss	= 0
+		self.timer_GameOver	= 0
 		#│
 		#□└┐宇宙船の位置
 			#□X座標（初期値：画面の2分の1から8ドット左）
@@ -183,15 +238,12 @@ class Game:
 		#□宇宙船の噴射状態（初期値：あり）[あり=True｜なし=Fals]
 		self.is_jetting 	= False
 		#│
-		#□宇宙船の状態を（初期値：なし）[爆発=True｜正常=False]
-		self.is_exploding	= False
-		#│
 		#□└┐オブジェクトのリスト（初期値：空）
-			#□宇宙飛行士用
-			#□隕石用
+			#□敵子分用
+			#□ボスキャラ用
 			#┴
-		self.survivors		= []
-		self.meteors		= []
+		self.henchman	= []
+		self.boss		= []
 
 		#◇┐
 		pyxel.stop()
@@ -211,11 +263,11 @@ class Game:
 	#┃『１．アプリを更新する』のサブ関数
 	#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 		#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-		#┃1-2.1.宇宙船を更新
+		#┃宇宙船を更新
 		#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 	def update_ship(self):
 		#┬
-		#◇┐１．キーの状態に合わせて、宇宙船の速度を更新する
+		#◇┐キーの状態に合わせて、宇宙船の速度を更新する
 		if self.Fn_JetON():
 		#　├→（ジェット噴射の指示が『ある』場合）
 			#○噴射状態を「噴射あり」にする
@@ -232,8 +284,8 @@ class Game:
 			#○ジェット音を鳴らす
 			pyxel.play(0, 0, resume=True)
 			#┴
-		#　└┐（その他）
 		else:
+		#　└┐（その他）
 			#○噴射状態を「噴射なし」にする
 			self.is_jetting	= False
 			#│
@@ -241,7 +293,7 @@ class Game:
 			self.ship_vy = min(self.ship_vy + SHIP_ACCEL_DOWN, MAX_SHIP_SPEED)
 			#┴
 		#│
-		#◇┐２．キーの状態に合わせて、次に進む方向を変える
+		#◇┐キーの状態に合わせて、次に進む方向を変える
 		if self.Fn_JetOFF():
 		#　├→（ジェット噴射の指示が『ない』場合）
 			#○次に進む方向を反転する
@@ -250,21 +302,21 @@ class Game:
 		#　└┐（その他）※なにもしない
 			#┴
 		#│
-		#○└┐３．宇宙船を移動する
+		#○└┐宇宙船を移動する
 			#○X座標を変更する ※ベクトル量を加える
 			#○Y座標を変更する ※ベクトル量を加える
 		self.ship_x += self.ship_vx
 		self.ship_y += self.ship_vy
 			#┴
 		#│
-		#○└┐４．画面の終端位置を求める
+		#○└┐画面の終端位置を求める
 			#○右端の位置(右端の８ドット手前)を求める
 			#○下端の位置(下端の８ドット手前)求める
 			#┴
 		max_ship_x = pyxel.width	- 8
 		max_ship_y = pyxel.height	- 8 
 
-		#◇┐５．宇宙船の座標に合わせて、跳ね返す
+		#◇┐宇宙船の座標に合わせて、跳ね返す
 		if self.ship_x < 0:
 		#　├→（宇宙船の『X座標が左端』をはみ出した場合）
 			#○X座標を一番左に戻す
@@ -315,73 +367,69 @@ class Game:
 		#　└┐（その他）※なにもしない
 		#┴　┴
 		#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-		#┃1-2.2.オブジェクトを追加（宇宙飛行士）
+		#┃オブジェクトを追加（敵子分）
 		#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-	def add_survivor(self):
+	def add_henchman(self):
 		#┬
-		#◇┐１．タイマーの残りに合わせて、隕石を追加する
-		#　│
+		#◇┐タイマーの残りに合わせて、敵子分を追加する
+		if self.timer_henchman == 0:
 		#　├→（タイマーがゼロの場合）
-		if self.timer_survivor == 0:
+			#●宇宙船から距離を30以上離す
+			henchman_pos = self.get_position(30)
 			#│
-			#●1.1.宇宙船から距離を30以上離す
-			survivor_pos = self.get_position(30)
-			#│
-			#○宇宙飛行士のリストに追加する
-			self.survivors.append(survivor_pos)
+			#○敵子分のリストに追加する
+			self.henchman.append(henchman_pos)
 			#│
 			#○タイマーを最初に戻す
-			self.timer_survivor = INTERVAL_SURVIVOR
+			self.timer_henchman = INTERVAL_SURVIVOR
 			#┴
-		#　└┐２．（その他）
 		else:
+		#　└┐（その他）
 			#○タイマーをカウントダウンする
-			self.timer_survivor -= 1
+			self.timer_henchman -= 1
 		#┴　┴
 		#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-		#┃1-2.3.オブジェクトを追加（隕石）
+		#┃オブジェクトを追加（ボスキャラ）
 		#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-	def add_meteor(self):
+	def add_boss(self):
 		#┬
-		#◇┐タイマーの残りに合わせて、宇宙飛行士を追加する
-		#　│
-		#　├→１．（タイマーがゼロの場合）
-		if self.timer_meteor == 0:
+		#◇┐タイマーの残りに合わせて、ボスキャラを追加する
+		if self.timer_boss == 0:
+		#　├→（タイマーがゼロの場合）
 			#│
 			#●1.1.宇宙船から距離を60以上離す
-			meteor_pos = self.get_position(60)
+			boss_pos = self.get_position(60)
 			#│
-			#○隕石のリストに追加する
-			self.meteors.append(meteor_pos)
+			#○ボスキャラのリストに追加する
+			self.boss.append(boss_pos)
 			#│
 			#○タイマーを最初に戻す
-			self.timer_meteor = INTERVAL_METEOR
+			self.timer_boss = INTERVAL_METEOR
 			#┴
-		#　└┐２．（その他）
 		else:
-			#│
+		#　└┐（その他）
 			#○タイマーをカウントダウンする
-			self.timer_meteor -= 1
+			self.timer_boss -= 1
 		#┴　┴
 		#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-		#┃1-2.4.衝突判定（宇宙飛行士）
+		#┃接触判定（敵子分）
 		#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-	def check_survivor(self):
+	def check_henchman(self):
 		#┬
-		#□(0...n)宇宙飛行士の新しいリスト
-		new_survivors = []
+		#□(0...n)敵子分の新しいリスト
+		new_henchman = []
 		#┴
 		#┬
-		#◎└┐リストの順番で、宇宙飛行士を衝突判定する
-		for survivor_x, survivor_y in self.survivors:
+		#◎└┐リストの順番で、敵子分を接触判定する
+		for henchman_x, henchman_y in self.henchman:
 			#│＼（リストの最後の要素を処理した場合）
 			#│ ▼繰り返し処理を抜ける
-			#◇┐当該の宇宙飛行士を判定する
+			#◇┐当該の敵子分を判定する
 			#　│
-			#　├→（衝突している場合）
+			#　├→（接触している場合）
 			if self.check_collision(
-				survivor_x,     # Ｘ座標
-				survivor_y,     # Ｙ座標
+				henchman_x,     # Ｘ座標
+				henchman_y,     # Ｙ座標
 				8,              # キャラクタの幅
 				0              	# 敏感度
 				):
@@ -389,54 +437,45 @@ class Game:
 				#○スコアを1点増やす
 				self.score += 1
 				#│
-				#○救助音を鳴らす
+				#○効果音を鳴らす
 				pyxel.play(1, 2, resume=True)
 				#┴
-			#　└┐（その他）
 			else:
-				#│
-				#○宇宙飛行士の新しいリストに追加する
-				new_survivors.append((survivor_x, survivor_y))
+			#　└┐（その他）
+				#○敵子分の新しいリストに追加する
+				new_henchman.append((henchman_x, henchman_y))
 			#┴　┴
 		#│
-		#○宇宙飛行士のリストを新しいリストで入れ替える
-		self.survivors = new_survivors
+		#○敵子分のリストを新しいリストで入れ替える
+		self.henchman = new_henchman
 		#┴
 		#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-		#┃1-2.5.衝突判定（隕石）
+		#┃接触判定（ボスキャラ）
 		#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-	def check_meteor(self):
+	def check_boss(self):
 		#┬
-		#◎└┐リストの順番で、隕石を衝突判定する
-		for meteor_x, meteor_y in self.meteors:
+		#◎└┐リストの順番で、ボスキャラを接触判定する
+		for boss_x, boss_y in self.boss:
 			#│＼（リストの最後の要素を処理した場合）
 			#│ ▼繰り返し処理を抜ける
 			#│
-			#◇当該の隕石を判定する
+			#◇当該のボスキャラを判定する
 			#　│
-			#　├→（衝突している場合）
+			#　├→（接触している場合）
 			if self.check_collision(
-				meteor_x,       # Ｘ座標
-				meteor_y,       # Ｙ座標
+				boss_x,       # Ｘ座標
+				boss_y,       # Ｙ座標
 				16,             # キャラクタの幅
 				-1              # 敏感度
 				):
 				#│
-				#○宇宙船の状態を『爆発』にする
-				self.is_exploding	= True
-				#│
 				#○タイトル表示モードを『オン』にする
-				self.Scene 			= self.SCENE_TITLE
-				#│
-				#○爆破音を鳴らす
-				pyxel.stop()
-				pyxel.play(2, 63, resume=True) 
+				self.Scene = self.SCENE_GAMEOVER
 				#┴
 			#　└┐（その他）※なにもしない
 		#┴　┴　┴
 		#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 		#┃【共通関数】宇宙船から一定距離離れた位置を得る 
-		#┃【利用箇所】1.2.2.1.1／1.2.3.1.1
 		#┃【引　　数】最低の離す距離
 		#┃【戻 り 値】リスト(X座標,Y座標)
 		#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -464,13 +503,12 @@ class Game:
 			#　└┐（その他）※なにもしない
 		#┴　┴　┴
 		#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-		#┃【共通関数】宇宙船とオブジェクトの衝突判定 
-		#┃【利用箇所】1.2.4／1.2.5
+		#┃【共通関数】宇宙船とオブジェクトの接触判定 
 		#┃【引　　数】① 対象のX座標
 		#┃　　　　　　② 対象のY座標
 		#┃　　　　　　③ キャラクタの幅（８か１６）
-		#┃　　　　　　④ 敏感度(0：衝突しやすい,マイナス：衝突しにくい)
-		#┃【戻 り 値】衝突判定［True:衝突している／False：衝突していない］
+		#┃　　　　　　④ 敏感度(0：接触しやすい,マイナス：接触しにくい)
+		#┃【戻 り 値】接触判定［True:接触している／False：接触していない］
 		#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 	def check_collision(self,
 		argX,			#①Ｘ座標
@@ -484,8 +522,9 @@ class Game:
 		if self.ship_x <= argX:
             #○宇宙船の幅を考えて、座標を比較する
 			DiffX = ( argX  - (self.ship_x + 8) )
-		#　└┐（その他）
+			#┴
 		else:
+		#　└┐（その他）
             #○対象の幅を考えて、座標を比較する
 			DiffX = (self.ship_x - (argX + arg_width) )
 			#┴
@@ -495,11 +534,13 @@ class Game:
         #　├→（宇宙船が上、対象が下にある場合）
             #○宇宙船の幅を考えて、座標を比較する
 			DiffY = (argY - (self.ship_y + 8) )
-		#　└┐（その他）
+			#┴
 		else:
+		#　└┐（その他）
             #○対象の幅を考えて、座標を比較する
 			DiffY = (self.ship_y - (argY + arg_width) )
-
+			#┴
+		#│
         #▼判定結果を返す
 		return (DiffX <= argSensitive and DiffY <= argSensitive)
 
@@ -507,7 +548,7 @@ class Game:
 	#┃『２．アプリを描画する』のサブ関数
 	#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 		#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-		#┃2-1.空を描画
+		#┃空を描画
 		#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 	def draw_sky(self):
 		#┬
@@ -540,15 +581,15 @@ class Game:
 		pyxel.dither(1)
 		#┴
 		#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-		#┃2-2.宇宙船を描画
+		#┃宇宙船を描画
 		#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 	def draw_ship(self):
 		#┬
-		#○１．ジェット噴射の表示位置をずらす量を計算する
+		#○ジェット噴射の表示位置をずらす量を計算する
 		offset_y = (pyxel.frame_count % 3 + 2) if self.is_jetting else 0
 		offset_x = offset_y * -self.ship_dir
 		#│
-		#○２．左右方向のジェット噴射を描画する
+		#○左右方向のジェット噴射を描画する
 			# ① 描画位置のX座標            [宇宙船のX座標]※位置をずらす
 			# ② 描画位置のY座標            [宇宙船のY座標]
 			# ③ 参照するイメージバンク番号 [0]
@@ -564,7 +605,7 @@ class Game:
 			0,
 		)
 		#│
-		#○３．下方向のジェット噴射を描画する
+		#○下方向のジェット噴射を描画する
 			# ① 描画位置のX座標            [宇宙船のX座標]
 			# ② 描画位置のY座標            [宇宙船のY座標] ※位置をずらす
 			# ③ 参照するイメージバンク番号 [0]
@@ -580,7 +621,7 @@ class Game:
 			0,
 		)
 		#│
-		#○４．宇宙船を描画する
+		#○宇宙船を描画する
 			# ① 描画位置のX座標            [宇宙船のX座標]
 			# ② 描画位置のY座標            [宇宙船のY座標]
 			# ③ 参照するイメージバンク番号 [0]
@@ -592,7 +633,7 @@ class Game:
 		pyxel.blt(self.ship_x, self.ship_y, 0, 8, 0, 8, 8, 0)
 		#│
 		#◇┐５．宇宙船の状態に合わせて、爆発を描画する
-		if self.is_exploding:
+		if self.Scene == self.SCENE_GAMEOVER:
 		#　├→（宇宙船の状態が『爆発』の場合）
 			#│
 			#○爆発を描画する
@@ -605,32 +646,32 @@ class Game:
 		#　└┐（その他）※なにもしない
 		#┴　┴
 		#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-		#┃2-3.宇宙飛行士を描画
+		#┃敵子分を描画
 		#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-	def draw_survivors(self):
+	def draw_henchman(self):
 		#┬
-		#◎└┐リストの順番で、宇宙飛行士を描画する
-		for survivor_x, survivor_y in self.survivors:
+		#◎└┐リストの順番で、敵子分を描画する
+		for henchman_x, henchman_y in self.henchman:
 			#│＼（リストの最後の要素を処理した場合）
 			#│ ▼繰り返し処理を抜ける
-			#○当該の宇宙飛行士を描画する
-			pyxel.blt(survivor_x, survivor_y, 0, 16, 0, 8, 8, 0)
+			#○当該の敵子分を描画する
+			pyxel.blt(henchman_x, henchman_y, 0, 16, 0, 8, 8, 0)
 		#┴　┴
 		#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-		#┃2-4.隕石を描画
+		#┃ボスキャラを描画
 		#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-	def draw_meteors(self):
+	def draw_boss(self):
 		#┬
-		#◎└┐リストの順番で、隕石を描画する
-		for meteor_x, meteor_y in self.meteors:
+		#◎└┐リストの順番で、ボスキャラを描画する
+		for boss_x, boss_y in self.boss:
 			#│＼（リストの最後の要素を処理した場合）
 			#│ ▼繰り返し処理を抜ける
 			#│
-			#○当該の隕石を描画する
-			pyxel.blt(meteor_x, meteor_y, 0, 24, 0, 16, 16, 0)
+			#○当該のボスキャラを描画する
+			pyxel.blt(boss_x, boss_y, 0, 24, 0, 16, 16, 0)
 		#┴　┴
 		#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-		#┃2-5.スコアを描画
+		#┃スコアを描画
 		#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 	def draw_score(self):
 		#┬
@@ -648,7 +689,7 @@ class Game:
 			pyxel.text(3 + i, 3, score, color)
 		#┴　┴
 		#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-		#┃2-6.1.タイトルを描画
+		#┃タイトルを描画
 		#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 	def draw_title(self):
 		#┬
@@ -667,7 +708,7 @@ class Game:
 	#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 	def Fn_JetON(self):
 		#┬
-		#◇┐１．キーの状態に合わせて、宇宙船の速度を更新する
+		#◇┐キーの状態に合わせて、宇宙船の速度を更新する
 		if pyxel.btn(pyxel.KEY_SPACE)				: return True
 		elif pyxel.btn(pyxel.GAMEPAD1_BUTTON_A)		: return True
 		elif pyxel.btn(pyxel.GAMEPAD1_BUTTON_B)		: return True
@@ -682,7 +723,7 @@ class Game:
 		#┴　┴
 	def Fn_JetOFF(self):
 		#┬
-		#◇┐１．キーの状態に合わせて、宇宙船の速度を更新する
+		#◇┐キーの状態に合わせて、宇宙船の速度を更新する
 		if pyxel.btnr(pyxel.KEY_SPACE)				: return True
 		elif pyxel.btnr(pyxel.GAMEPAD1_BUTTON_A)	: return True
 		elif pyxel.btnr(pyxel.GAMEPAD1_BUTTON_B)	: return True
