@@ -1,21 +1,30 @@
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+#┃技術評論社 ゲームで学ぶPython！ CHAPTER6:MAGA WING
+#┃キャラクター・モジュール（敵機）
+#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃Ⅰ.インポート
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 import pyxel
-from P9_弾      import classBullet
-from P9_爆発    import classCrush
+from .弾	import class弾
+from 演出	import class爆発
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-#┃Ⅱ.敵機クラス
+#┃Ⅱ.定数
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-class classEnemy:
+
+#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+#┃Ⅲ．クラス
+#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+class class敵機:
     #┬
     #□機種Ａ
     #□機種Ｂ
     #□機種Ｃ
-    TYPE_A = 0
-    TYPE_B = 1
-    TYPE_C = 2
+    定数_機種A = 0
+    定数_機種B = 1
+    定数_機種C = 2
     #┴
 	#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 	#┃０．初期化処理
@@ -26,130 +35,123 @@ class classEnemy:
     #┃　　　　　④ 整数型：Ｘ座標
     #┃　　　　　⑤ 整数型：Ｙ座標
 	#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+	#━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     def __init__(self,
-        argGame,    #① 生成先のオブジェクト
-        argType,    #② 機種
-        argLevel,   #③ 難易度
-        argX,       #④ Ｘ座標
-        argY        #⑤ Ｙ座標
+        引数_生成先,	#① 生成先のオブジェクト
+        引数_X座標,		#② Ｘ座標
+        引数_Y座標,		#③ Ｙ座標
+        引数_機種,      #② 機種
+        引数_難易度     #③ 難易度
         ):
 		#┬
         #○引数を退避する
-        self.objGame    = argGame
-        self.Type       = argType
-        self.Level      = argLevel
-        self.X          = argX
-        self.Y          = argY
+        self.objGame	= 引数_生成先
+        self.座標_X軸   = 引数_X座標
+        self.座標_Y軸   = 引数_Y座標
+        self.機種       = 引数_機種
+        self.難易度     = 引数_難易度
         #│
         #○└┐基本データを初期化する
-            #○当たり判定の領域を初期化する
+            #○衝突範囲を初期化する
             #○防御力を初期化する
             #○生存時間を初期化する
             #○衝突有無を初期化する
-        self.HitArea    = (0, 0, 7, 7)
-        self.Armor      = self.Level - 1
-        self.TimeLife   = 0
-        self.Collided   = False
+        self.衝突範囲   = (0, 0, 7, 7)
+        self.防御力     = self.難易度 - 1
+        self.生存時間   = 0
+        self.衝突有無   = False
         #│
         #〇敵機を生成(リスト追加)する
-        self.objGame.objEnemie.append(self)
+        self.objGame.obj敵機.append(self)
         #┴
-	#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-	#┃１．更新処理
-	#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    def update(self):
+	#━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    def 更新処理(self):
 		#┬
         #○生存時間をカウントする
-        self.TimeLife += 1
+        self.生存時間 += 1
         #│
         #◇┐敵機を更新する
-        if self.Type == classEnemy.TYPE_A:
+        if self.機種 == class敵機.定数_機種A:
         #　├→（機種が『Ａ』の場合）
             #○前方に移動させる
-            self.Y += 1.2
+            self.座標_Y軸 += 1.2
             #│
             #◇┐弾を発射する
-            if self.TimeLife % 50 == 0:
+            if self.生存時間 % 50 == 0:
             #　├→（生存時間が50カウントの場合）
                 #●自機の角度を求める
                 #●弾を発射する
-                tmpAngle = self.Fun_Angle()
-                classBullet(
+                発射角度 = self.Fn発射角度()
+                class弾(
                     self.objGame,
-                    classBullet.OWNER_ENEMY,
-                    self.X, self.Y,
-                    tmpAngle,
-                    2
+                    self.座標_X軸, self.座標_Y軸,
+                    class弾.定数_所有者_敵機,
+                    発射角度, 2
                     )
                 #┴
             #　└┐（その他）
             #┴　┴
         #　│
-        elif self.Type == classEnemy.TYPE_B:
+        elif self.機種 == class敵機.定数_機種B:
         #　├→（機種が『Ｂ』の場合）
             #○前方に移動する
-            self.Y += 1
+            self.座標_Y軸 += 1
             #│
             #◇┐左右に移動する
-            if self.TimeLife // 30 % 2 == 0:
+            if self.生存時間 // 30 % 2 == 0:
             #　├→（生存時間が30カウントの場合）
                 #│
                 #○右に移動する
-                self.X += 1.2
+                self.座標_X軸 += 1.2
                 #┴
             #　│
             else:
             #　└┐（その他）
                 #○左に移動する
-                self.X -= 1.2
+                self.座標_X軸 -= 1.2
             #┴　┴
         #　│
-        elif self.Type == classEnemy.TYPE_C:
+        elif self.機種 == class敵機.定数_機種C:
         #　├→（機種が『Ｃ』の場合）
             #○前方に移動する
-            self.Y += 0.8
+            self.座標_Y軸 += 0.8
             #│
             #◇┐弾を発射する
-            if self.TimeLife % 40 == 0:
+            if self.生存時間 % 40 == 0:
             #　├→（生存時間が40カウントの場合）
                 #◎└┐４方向に発射する
                 for tmpCnt in range(4):
                     #│＼（4方向の処理を終えた場合）
                     #│ ▼繰り返し処理を抜ける
                     #○当該の方向に弾を発射する
-                    classBullet(
+                    class弾(
                         self.objGame,
-                        classBullet.OWNER_ENEMY,
-                        self.X, self.Y,
-                        tmpCnt * 45 + 22,
-                        2
+                        self.座標_X軸, self.座標_Y軸,
+                        class弾.定数_所有者_敵機,
+                        tmpCnt * 45 + 22, 2
                         )
                 #┴　┴
             #　└┐（その他）
             #┴　┴
         #│
         #◇┐敵機を消する
-        if self.Y >= pyxel.height:
+        if self.座標_Y軸 >= pyxel.height:
         #　├→（画面下から出た場合）
             #◇┐敵機を消す
-            if self in self.objGame.objEnemie:
+            if self in self.objGame.obj敵機:
             #　├→（敵が存在する場合）
                 #○敵機リストから抹消する
-                self.objGame.objEnemie.remove(self) 
+                self.objGame.obj敵機.remove(self) 
                 #┴
             #　└┐（その他）
             #┴　┴
         #　└┐（その他）
         #┴　┴
-	#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-	#┃1-1.発射角を得る
-    #┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    #┃【戻り値】① 小数型：角度
-	#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    def Fun_Angle(self):
+	#────────────────────────────────────	
+    def Fn発射角度(self):
 		#┬
         #○自機を参照する
-        tmpObj = self.objGame.objPlayer
+        tmpObj = self.objGame.obj自機
         #│
         #◇┐角度を求める
         if tmpObj is None: 
@@ -160,21 +162,22 @@ class classEnemy:
         else:
 		#　└┐（その他）
             #▼自機の方角を返す
-            return pyxel.atan2(tmpObj.Y - self.Y, tmpObj.X - self.X)
+            return pyxel.atan2(
+                tmpObj.座標_Y軸 - self.座標_Y軸,
+                tmpObj.座標_X軸 - self.座標_X軸
+                )
         #┴
-	#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-	#┃２．被弾を処理する
-	#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    def Sub_Collision(self):
+	#━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    def 衝突処理(self):
 		#┬
         #◇┐
-        if self.Armor > 0:
+        if self.防御力 > 0:
         #　├→（防御力が残っている場合）
             #○防御力を減らす
             #○ダメージ有無を『あり』にする
             #○被弾音を鳴らす
-            self.Armor      -= 1
-            self.Collided = True
+            self.防御力      -= 1
+            self.衝突有無 = True
             pyxel.play(2, 1, resume=True)
             #┴
         #　│
@@ -183,27 +186,25 @@ class classEnemy:
             #●爆発エフェクトを生成する
             #○爆発音を鳴らす
             #○スコアを加算する
-            classCrush(self.objGame, self.X + 4, self.Y + 4)
+            class爆発(self.objGame, self.座標_X軸 + 4, self.座標_Y軸 + 4)
             pyxel.play(2, 2, resume=True) 
-            self.objGame.Score += self.Level * 10
+            self.objGame.得点 += self.難易度 * 10
             #│
             #◇┐敵機を消す
-            if self in self.objGame.objEnemie:
+            if self in self.objGame.obj敵機:
             #　├→（敵機リストに存在する場合）
                 #○敵機を抹消(リストから除外)する
-                self.objGame.objEnemie.remove(self)
+                self.objGame.obj敵機.remove(self)
                 #┴
             #　└┐（その他）
         #┴　┴　┴
-	#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-	#┃３．描画処理
-	#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    def draw(self):
+	#━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    def 描画処理(self):
 		#┬
         #○敵機を描画する
         pyxel.blt(
-            self.X, self.Y,
-            0, self.Type * 8 + 8, 0,
+            self.座標_X軸, self.座標_Y軸,
+            0, self.機種 * 8 + 8, 0,
             8, 8,
             0
             )
