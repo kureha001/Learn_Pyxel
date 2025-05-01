@@ -1,6 +1,8 @@
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃技術評論社 ゲームで学ぶPython！ CHAPTER5
+#┃共通モジュール
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃Ⅰ.インポート
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -14,15 +16,15 @@ import pyxel
 	#□タイトル画面
 	#□プレイ画面
 	#□ゲームオーバー画面
-SCENE_TITLE     = 0
-SCENE_PLAY      = 1 
-SCENE_GAMEOVER  = 2
+定数_シーン_タイトル	= 0
+定数_シーン_プレイ		= 1 
+定数_シーン_終了		= 2
 #┴　┴
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-#┃ジェット噴射(ON/OFF)の判定
+#┃発射有無の判定
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-def Fun_FireOn():
+def Fun発射あり():
 	#┬
 	#◇┐キーの状態に合わせて、プレイヤーの速度を更新する
 	if pyxel.btn(pyxel.KEY_SPACE)				: return True
@@ -34,8 +36,8 @@ def Fun_FireOn():
 	else 										: return False
 		#○『いいえ』を返す
 	#┴　┴
-
-def Fun_FireOff():
+#────────────────────────────────────	
+def Fun発射なし():
 	#┬
 	#◇┐キーの状態に合わせて、プレイヤーの速度を更新する
 	if pyxel.btnr(pyxel.KEY_SPACE)				: return True
@@ -54,7 +56,7 @@ def Fun_FireOff():
 #┃【引き数】最低の離す距離
 #┃【戻り値】リスト(X座標,Y座標)
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-def Fun_Position(argDist, argX, argY):
+def Fun座標取得(argDist, argX, argY):
 	#┬
 	#◎└┐座標が決まるまで繰り返す
 	while True:
@@ -83,22 +85,22 @@ def Fun_Position(argDist, argX, argY):
 #┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃【戻り値】① 論理型：衝突あり：True／衝突なし：False
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-def Fun_Collision(
+def Fn衝突処理(
     argObj1,    #① 対象物１
     argObj2     #② 対象物２
     ):
     #┬
     #○対象物１の座標範囲を求める
-    tmpObj1_X1 = argObj1.X + argObj1.HitArea[0]
-    tmpObj1_Y1 = argObj1.Y + argObj1.HitArea[1]
-    tmpObj1_X2 = argObj1.X + argObj1.HitArea[2]
-    tmpObj1_Y2 = argObj1.Y + argObj1.HitArea[3]
+    tmpObj1_X1 = argObj1.座標_X軸 + argObj1.衝突範囲[0]
+    tmpObj1_Y1 = argObj1.座標_Y軸 + argObj1.衝突範囲[1]
+    tmpObj1_X2 = argObj1.座標_X軸 + argObj1.衝突範囲[2]
+    tmpObj1_Y2 = argObj1.座標_Y軸 + argObj1.衝突範囲[3]
     #│
     #○対象物２の座標範囲を求める
-    tmpObj2_x1 = argObj2.X + argObj2.HitArea[0]
-    tmpObj2_y1 = argObj2.Y + argObj2.HitArea[1]
-    tmpObj2_x2 = argObj2.X + argObj2.HitArea[2]
-    tmpObj2_y2 = argObj2.Y + argObj2.HitArea[3]
+    tmpObj2_x1 = argObj2.座標_X軸 + argObj2.衝突範囲[0]
+    tmpObj2_y1 = argObj2.座標_Y軸 + argObj2.衝突範囲[1]
+    tmpObj2_x2 = argObj2.座標_X軸 + argObj2.衝突範囲[2]
+    tmpObj2_y2 = argObj2.座標_Y軸 + argObj2.衝突範囲[3]
     #│
     #◇┐衝突の有無を返す
     if (
