@@ -33,8 +33,8 @@ class class汎用:
 		#┬
 		#◇┐キーの状態に合わせて、プレイヤーの速度を更新する
 		if pyxel.btn(pyxel.KEY_SPACE)				: return True
-		elif pyxel.btn(pyxel.GAMEPAD1_BUTTON_A)		: return True
-		#　├→（スペースキーかＡボタンが押された場合）
+		elif pyxel.btn(pyxel.GAMEPAD1_BUTTON_Y)		: return True
+		#　├→（スペースキーか上ボタンが押された場合）
 			#○『はい』を返す
 			#┴
 		#　└┐（その他）
@@ -46,8 +46,8 @@ class class汎用:
 		#┬
 		#◇┐キーの状態に合わせて、プレイヤーの速度を更新する
 		if pyxel.btnr(pyxel.KEY_SPACE)				: return True
-		elif pyxel.btnr(pyxel.GAMEPAD1_BUTTON_A)	: return True
-		#　├→（スペースキーかＡボタンが押された場合）
+		elif pyxel.btnr(pyxel.GAMEPAD1_BUTTON_Y)	: return True
+		#　├→（スペースキーか上ボタンが押された場合）
 			#○『はい』を返す
 			#┴
 		#　└┐（その他）

@@ -30,6 +30,11 @@ class class背景:
         #○引数を退避する
         self.objGame	= 引数_生成先
         #│
+		#○空を描画する条件をセットする
+        self.描画_段階数     = 4
+        self.描画_高さ       = 6
+        self.描画_開始位置   = pyxel.height - self.描画_高さ * self.描画_段階数
+        #│
         #○星リストを初期化する
         self.星         = []
         #│
@@ -65,10 +70,10 @@ class class背景:
             #│
             #○座標を画面下方向に移動する
             座標Y += 速度Y
-            if 座標Y >= pyxel.height:
+            if 座標Y >= self.描画_開始位置:
             #│＼（画面下に達した場合）
                 #○座標を画面上に移動する
-                座標Y -= pyxel.height
+                座標Y = 0
                 #┴
             #│
             #○座標を更新する
@@ -86,22 +91,17 @@ class class背景:
 	#────────────────────────────────────	
     def 描画処理_地表(self):
 		#┬
-		#○空を描画する条件をセットする
-        描画_段階数     = 4
-        描画_高さ       = 6
-        描画_開始位置   = pyxel.height - 描画_高さ * 描画_段階数
-		#│
 		#◎└┐グラデーションの数だけ、背景を描画する
-        for i in range(描画_段階数):
+        for i in range(self.描画_段階数):
 			#│＼（最後のラデーションの数を処理した場合）
 			#│ ▼繰り返し処理を抜ける
 			#○ディザリングを有効にする
-            pyxel.dither((i + 1) / 描画_段階数)
+            pyxel.dither((i + 1) / self.描画_段階数)
 			#│
 			#○四角形を描画する
             pyxel.rect(
-                0, 描画_開始位置 + i * 描画_高さ,
-                pyxel.width, 描画_高さ,
+                0, self.描画_開始位置 + i * self.描画_高さ,
+                pyxel.width, self.描画_高さ,
                 1,
                 )
 			#┴
@@ -118,6 +118,6 @@ class class背景:
 			#│
             #○速度に応じて色を変える
             #○星を表示する
-            tmpColor = 12 if 速度 > 1.8 else 5
-            pyxel.pset(座標X, 座標Y, tmpColor)
+            色 = 12 if 速度 > 1.8 else 5
+            pyxel.pset(座標X, 座標Y, 色)
         #┴　┴
