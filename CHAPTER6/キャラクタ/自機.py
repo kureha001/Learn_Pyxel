@@ -51,11 +51,12 @@ class class自機:
 	#━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     def 更新処理(self):
 		#┬
-        #◇┐キー入力で自機を移動させる
-        if pyxel.btn(pyxel.KEY_LEFT )   : self.座標_X軸 -= class自機.定数_移動速度
-        if pyxel.btn(pyxel.KEY_RIGHT)   : self.座標_X軸 += class自機.定数_移動速度
-        if pyxel.btn(pyxel.KEY_UP   )   : self.座標_Y軸 -= class自機.定数_移動速度
-        if pyxel.btn(pyxel.KEY_DOWN )   : self.座標_Y軸 += class自機.定数_移動速度
+        #〇ユーザ入力で座標を求める
+        キー入力 = 共通.Fun移動入力()
+        if   キー入力 == 1: self.座標_X軸 -= class自機.定数_移動速度
+        elif キー入力 == 2: self.座標_X軸 += class自機.定数_移動速度
+        elif キー入力 == 3: self.座標_Y軸 -= class自機.定数_移動速度
+        elif キー入力 == 4: self.座標_Y軸 += class自機.定数_移動速度
         #│
         #〇自機を移動する
         self.座標_X軸 = max(self.座標_X軸, 0                  )
@@ -63,16 +64,15 @@ class class自機:
         self.座標_Y軸 = max(self.座標_Y軸, 0                  )
         self.座標_Y軸 = min(self.座標_Y軸, pyxel.height - 8   )
         #│
-        #◇┐弾の発射間隔を制限する
+        #◇┐弾を発射する
         if self.残り時間_発射 > 0:
-        #　├→（）
+        #　├→（発射できない場合）
             #○発射可能までの時間を減らす
             self.残り時間_発射 -= 1
             #┴
-        #│
-        #◇┐弾を発射する
-        if pyxel.btn(pyxel.KEY_SPACE) and self.残り時間_発射 == 0:
-        #　├→（発射可能で、スペースキーを押した場合）
+
+        elif self.残り時間_発射 == 0 and 共通.Funワンキー入力() == 1:
+        #　├→（発射可能で『押されている』場合）
             #○弾を生成する
             class弾(
                 self.objGame,
@@ -82,9 +82,8 @@ class class自機:
                 )
             #│
             #○弾発射音を鳴らす
-            pyxel.play(3, 0)
-            #│
             #○発射可能までの時間をリセットする
+            pyxel.play(3, 0)
             self.残り時間_発射 = class自機.定数_発射間隔
             #┴
         #　└┐（その他）
@@ -100,7 +99,7 @@ class class自機:
         pyxel.stop()
         pyxel.play(0, 2)
         #│
-        #●ゲームオーバー画面を表示する
+        #●終了シーンに切替える
         self.objGame.共通_シーン切替(共通.定数_シーン_終了)
         #┴
 	#━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

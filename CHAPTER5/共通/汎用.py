@@ -1,5 +1,4 @@
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-#┃技術評論社 ゲームで学ぶPython！ CHAPTER5
 #┃共通モジュール
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
  
@@ -29,31 +28,42 @@ class class汎用:
 	#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 	#┃発射有無の判定
 	#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-	def Fun発射あり():
+	def Funワンキー入力():
 		#┬
-		#◇┐キーの状態に合わせて、プレイヤーの速度を更新する
-		if pyxel.btn(pyxel.KEY_SPACE)				: return True
-		elif pyxel.btn(pyxel.GAMEPAD1_BUTTON_Y)		: return True
-		#　├→（スペースキーか上ボタンが押された場合）
-			#○『はい』を返す
+		#◇┐ワンキーが押されているかどうかを調べる
+		if pyxel.btn(pyxel.KEY_SPACE)				: return 1
+		elif pyxel.btn(pyxel.GAMEPAD1_BUTTON_Y)		: return 1
+		#　├→（押された場合）
+			#○『押されている』を返す
+			#┴
+		#│
+		#◇┐ワンキーが離されたかどうかを調べる
+		if pyxel.btnr(pyxel.KEY_SPACE)				: return -1
+		elif pyxel.btnr(pyxel.GAMEPAD1_BUTTON_Y)	: return -1
+		#　├→（離された場合）
+			#○『離された』を返す
 			#┴
 		#　└┐（その他）
-		else 										: return False
-			#○『いいえ』を返す
-		#┴　┴
-	#────────────────────────────────────	
-	def Fun発射なし():
-		#┬
-		#◇┐キーの状態に合わせて、プレイヤーの速度を更新する
-		if pyxel.btnr(pyxel.KEY_SPACE)				: return True
-		elif pyxel.btnr(pyxel.GAMEPAD1_BUTTON_Y)	: return True
-		#　├→（スペースキーか上ボタンが押された場合）
-			#○『はい』を返す
 			#┴
-		#　└┐（その他）
-		else 										: return False
-			#○『いいえ』を返す
+		#│
+		#○『なにもなし』を返す
+		return 0
 		#┴　┴
+
+	#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+	#┃移動入力
+	#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+	def Fun移動入力():
+		if pyxel.btn(pyxel.KEY_LEFT ) or pyxel.btn(pyxel.GAMEPAD1_BUTTON_DPAD_LEFT  ) :
+			return 1
+		elif pyxel.btn(pyxel.KEY_RIGHT) or pyxel.btn(pyxel.GAMEPAD1_BUTTON_DPAD_RIGHT ):
+			return 2
+		elif pyxel.btn(pyxel.KEY_UP   ) or pyxel.btn(pyxel.GAMEPAD1_BUTTON_DPAD_UP    ):
+			return 3
+		elif pyxel.btn(pyxel.KEY_DOWN ) or pyxel.btn(pyxel.GAMEPAD1_BUTTON_DPAD_DOWN  ):
+			return 4
+		else:
+			return 0
 
 	#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 	#┃プレイヤーから一定距離離れた位置を得る 
