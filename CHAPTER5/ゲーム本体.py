@@ -6,9 +6,9 @@
 #┃Ⅰ.インポート
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 import pyxel
-import P00_共通	as		共通
-from P20_背景	import 	class背景
-from キャラクタ	import	classプレイヤー, classザコキャラ, classボスキャラ
+from 共通		import class汎用 as 共通
+from キャラクタ	import classプレイヤー, classザコキャラ, classボスキャラ
+from 演出		import class背景
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃Ⅱ.定数
@@ -74,9 +74,9 @@ class Game:
 		pyxel.init(300, 200, "SPACE ATACK")
 		#│
 		#○リソースファイルを読み込む
-		#pyxel.load("res-org.pyxres")		# 最初のリソース
-		pyxel.load("res-kureha.pyxres")		# 呉羽のリソース
-		#pyxel.load("res-sumin.pyxres")		# スー民のリソース
+		#pyxel.load("リソース/org.pyxres")		# 最初のリソース
+		pyxel.load("リソース/Kureha.pyxres")		# 呉羽のリソース
+		#pyxel.load("リソース/Sumin.pyxres")		# スー民のリソース
 		#│
 		#○Soundデータを登録する
 		pyxel.sounds[50].mml(

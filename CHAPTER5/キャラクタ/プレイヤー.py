@@ -7,8 +7,8 @@
 #┃Ⅰ.インポート
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 import pyxel
-import P00_共通	as		共通
-from P30_爆発   import	class爆発
+from 共通	import class汎用 as 共通
+from 演出	import class爆発
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃Ⅱ.定数
