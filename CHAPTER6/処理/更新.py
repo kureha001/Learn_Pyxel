@@ -33,12 +33,6 @@ class class更新処理:
         #□└┐パラメータ
             #□生成先のオブジェクト
         self.GAME	= 引数_生成先
-        #│
-        #□└┐制御データ
-            #□プレイ時間
-            #□難易度
-        self.プレイ時間 = 0
-        self.難易度     = 0
         #┴　┴
 		#┬
         #〇自機を生成する
@@ -198,12 +192,12 @@ class class更新処理:
         #○プレイ時間をカウントアップする
         #○15秒毎に難易度を上げる ※最大８
         #○出現間隔をセットする
-        self.プレイ時間 += 1
-        self.難易度 = min( (self.プレイ時間 // 450 + 1) , 8 )
-        間隔 = max(60 - self.難易度 * 10, 30)
+        self.GAME.プレイ時間 += 1
+        self.GAME.難易度 = min( (self.GAME.プレイ時間 // 450 + 1) , 8 )
+        間隔 = max(60 - self.GAME.難易度 * 10, 30)
         #│
         #◇┐機雷を追加する
-        if self.プレイ時間 % self.定数_間隔_機雷 == 0:
+        if self.GAME.プレイ時間 % self.定数_間隔_機雷 == 0:
         #　├→（機雷の出現タイミングの場合）
             class敵機(
                 self.GAME,
@@ -213,7 +207,7 @@ class class更新処理:
                 )
         #│
         #◇┐救急箱を追加する
-        if self.プレイ時間 % self.定数_間隔_救急箱 == 0:
+        if self.GAME.プレイ時間 % self.定数_間隔_救急箱 == 0:
         #　├→（救急箱の出現タイミングの場合）
             class敵機(
                 self.GAME,
@@ -223,7 +217,7 @@ class class更新処理:
                 )
         #│
         #◇┐弾薬を追加する
-        if self.プレイ時間 % self.定数_間隔_弾薬 == 0:
+        if self.GAME.プレイ時間 % self.定数_間隔_弾薬 == 0:
         #　├→（弾薬の出現タイミングの場合）
             class敵機(
                 self.GAME,
@@ -232,12 +226,12 @@ class class更新処理:
                 pyxel.rndi( 3, 5 )
                 )
         #│
-        if self.プレイ時間 % 間隔 == 0:
+        if self.GAME.プレイ時間 % 間隔 == 0:
         #　├→（戦闘機の出現タイミングの場合）
             #○機種をランダムに求める
             #●求めた機種で、敵機を生成する
             機種  = pyxel.rndi(class敵機.定数_機種A, class敵機.定数_機種C)
-            class敵機(self.GAME, pyxel.rndi(0, 112), -8, 機種, self.難易度)
+            class敵機(self.GAME, pyxel.rndi(0, 112), -8, 機種, self.GAME.難易度)
             #┴
         #　└┐（その他）
         #┴　┴

@@ -83,7 +83,7 @@ class class描画処理:
         pyxel.text( 5, 2, f"SCORE:{self.GAME.得点}", 7)
         #│
         #○レベルを描画する
-        pyxel.text(85, 2, f"LEVEL:{self.GAME.F更新.難易度}", 7)
+        pyxel.text(85, 2, f"LEVEL:{self.GAME.難易度}", 7)
         #│
         #◎└┐弾とシールドを描画する
         if self.GAME.obj自機 is not None:

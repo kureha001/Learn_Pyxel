@@ -58,6 +58,13 @@ class Game:
         #□└┐インスタンス
         self.F更新     = None
         self.F描画     = None
+        #│
+        #□└┐制御データ
+            #□プレイ時間
+            #□難易度
+        self.プレイ時間 = 0
+        self.難易度     = 0
+		#┴　┴
 
 		#┬
         #○Pyxelを初期化する
@@ -137,8 +144,8 @@ class Game:
         #○プレイ時間をリセットする
         #○難易度レベルをリセットする
         self.得点       = 0
-        self.F描画.プレイ時間 = 0
-        self.F描画.難易度     = 1
+        self.プレイ時間 = 0
+        self.難易度     = 1
         #│
         #○BGMを鳴らす
         pyxel.playm(1, loop=True)
