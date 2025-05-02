@@ -1,5 +1,6 @@
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-#┃共通モジュール
+#┃技術評論社 ゲームで学ぶPython！ CHAPTER6:MAGA WING
+#┃処理モジュール
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-from .汎用      import class汎用
-from .入力操作  import class入力操作
+from .更新 import class更新処理
+from .描画 import class描画処理

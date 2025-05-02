@@ -16,44 +16,43 @@ import pyxel
 #┃Ⅲ．クラス
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 class class弾:
-    #┬
-    #□所有者(自機)
-    #□所有者(敵機)
-    定数_所有者_自機 = 0
-    定数_所有者_敵機 = 1 
-    #┴
 	#━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     def __init__(self,
         引数_生成先,	#① 生成先のオブジェクト
         引数_X座標,		#② Ｘ座標
         引数_Y座標,		#③ Ｙ座標
-        引数_所有者,    #④ 発射角度
+        引数_所有者,    #④ 所有者
         引数_発射角度,  #⑤ 発射角度
         引数_移動速度   #⑥ 移動速度
         ):
+
 		#┬
-        #□└┐制御データ
+        #□└┐パラメータ
             #□生成先
             #□X座標
             #□Y座標
             #□所有者
-            #□速度(X軸)
-            #□速度(Y軸)
-        self.objGame	= 引数_生成先
+        self.GAME	    = 引数_生成先
         self.座標_X軸   = 引数_X座標
         self.座標_Y軸   = 引数_Y座標
         self.所有者     = 引数_所有者
+            #┴
+        #│
+        #□└┐基本データ
+            #□速度(X軸)
+            #□速度(Y軸)
         self.速度_X軸   = pyxel.cos(引数_発射角度) * 引数_移動速度
         self.速度_Y軸   = pyxel.sin(引数_発射角度) * 引数_移動速度
         #┴　┴
+
 		#┬
         #◇┐弾を増やす
-        if self.所有者 == class弾.定数_所有者_自機:
+        if self.所有者 == self.GAME.定数_所有者_自機:
         #　├→（弾の所有者が『自機』の場合）
             #○衝突範囲を初期化する
             #〇弾(自機)を生成(リスト追加)する
             self.衝突範囲 = (2, 1, 5, 6)
-            self.objGame.obj弾_自機.append(self)
+            self.GAME.obj弾_自機.append(self)
             #┴
         #│
         else:
@@ -61,8 +60,9 @@ class class弾:
             #○当たり判定の領域をセットする
             #〇弾(敵機)を生成(リスト追加)する
             self.衝突範囲 = (2, 2, 5, 5)
-            self.objGame.obj弾_敵機.append(self)
+            self.GAME.obj弾_敵機.append(self)
         #┴　┴
+
 	#━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     def 更新処理(self):
 		#┬
@@ -77,43 +77,45 @@ class class弾:
         ):
         #　├→（座標が画面表示外の場合）
             #◇┐弾を消す
-            if self.所有者 == class弾.定数_所有者_自機:
+            if self.所有者 == self.GAME.定数_所有者_自機:
             #　├→（所有者が『自機』の場合）
                 #○弾(自機)リストから抹消する
-                self.objGame.obj弾_自機.remove(self)
+                self.GAME.obj弾_自機.remove(self)
                 #┴
             #│
             else:
             #　└┐（その他）
                 #○弾(敵機)リストから抹消する
-                self.objGame.obj弾_敵機.remove(self)
+                self.GAME.obj弾_敵機.remove(self)
         #┴　┴　┴
+
 	#━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     def 衝突処理(self):
 		#┬
         #◇┐弾を消す
-        if self.所有者 == class弾.定数_所有者_自機:
+        if self.所有者 == self.GAME.定数_所有者_自機:
         #　├→（所有者が『自機』の場合）
             #◇┐弾(自機)リストから魔性する
-            if self in self.objGame.obj弾_自機:
+            if self in self.GAME.obj弾_自機:
             #　├→（弾(自機)リストに存在する場合）
                 #○弾(自機)を抹消(リストから除外)する
-                self.objGame.obj弾_自機.remove(self)
+                self.GAME.obj弾_自機.remove(self)
                 #┴
             #　└┐（その他）
             #┴　┴
         #　│
-        elif self in self.objGame.obj弾_敵機:
+        elif self in self.GAME.obj弾_敵機:
         #　├→（弾(敵機)リストに存在する時場合）
             #○弾(敵機)を抹消(リストから除外)する
-            self.objGame.obj弾_敵機.remove(self)
+            self.GAME.obj弾_敵機.remove(self)
             #┴
         #　└┐（その他）
         #┴　┴
+
 	#━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     def 描画処理(self):
 		#┬
         #○弾を描画する
-        tmpSrcX = 0 if self.所有者 == class弾.定数_所有者_自機 else 8
+        tmpSrcX = 0 if (self.所有者 == self.GAME.定数_所有者_自機) else 8
         pyxel.blt(self.座標_X軸, self.座標_Y軸, 0, tmpSrcX, 8, 8, 8, 0)
         #┴

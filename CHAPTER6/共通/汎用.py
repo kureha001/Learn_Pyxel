@@ -15,6 +15,7 @@ import pyxel
 #┃Ⅲ．クラス
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 class class汎用:
+
 	#┬
 	#□└┐シーン
 		#□タイトル画面
@@ -26,50 +27,7 @@ class class汎用:
 	#┴　┴
 
 	#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-	#┃発射有無の判定
-	#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-	def Funワンキー入力():
-		#┬
-		#◇┐ワンキーが押されているかどうかを調べる
-		if pyxel.btn(pyxel.KEY_SPACE)				: return 1
-		elif pyxel.btn(pyxel.GAMEPAD1_BUTTON_Y)		: return 1
-		#　├→（押された場合）
-			#○『押されている』を返す
-			#┴
-		#│
-		#◇┐ワンキーが離されたかどうかを調べる
-		if pyxel.btnr(pyxel.KEY_SPACE)				: return -1
-		elif pyxel.btnr(pyxel.GAMEPAD1_BUTTON_Y)	: return -1
-		#　├→（離された場合）
-			#○『離された』を返す
-			#┴
-		#　└┐（その他）
-			#┴
-		#│
-		#○『なにもなし』を返す
-		return 0
-		#┴　┴
-
-	#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-	#┃移動入力
-	#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-	def Fun移動入力():
-		if pyxel.btn(pyxel.KEY_LEFT ) or pyxel.btn(pyxel.GAMEPAD1_BUTTON_DPAD_LEFT  ) :
-			return 1
-		elif pyxel.btn(pyxel.KEY_RIGHT) or pyxel.btn(pyxel.GAMEPAD1_BUTTON_DPAD_RIGHT ):
-			return 2
-		elif pyxel.btn(pyxel.KEY_UP   ) or pyxel.btn(pyxel.GAMEPAD1_BUTTON_DPAD_UP    ):
-			return 3
-		elif pyxel.btn(pyxel.KEY_DOWN ) or pyxel.btn(pyxel.GAMEPAD1_BUTTON_DPAD_DOWN  ):
-			return 4
-		else:
-			return 0
-
-	#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 	#┃プレイヤーから一定距離離れた位置を得る 
-	#┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-	#┃【引き数】最低の離す距離
-	#┃【戻り値】リスト(X座標,Y座標)
 	#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 	def Fun座標取得(argDist, argX, argY):
 		#┬
@@ -94,16 +52,11 @@ class class汎用:
 
 	#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 	#┃衝突の有無を得る
-	#┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-	#┃【引き数】① OBJ型 ：対象物（1つ目）
-	#┃　　　　　② OBJ型 ：対象物（2つ目）
-	#┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-	#┃【戻り値】① 論理型：衝突あり：True／衝突なし：False
 	#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-	def Fn衝突処理(
+	def Fn衝突判定(
 		argObj1,    #① 対象物１
 		argObj2     #② 対象物２
-		):
+		):			#【戻り値】	① 衝突あり：True／衝突なし：False
 		#┬
 		#○対象物１の座標範囲を求める
 		tmpObj1_X1 = argObj1.座標_X軸 + argObj1.衝突範囲[0]
@@ -127,9 +80,8 @@ class class汎用:
 		#　├→（座標範囲が重なっていない場合）
 			#▼『衝突なし』を返す
 			return False
-		#　│
 		#　└┐（その他）
 		else:
 			#▼『衝突あり』を返す
 			return True
-		#┴　┴
+		#┴

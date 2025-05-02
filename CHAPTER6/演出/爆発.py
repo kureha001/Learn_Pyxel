@@ -25,19 +25,30 @@ class class爆発:
     def __init__(self,
         引数_生成先,	#① 生成先のオブジェクト
         引数_X座標,		#② Ｘ座標
-        引数_Y座標		#③ Ｙ座標
+        引数_Y座標,		#③ Ｙ座標
+        引数_所有者     #④ 発射角度
         ):
+
 		#┬
-        #○引数を退避する
-        self.objGame	= 引数_生成先
+        #□└┐パラメータ
+            #□生成先のオブジェクト
+            #□Ｘ座標
+            #□Ｙ座標
+            #□所有者
+        self.GAME	    = 引数_生成先
         self.座標_X軸   = 引数_X座標
         self.座標_Y軸   = 引数_Y座標
+        self.所有者     = 引数_所有者
+            #┴
         #│
-        #○基本データ(半径)を初期化する
+        #□└┐基本データ
+            #□半径
         self.半径       = class爆発.定数_半径_開始
-        #│
+        #┴　┴
+
+		#┬
         #〇爆発を生成(リスト追加)する
-        self.objGame.obj爆発.append(self)
+        self.GAME.obj爆発.append(self)
         #┴
 
 	#━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -53,12 +64,16 @@ class class爆発:
         if self.半径 > class爆発.定数_半径_終了:
         #　 ＼（半径が最大になった場合）
             #○爆発を抹消(リストから除外)する
-            self.objGame.obj爆発.remove(self)
+            self.GAME.obj爆発.remove(self)
             #│
             #◇┐終了のBGMを流す
-            if self.objGame.シーン == 共通.定数_シーン_終了:
+            if (
+                (self.GAME.シーン == 共通.定数_シーン_終了) and
+                (self.所有者 == self.GAME.定数_所有者_自機)
+            ):
             #　├→（シーンが『終了』の場合）
                 #○終了のBGMを流す
+                pyxel.stop()
                 pyxel.playm(7, loop=True)
             #　└┐（その他）
         #┴　┴　┴
