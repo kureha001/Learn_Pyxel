@@ -21,10 +21,6 @@ class class描画処理:
 		#┬
         #□生成先のオブジェクト
         self.GAME = 引数_生成先
-        #┴　┴
-		#┬
-        #〇自機を生成する
-        self.GAME.F描画  = self
         #┴
 
 	#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -40,7 +36,8 @@ class class描画処理:
         #│
         #◇┐自機を描画する
         if self.GAME.obj自機 is not None:
-        #　├→（自機が存在する場合）
+        #　├┐（自機が存在する場合）
+            #↓
             #●自機を描画する
             self.GAME.obj自機.描画処理()
 			#┴
@@ -48,36 +45,40 @@ class class描画処理:
 			#┴
         #│
 		#〇└┐リストのオブジェクトを描画する
+            #●アイテムを描画する
             #●敵機を描画する
             #●弾(自機)を描画する
             #●弾(敵機)を描画する
             #●爆発を描画する
-        self.Fnリスト(self.GAME.obj敵機    )
-        self.Fnリスト(self.GAME.obj弾_自機 )
-        self.Fnリスト(self.GAME.obj弾_敵機 )
-        self.Fnリスト(self.GAME.obj爆発  )
+        self.Fnリスト描画(self.GAME.objアイテム )
+        self.Fnリスト描画(self.GAME.obj敵機     )
+        self.Fnリスト描画(self.GAME.obj弾_自機  )
+        self.Fnリスト描画(self.GAME.obj弾_敵機  )
+        self.Fnリスト描画(self.GAME.obj爆発     )
 			#┴
         #│
-        #●経過情報を描画する
-        self.Fn経過情報()
+        #●情報を描画する
+        self.Fn情報描画()
         #│
-        #●待ち状態を描画する
-        self.Fn待ち状態()
+        #●メッセージを描画する
+        self.Fnメッセージ描画()
         #┴
 	#────────────────────────────────────	
-    def Fnリスト(self,
+    def Fnリスト描画(self,
         argオブジェクト         #① リスト・オブジェクト
         ):
 		#┬
         #◎└┐オブジェクトのすべてのキャラクタを描画する
         for tmpObj in argオブジェクト:
-            #│＼（すべての爆発を処理し終えた場合）
-            #│ ▼繰り返し処理を抜ける
+            # ＼（すべて処理した場合）
+            #　↓
+            #　▼繰り返し処理を抜ける
+            #│
             #●ひとつずつ描画する
             tmpObj.描画処理()
         #┴　┴
 	#────────────────────────────────────	
-    def Fn経過情報(self):
+    def Fn情報描画(self):
 		#┬
         #○スコアを描画する
         pyxel.text( 5, 2, f"SCORE:{self.GAME.得点}", 7)
@@ -87,43 +88,52 @@ class class描画処理:
         #│
         #◎└┐弾とシールドを描画する
         if self.GAME.obj自機 is not None:
-        #　├→（自機が存在する場合）
+        #　├┐（自機が存在する場合）
+            #↓
             #○シールドを描画する
             pyxel.rect(
                 0, pyxel.height - 11,
-                self.GAME.obj自機.残りシールド, 2,
+                self.GAME.obj自機.シールド, 2,
                 8
                 )
             #│
-            #◎└┐すべての残弾を描画する
+            #◎└┐すべての弾薬を描画する
             座標X = 1
             座標Y = pyxel.height - 9
-            for i in range(self.GAME.obj自機.残り弾数):
+            for i in range(self.GAME.obj自機.弾数):
+                # ＼（すべて処理した場合）
+                #　↓
+                #　▼繰り返し処理を抜ける
+                #│
                 #○ひとつずつ描画する
                 pyxel.blt(座標X, 座標Y, 0, 16, 8, 4, 8, 0)
                 座標X += 5
                 #┴
+
 		#　└┐（その他）
         #┴　┴
 	#────────────────────────────────────	
-    def Fn待ち状態(self):
+    def Fnメッセージ描画(self):
 		#┬
         #◇┐シーンを描画する
         if self.GAME.シーン == 共通.定数_シーン_タイトル:
-        #　├→（シーンが『タイトル』の場合）
-            #〇タイトル画面を表示する
+        #　├┐（シーンが『タイトル』の場合）
+            #↓
+            #〇タイトル画面を描画する
             pyxel.blt(0, 18, 2, 0, 0, 120, 120, 15)
-            表示文字 = "Press [SPACE] or [UP]Button"
-            pyxel.text(8, 148, 表示文字, 5)
-            pyxel.text(7, 147, 表示文字, 7)
+            描画文字 = "Press [SPACE] or [UP]Button"
+            pyxel.text(8, 148, 描画文字, 5)
+            pyxel.text(7, 147, 描画文字, 7)
 			#┴
 
         elif self.GAME.シーン == 共通.定数_シーン_終了:
-        #　├→（シーンが『終了』の場合）
-            #〇ゲームオーバー画面を表示する
-            表示文字 = "- GAME OVER -"
-            pyxel.text(36, 79, 表示文字, 5)
-            pyxel.text(35, 78, 表示文字, pyxel.frame_count % 16)
+        #　├┐（シーンが『終了』の場合）
+            #↓
+            #〇ゲームオーバー画面を描画する
+            描画文字 = "- GAME OVER -"
+            pyxel.text(36, 79, 描画文字, 5)
+            pyxel.text(35, 78, 描画文字, pyxel.frame_count % 16)
 			#┴
+
         #　└┐（その他）
         #┴　┴
