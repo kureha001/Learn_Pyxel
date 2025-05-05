@@ -3,10 +3,7 @@
 #┃処理モジュール
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 from .ゲーム    import classGame
-
-from .更新      import class更新処理
-from .更新_弾   import class更新処理_弾
-
-from .シーン    import classシーン処理
-
-from .描画      import class描画処理
+from .移動      import class移動処理
+from .発射      import class発射処理
+from .衝突      import class衝突処理
+from .出現      import class出現処理

@@ -58,31 +58,35 @@ class class爆発:
         #│
         #○半径を大きくする
         self.半径 += 1
-        if self.半径 > self.最大半径:
-        #　 ＼（半径が最大になった場合）
+        if self.半径 > self.最大半径: self.Fn処理_消滅()
+        #　 ＼（半径が最大を超えた場合）
             #↓
-            #○爆発を抹消(リストから除外)する
-            self.GAME.obj爆発.remove(self)
-            #│
-            #◇┐終了のBGMを流す
-            if (
-                (self.GAME.シーン == 共通.定数_シーン_終了) and
-                (self.所有者 == self.GAME.定数_所有者_自機)
-            ):
-            #　├┐（シーンが『終了』の場合）
-                #↓
-                #○終了のBGMを流す
-                pyxel.stop()
-                pyxel.playm(7, loop=True)
-                #┴
-            #　└┐（その他）
-                #┴
+            #●消滅する
+        #┴　┴
+	#────────────────────────────────────	
+    def Fn処理_消滅(self):
+		#┬
+        #○消滅する
+        self.GAME.obj爆発.remove(self)
+        #│
+        #◇┐ゲームオーバーにする
+        if (
+            (self.GAME.シーン == 共通.定数_シーン_終了) and
+            (self.所有者 == self.GAME.定数_所有者_自機)
+        ):
+        #　├┐（シーンが『終了』の場合）
+            #↓
+            #○終了のBGMを流す
+            pyxel.stop()
+            pyxel.playm(7, loop=True)
+            #┴
+        #　└┐（その他）
         #┴　┴
 
 	#━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     def 描画処理(self):
 		#┬
-        #○爆発を描画する
+        #○描画する
         pyxel.circ (self.座標_X軸, self.座標_Y軸, self.半径,  7)
         pyxel.circb(self.座標_X軸, self.座標_Y軸, self.半径, 10)
         #┴

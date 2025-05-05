@@ -1,7 +1,7 @@
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃技術評論社 ゲームで学ぶPython！ CHAPTER6:MAGA WING
-#┃キャラクター・モジュール
+#┃シーン・モジュール
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-from .自機  import class自機
-from .標的  import class標的
-from .弾    import class弾
+from .タイトル  import classタイトル
+from .プレイ    import classプレイ
+from .終了      import class終了
