@@ -93,7 +93,7 @@ class class標的:
         #□└┐基本データ
             #□シールド
             #□経過時間
-        self.シールド   = min(self.難易度 * 4, 30)
+        self.シールド   = min(self.難易度 * 4, 36)
         self.経過時間   = 0
         #┴　┴
 
@@ -288,6 +288,9 @@ class class標的:
                     self.GAME.定数_所有者_標的,
                     self.座標_X軸 + 4, self.座標_Y軸 + 4,
                     arg爆発半径, True )
+            #│
+            #○被弾音を鳴らす
+            pyxel.play(2, 1, resume=True)
             #┴
         #│└┐（その他）
             #┴
@@ -296,9 +299,6 @@ class class標的:
         if self.シールド <= 0:
         #│├┐（シールド切れの場合）
             #↓
-            #○被弾音を鳴らす
-            pyxel.play(2, 1, resume=True)
-            #│
             #○スコアを加算する
             self.GAME.得点 += self.点数
             #│
@@ -306,7 +306,7 @@ class class標的:
             self.GAME.obj標的.remove(self)
             #┴
         #│└┐（その他）
-        #┴　#┴
+        #┴　┴
 
 	#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 	#┃５．描画処理

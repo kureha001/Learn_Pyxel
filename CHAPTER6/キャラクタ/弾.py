@@ -147,7 +147,7 @@ class class弾:
         #│├┐（シールド切れの場合）
             #↓
             #○オブジェクトを削除する
-            if self in self.格納先: self.格納先.remove(self)
+            self.格納先.remove(self)
             #┴
         #│└┐（その他）
         #┴　#┴
