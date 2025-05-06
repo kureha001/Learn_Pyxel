@@ -6,13 +6,14 @@
 #┃Ⅰ.インポート
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 import pyxel
-from シーン import classタイトル, classプレイ, class終了
-from 演出	import class背景
 
-from .移動  import class移動処理
-from .発射  import class発射処理
-from .衝突  import class衝突処理
-from .出現  import class出現処理
+from シーン         import classタイトル, classプレイ, class終了
+from 演出	        import class背景
+from .更新1_移動    import class移動処理
+from .更新2_除外    import class除外処理
+from .更新3_発射    import class発射処理
+from .更新4_衝突    import class衝突処理
+from .更新5_出現    import class出現処理
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃Ⅱ．ゲームクラス
@@ -68,6 +69,7 @@ class classGame:
         #○更新処理のリストを作る
         self.FN更新処理 = (
                 class移動処理(self),
+                class除外処理(self),
                 class発射処理(self),
                 class衝突処理(self),
                 class出現処理(self) )
@@ -123,10 +125,16 @@ class classGame:
     def 更新処理(self):
 		#┬
         #●背景を更新する
-        self.F背景.更新処理()
+        self.F背景.移動処理()
         #│
-        #●キャラクターを更新する
+        #◎└┐キャラクターを更新する
         for tmp処理 in self.FN更新処理: tmp処理.実行()
+			#│＼（すべての処理を終えた場合）
+            #│ ↓
+			#│ ▼繰り返し処理を抜ける
+			#│
+            #●キャラクターを更新する
+            #┴ 
         #│
         #●シーンを更新する
         self.Fシーン[self.シーン].更新処理()
@@ -152,10 +160,18 @@ class classGame:
 		#　└┐（その他）
 			#┴
         #│
-		#●自機以外のキャラクタを描画する
-        for tmp処理 in self.FN描画処理: self.Fn描画(tmp処理)
+        #◎└┐自機以外のキャラクタを描画する
+        for tmp処理 in self.FN描画処理: self.Fn描画処理(tmp処理)
+			#│＼（すべての処理を終えた場合）
+            #│ ↓
+			#│ ▼繰り返し処理を抜ける
+			#│
+            #●キャラクタを描画する
+            #┴ 
         #│
-        #〇ゲーム情報を描画する
+        #〇└┐ゲーム情報を描画する
+            #〇得点を描画する
+            #〇難易度を描画する
         pyxel.text( 5, 2, f"SCORE:{self.得点}", 7)
         pyxel.text(85, 2, f"LEVEL:{self.難易度}", 7)
             #┴
@@ -164,15 +180,15 @@ class classGame:
         self.Fシーン[self.シーン].描画処理()
         #┴　┴
 	#────────────────────────────────────	
-    def Fn描画(self,
-        argオブジェクト         #① リスト・オブジェクト
-        ):
+    def Fn描画処理(self,
+        argオブジェクト):   #① リスト・オブジェクト
+        
 		#┬
         #◎└┐オブジェクトのすべてのキャラクタを描画する
         for tmpObj in argオブジェクト:
-            # ＼（すべて処理した場合）
-            #　↓
-            #　▼繰り返し処理を抜ける
+			#│＼（すべての処理を終えた場合）
+            #│ ↓
+			#│ ▼繰り返し処理を抜ける
             #│
             #●ひとつずつ描画する
             tmpObj.描画処理()
