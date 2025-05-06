@@ -52,7 +52,7 @@ class class自機:
             #□弾数
         self.衝突範囲   = (1, 1, 6, 6)
         self.発射制限   = 0
-        self.弾数       = 0
+        self.弾数       = 10
         self.シールド   = int(pyxel.width * 0.7)
         #┴　┴
 
