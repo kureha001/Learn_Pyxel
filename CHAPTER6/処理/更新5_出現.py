@@ -5,9 +5,10 @@
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃Ⅰ.インポート
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-import pyxel
-from シーン     import classシーン as シーン
-from キャラクタ	import class標的
+import  pyxel
+from    シーン      import classシーンID    as シーンID
+from    キャラクタ	import class標的
+from    キャラクタ	import class種類        as 種類ID
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃Ⅲ．クラス
@@ -16,7 +17,7 @@ class class出現処理:
 
     #┬
     #□このクラスが担当するシーン
-    定数_シーン = シーン.プレイ
+    定数_シーン = シーンID.プレイ
     #│
     #□└┐出現間隔
         #□機雷
@@ -45,7 +46,7 @@ class class出現処理:
     def 実行(self):
 		#┬
         #○シーンを確認する
-        if self.GAME.シーン != シーン.プレイ:return
+        if self.GAME.情報.シーン != シーンID.プレイ:return
         #│＼（対象外の場合）
         #│ ↓
         #│ ▼繰処理を中断する
@@ -70,12 +71,12 @@ class class出現処理:
         #　 ▼処理を中断する
         #│
         #●ランダムな機種で敵機を生成する
-        機種  = pyxel.rndi( class標的.定数_機種A, class標的.定数_機種C)
         class標的(
-                self.GAME,
-                pyxel.rndi( 0, pyxel.width - 8 ), -8,
-                機種,
-                self.GAME.難易度 )
+                self.GAME                                   ,
+                pyxel.rndi( 0, pyxel.width - 8 )            ,
+                -8                                          ,
+                pyxel.rndi( 種類ID.戦闘機1, 種類ID.戦闘機3 ),
+                self.GAME.難易度                            )
         #┴
 	#────────────────────────────────────
     def Fn機雷(self):
@@ -88,10 +89,11 @@ class class出現処理:
         #│
         #●機雷を生成する
         class標的(
-                self.GAME,
-                pyxel.rndi( 0, pyxel.width - 8 ), -8,
-                class標的.定数_機雷,
-                pyxel.rndi( 3, 5 ) )
+                self.GAME                       ,
+                pyxel.rndi( 0, pyxel.width - 8 ),
+                -8                              ,
+                種類ID.機雷                     ,
+                pyxel.rndi( 3, 5 )              )
         #┴
 	#────────────────────────────────────
     def Fn救急箱(self):
@@ -104,10 +106,11 @@ class class出現処理:
         #│
         #●救急箱を生成する
         class標的(
-                self.GAME,
-                pyxel.rndi( 0, pyxel.width - 8 ), -8,
-                class標的.定数_救急箱,
-                pyxel.rndi( 3, 5 ) )
+                self.GAME                       ,
+                pyxel.rndi( 0, pyxel.width - 8 ),
+                -8                              ,
+                種類ID.救急箱                   ,
+                pyxel.rndi( 3, 5 )              )
         #┴
 	#────────────────────────────────────
     def Fn弾薬箱(self):
@@ -120,8 +123,9 @@ class class出現処理:
         #│
         #●弾薬箱を生成する
         class標的(
-                self.GAME,
-                pyxel.rndi( 0, pyxel.width - 8 ), -8,
-                class標的.定数_弾薬庫,
-                pyxel.rndi( 3, 5 ) )
+                self.GAME                       ,
+                pyxel.rndi( 0, pyxel.width - 8 ),
+                -8                              ,
+                種類ID.弾薬庫                   ,
+                pyxel.rndi( 3, 5 )              )
         #┴

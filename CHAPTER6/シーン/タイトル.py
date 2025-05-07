@@ -5,10 +5,10 @@
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃Ⅰ.インポート
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-import pyxel
-from ._定数     import classシーン as シーン
-from 共通		import class入力操作 as 入力
-from キャラクタ	import class自機
+import  pyxel
+from    ._定数      import classシーンID    as シーンID
+from    共通		import class入力操作    as 入力
+from    キャラクタ	import class自機
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃Ⅲ．クラス
@@ -17,7 +17,7 @@ class classタイトル:
 
     #┬
     #□このクラスが担当するシーン
-    定数_シーン = シーン.タイトル
+    ID = シーンID.タイトル
     #┴
 
 	#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -43,7 +43,7 @@ class classタイトル:
         #│ ▼処理を中断する
         #│
         #○シーンを『プレイ』に切替える
-        self.GAME.シーン = シーン.プレイ
+        self.GAME.情報.シーン = シーンID.プレイ
         #│
         #○└┐ゲーム情報をリセットする
             #○得点を0点にする
@@ -55,7 +55,7 @@ class classタイトル:
         #│
         #○プレイ用のBGMを鳴らす
         pyxel.stop()
-        pyxel.playm(1, loop=True)
+#        pyxel.playm(1, loop=True)
         #│
         #●自機を生成する
         class自機(self.GAME, 56, 140)

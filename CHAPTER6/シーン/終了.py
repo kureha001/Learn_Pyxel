@@ -5,8 +5,8 @@
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃Ⅰ.インポート
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-import pyxel
-from ._定数 import classシーン as シーン
+import  pyxel
+from    ._定数      import classシーンID    as シーンID
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃Ⅲ．クラス
@@ -15,7 +15,7 @@ class class終了:
 
     #┬
     #□このクラスが担当するシーン
-    定数_シーン = シーン.終了
+    ID = シーンID.終了
     #│
     #□ゲームオーバー表示待ち
     定数_待ちカウント   = 300
@@ -54,7 +54,7 @@ class class終了:
             #↓
             #○終了用のBGMを鳴らす
             pyxel.stop()
-            pyxel.playm(7, loop=True)
+#            pyxel.playm(7, loop=True)
             #│
             #○待ち開始をオフする
             self.待ち開始       = False
@@ -76,7 +76,7 @@ class class終了:
     def Fn切替(self):
 		#┬
         #○シーンを『タイトル』に切替える
-        self.GAME.シーン = シーン.タイトル
+        self.GAME.情報.シーン = シーンID.タイトル
         #│
         #○└┐インスタンスを初期化する
             #●敵機を抹消する
@@ -91,7 +91,7 @@ class class終了:
         self.待ち開始 	= True
         #│
         #○タイトル用のBGMを鳴らす
-        pyxel.playm(0, loop=True)
+#        pyxel.playm(0, loop=True)
         #┴
 
 	#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

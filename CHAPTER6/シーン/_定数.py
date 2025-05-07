@@ -3,16 +3,13 @@
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 from enum import IntEnum, auto
 
-class classシーン(IntEnum):
+class classシーンID(IntEnum):
 	#┬
-	#□└┐シーン
-		#□タイトル画面
-		#□プレイ画面
-		#□ゲームオーバー画面
+	#□シーン
 	タイトル		= 100
 	プレイ			= 200
 	ステージコール	= auto()
 	ボーナス		= auto()
 	ボス対決		= auto()
 	終了			= 300
-	#┴　┴
+	#┴

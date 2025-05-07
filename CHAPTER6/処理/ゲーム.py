@@ -6,9 +6,11 @@
 #┃Ⅰ.インポート
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 import pyxel
-
+from ._定数         import *
 from シーン         import classタイトル, classプレイ, class終了
 from 演出	        import class背景
+
+# 更新処理リストの要素
 from .更新1_移動    import class移動処理
 from .更新2_除外    import class除外処理
 from .更新3_発射    import class発射処理
@@ -16,36 +18,26 @@ from .更新4_衝突    import class衝突処理
 from .更新5_出現    import class出現処理
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+#┃Ⅲ．クラス
+#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+class class情報:
+
+    def __init__(self):
+        self.シーン     = None
+        self.難易度     = 0
+        self.プレイ時間 = 0
+        self.得点       = 0
+
+#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃Ⅱ．ゲームクラス
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 class classGame:
-
-    #┬
-    #□└┐所有者
-        #□なし
-        #□自機
-        #□敵機
-    定数_所有者_なし    = 0
-    定数_所有者_自機    = 1
-    定数_所有者_標的    = 2 
-    #┴　┴
 
 	#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 	#┃０．初期化処理 
 	#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     def __init__(self):
 		#┬
-        #□└┐制御データ
-            #□シーン
-            #□難易度
-            #□プレイ時間
-            #□スコア
-        self.シーン     = None
-        self.難易度     = 0
-        self.プレイ時間 = 0
-        self.得点       = 0
-            #┴
-        #│
         #□└┐インスタンス
             #□自機
             #□標的
@@ -57,6 +49,9 @@ class classGame:
         self.obj弾_自機     = [] 
         self.obj弾_標的     = [] 
         self.obj爆発        = [] 
+        #│
+        #□ゲーム情報
+        self.情報 = class情報()
 		#┴　┴
 
 		#┬
@@ -68,28 +63,28 @@ class classGame:
         #│
         #○更新処理のリストを作る
         self.FN更新処理 = (
-                class移動処理(self),
-                class除外処理(self),
-                class発射処理(self),
-                class衝突処理(self),
+                class移動処理(self) ,
+                class除外処理(self) ,
+                class発射処理(self) ,
+                class衝突処理(self) ,
                 class出現処理(self) )
         #│
         #○描画処理のリストを作る
         self.FN描画処理 = (
-                self.obj標的,
-                self.obj弾_自機,
-                self.obj弾_標的,
-                self.obj爆発 )
+                self.obj標的    ,
+                self.obj弾_自機 ,
+                self.obj弾_標的 ,
+                self.obj爆発    )
         #│
         #●シーンの処理ををオブジェクト化する
         self.Fシーン = {
-                classタイトル.定数_シーン   : classタイトル(self),
-                classプレイ.定数_シーン     : classプレイ(self),
-                class終了.定数_シーン       : class終了(self) }
+                classタイトル.ID    : classタイトル(self)   ,
+                classプレイ.ID      : classプレイ(self)     ,
+                class終了.ID        : class終了(self)       }
             #┴
         #│
         #●シーンを切替える(タイトル)
-        self.Fシーン[class終了.定数_シーン].Fn切替()
+        self.Fシーン[ class終了.ID ].Fn切替()
         #│
         #○ゲームの実行を開始する
         pyxel.run(self.更新処理,self.描画処理)
@@ -136,8 +131,8 @@ class classGame:
             #●キャラクターを更新する
             #┴ 
         #│
-        #●シーンを更新する
-        self.Fシーン[self.シーン].更新処理()
+        #●シーンを更新する        
+        self.Fシーン[ self.情報.シーン ].更新処理()
 		#┴ 	┴
 
 	#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -172,12 +167,12 @@ class classGame:
         #〇└┐ゲーム情報を描画する
             #〇得点を描画する
             #〇難易度を描画する
-        pyxel.text( 5, 2, f"SCORE:{self.得点}", 7)
-        pyxel.text(85, 2, f"LEVEL:{self.難易度}", 7)
+        pyxel.text( 5, 2, f"SCORE:{ self.情報.得点   }", 7)
+        pyxel.text(85, 2, f"LEVEL:{ self.情報.難易度 }", 7)
             #┴
         #│
         #●シーンを描画する
-        self.Fシーン[self.シーン].描画処理()
+        self.Fシーン[ self.情報.シーン ].描画処理()
         #┴　┴
 	#────────────────────────────────────	
     def Fn描画処理(self,
