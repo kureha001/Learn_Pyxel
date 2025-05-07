@@ -38,14 +38,14 @@ class class入力操作:
 	)
 
 	#□└┐ボタン(キー)
-	定数_ボタン_キー = (
+	IDボタン_キー = (
 		(pyxel.KEY_Z   , pyxel.KEY_X    , pyxel.KEY_C, pyxel.KEY_SPACE	),
 		(pyxel.KEY_Z   , pyxel.KEY_X    , pyxel.KEY_C, pyxel.KEY_V		),
 		(pyxel.KEY_CTRL, pyxel.KEY_SHIFT, pyxel.KEY_Z, pyxel.KEY_X		)
 	)
 
 	#□└┐ボタン(パッド)
-	定数_ボタン_パッド = (
+	IDボタン_パッド = (
 		(	pyxel.GAMEPAD1_BUTTON_A,
 			pyxel.GAMEPAD1_BUTTON_B,
 			pyxel.GAMEPAD1_BUTTON_X,
@@ -87,8 +87,8 @@ class class入力操作:
 	#┃操作を走査
 	#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 	def Fun走査(
-		argキー,		#① キー操作リスト
-		argパッド		#② パッド操作リスト
+		argキー,		#① 定数_ボタン_キー
+		argパッド		#② 定数_ボタン_パッド
 		):
 		#┬
 		#○結果を初期化する

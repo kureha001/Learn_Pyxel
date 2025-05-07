@@ -49,16 +49,16 @@ class class汎用:
 		):			#【戻り値】	① 衝突あり：True／衝突なし：False
 		#┬
 		#○対象物１の座標範囲を求める
-		tmpObj1_X1 = argObj1.座標_X軸 + argObj1.衝突範囲[0]
-		tmpObj1_Y1 = argObj1.座標_Y軸 + argObj1.衝突範囲[1]
-		tmpObj1_X2 = argObj1.座標_X軸 + argObj1.衝突範囲[2]
-		tmpObj1_Y2 = argObj1.座標_Y軸 + argObj1.衝突範囲[3]
+		tmpObj1_X1 = argObj1.情報.X + argObj1.仕様.衝突範囲[0]
+		tmpObj1_Y1 = argObj1.情報.Y + argObj1.仕様.衝突範囲[1]
+		tmpObj1_X2 = argObj1.情報.X + argObj1.仕様.衝突範囲[2]
+		tmpObj1_Y2 = argObj1.情報.Y + argObj1.仕様.衝突範囲[3]
 		#│
 		#○対象物２の座標範囲を求める
-		tmpObj2_x1 = argObj2.座標_X軸 + argObj2.衝突範囲[0]
-		tmpObj2_y1 = argObj2.座標_Y軸 + argObj2.衝突範囲[1]
-		tmpObj2_x2 = argObj2.座標_X軸 + argObj2.衝突範囲[2]
-		tmpObj2_y2 = argObj2.座標_Y軸 + argObj2.衝突範囲[3]
+		tmpObj2_x1 = argObj2.情報.X + argObj2.仕様.衝突範囲[0]
+		tmpObj2_y1 = argObj2.情報.Y + argObj2.仕様.衝突範囲[1]
+		tmpObj2_x2 = argObj2.情報.X + argObj2.仕様.衝突範囲[2]
+		tmpObj2_y2 = argObj2.情報.Y + argObj2.仕様.衝突範囲[3]
 		#│
 		#◇┐衝突の有無を返す
 		if (
