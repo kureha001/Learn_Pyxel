@@ -54,50 +54,49 @@ class classGame:
 	#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     def __init__(self):
 		#┬
-        #□└┐インスタンス ※必要に応じてオブジェクト化する
+        #○Pyxelを初期化する
+        self.初期化_リソース()
+        #│
+        #□└┐キャラクタ以外のオブジェクト
+            #□背景
+            #□ゲーム情報
+        self.obj背景        = class背景(self)
+        self.情報           = class情報()
+    		#┴
+        #│
+        #□└┐キャラクタ用インスタンス
             #□自機
             #□標的
             #□弾(自機)
             #□弾(敵機)
             #□爆発
         self.obj自機        = None
-        self.obj標的        = []
+        self.obj敵機        = []
+        self.objアイテム    = []
         self.obj弾_自機     = [] 
-        self.obj弾_標的     = [] 
+        self.obj弾_敵機     = [] 
         self.obj爆発        = [] 
+    		#┴
         #│
-        #□ゲーム情報
-        self.情報 = class情報()
-		#┴　┴
-
-		#┬
-        #○Pyxelを初期化する
-        self.初期化_リソース()
-        #│
-        #○背景をオブジェクト化する
-        self.F背景 = class背景(self)
-        #│
-        #○更新処理のリストを作る ※処理する順に格納
+        #□└┐更新処理オブジェクト ※処理する順にリスト化
         self.FN更新処理 = (
+            #□移動処理
+            #□除外処理
+            #□発射処理
+            #□衝突処理
+            #□出現処理
                 class移動処理(self) ,
                 class除外処理(self) ,
                 class発射処理(self) ,
                 class衝突処理(self) ,
                 class出現処理(self) )
+            #┴
         #│
-        #○描画処理のリストを作る ※処理する順に格納
-        self.FN描画処理 = (
-                self.obj標的    ,
-                self.obj弾_自機 ,
-                self.obj弾_標的 ,
-                self.obj爆発    )
-        #│
-        #●シーンの処理ををオブジェクト化する
+        #●シーンをオブジェクト化する
         self.Fシーン = {
                 classタイトル.ID    : classタイトル(self)   ,
                 classプレイ.ID      : classプレイ(self)     ,
                 class終了.ID        : class終了(self)       }
-            #┴
         #│
         #●シーンを切替える(タイトル)
         self.Fシーン[ class終了.ID ].Fn切替()
@@ -111,7 +110,7 @@ class classGame:
 		#○画面を初期化する
 		#○リソースファイルを読み込む
         pyxel.init(120, 160, title="Mega Wing  Ver.2025/05/03-02")
-        pyxel.load("../リソース/mega_wing.pyxres")
+        pyxel.load("../リソース/改造版.pyxres")
 		#│
 		#○Soundデータを登録する
         pyxel.sounds[50].mml(
@@ -140,7 +139,7 @@ class classGame:
     def 更新処理(self):
 		#┬
         #●背景を更新する
-        self.F背景.更新処理()
+        self.obj背景.更新処理()
         #│
         #◎└┐キャラクタを更新する
         for tmp処理 in self.FN更新処理: tmp処理.実行()
@@ -168,28 +167,16 @@ class classGame:
         #○画面をクリアする
         pyxel.cls(0)
         #│
-        #●背景を描画する
-        self.F背景.描画処理()
-        #│
-        #◇┐キャラクタ(自機)を描画する
-        if self.obj自機 is not None:
-        #　├┐（自機が存在する場合）
-            #↓
-            #●自機を描画する
-            self.obj自機.描画処理()
-			#┴
-		#　└┐（その他）
-			#┴
-        #│
-        #◎└┐キャラクタ(自機以外)を描画する
-        for tmp処理 in self.FN描画処理:
-			#│＼（すべての処理を終えた場合）
-            #│ ↓
-			#│ ▼繰り返し処理を抜ける
-			#│
-            #●キャラクタを描画する
-            self.Fn描画処理(tmp処理)
-            #┴ 
+        #●背景・キャラクタを描画する
+        self.Fn描画((
+                self.obj背景    ,
+                self.obj自機    ,
+                self.obj敵機    ,
+                self.objアイテム,
+                self.obj弾_自機 ,
+                self.obj弾_敵機 ,
+                self.obj爆発    ,
+                self.Fシーン[ self.情報.シーン] ))
         #│
         #〇└┐ゲーム情報を描画する
             #〇得点を描画する
@@ -197,20 +184,34 @@ class classGame:
         pyxel.text( 5, 2, f"SCORE:{ self.情報.得点   }", 7)
         pyxel.text(85, 2, f"LEVEL:{ self.情報.難易度 }", 7)
             #┴
-        #│
-        #●シーンを描画する
-        self.Fシーン[ self.情報.シーン ].描画処理()
         #┴　┴
 	#────────────────────────────────────	
-    def Fn描画処理(self,
-            argオブジェクト):   #① リスト・オブジェクト
+    def Fn描画(self,引数_処理リスト):
 		#┬
-        #◎└┐オブジェクトのすべてのキャラクタを描画する
-        for tmpObj in argオブジェクト:
+		#◎└┐すべてのオブジェクトを描画する
+        for tmp処理 in 引数_処理リスト:
 			#│＼（すべての処理を終えた場合）
             #│ ↓
-			#│ ▼繰り返し処理を抜ける
+            #│ ▼繰り返し処理を抜ける
             #│
-            #●ひとつずつ描画する
-            tmpObj.描画処理()
-        #┴　┴
+            #◇┐要素オブジェクトを描画する
+            if isinstance(tmp処理, list):
+            #　├┐（リストオブジェクトの場合）
+                #↓
+                #◎└┐要素オブジェクトを描画する
+                for tmp要素 in tmp処理:
+                    #│＼（すべての処理を終えた場合）
+                    #│ ↓
+                    #│ ▼繰り返し処理を抜ける
+                    #│
+                    #●オブジェクトを描画する
+                    tmp要素.描画処理()
+                    #┴ 
+
+            elif tmp処理 is not None:
+            #　├┐（折返しタイミングの場合）
+                #↓
+                #●オブジェクトを描画する
+                tmp処理.描画処理()
+            #　└┐（その他）
+        #┴　┴　┴

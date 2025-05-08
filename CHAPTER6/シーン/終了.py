@@ -83,11 +83,13 @@ class class終了:
         #│
         #○└┐インスタンスを初期化する
             #●敵機を抹消する
+            #●アイテムを抹消する
             #●弾(自分)を抹消する
             #●弾(標的)を抹消する
-        self.GAME.obj標的.clear()
+        self.GAME.obj敵機.clear()
+        self.GAME.objアイテム.clear()
         self.GAME.obj弾_自機.clear()
-        self.GAME.obj弾_標的.clear()
+        self.GAME.obj弾_敵機.clear()
             #┴
         #│
         #○待ち開始をオンにする

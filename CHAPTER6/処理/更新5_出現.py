@@ -14,8 +14,12 @@
 #┗━━━┷━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 import  pyxel
 from    シーン      import classシーンID    as シーンID
+
 from    キャラクタ	import class標的
-from    キャラクタ	import class種類        as 種類ID
+from    キャラクタ	import 敵機ID
+
+from    キャラクタ	import classアイテム
+from    キャラクタ	import アイテムID
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃Ⅱ．クラス
@@ -27,9 +31,10 @@ class class出現処理:
         #□機雷
         #□弾薬
         #□救急箱
-    定数_間隔_機雷      = 800
-    定数_間隔_弾薬箱    = 300
-    定数_間隔_救急箱    = 1500
+    定数_間隔_機雷      = 1000
+    定数_間隔_弾薬箱    = 150
+    定数_間隔_救急箱    = 400
+    定数_間隔_連射      = 100
     #┴　┴
 
 	#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -63,6 +68,7 @@ class class出現処理:
         self.Fn機雷()
         self.Fn救急箱()
         self.Fn弾薬箱()
+        self.Fn連射()
         #┴
 	#────────────────────────────────────
     def Fn敵機(self):
@@ -79,7 +85,7 @@ class class出現処理:
                 self.GAME                                   ,
                 pyxel.rndi( 0, pyxel.width - 8 )            ,
                 -8                                          ,
-                pyxel.rndi( 種類ID.戦闘機1, 種類ID.戦闘機3 ),
+                pyxel.rndi( 敵機ID.戦闘機1, 敵機ID.戦闘機3 ),
                 self.GAME.難易度                            )
         #┴
 	#────────────────────────────────────
@@ -96,7 +102,7 @@ class class出現処理:
                 self.GAME                       ,
                 pyxel.rndi( 0, pyxel.width - 8 ),
                 -8                              ,
-                種類ID.機雷                     ,
+                敵機ID.機雷                     ,
                 pyxel.rndi( 3, 5 )              )
         #┴
 	#────────────────────────────────────
@@ -109,13 +115,13 @@ class class出現処理:
         #　 ▼処理を中断する
         #│
         #●救急箱を生成する
-        class標的(
-                self.GAME                       ,
-                pyxel.rndi( 0, pyxel.width - 8 ),
-                -8                              ,
-                種類ID.救急箱                   ,
-                pyxel.rndi( 3, 5 )              )
-        #┴
+        X座標 = pyxel.rndi( 0, pyxel.width - 8 )
+        classアイテム(
+                self.GAME               ,
+                アイテムID.シールド回復 ,
+                X座標                   ,
+                -8                      )
+       #┴
 	#────────────────────────────────────
     def Fn弾薬箱(self):
 		#┬
@@ -126,10 +132,27 @@ class class出現処理:
         #　 ▼処理を中断する
         #│
         #●弾薬箱を生成する
-        class標的(
-                self.GAME                       ,
-                pyxel.rndi( 0, pyxel.width - 8 ),
-                -8                              ,
-                種類ID.弾薬庫                   ,
-                pyxel.rndi( 3, 5 )              )
+        X座標 = pyxel.rndi( 0, pyxel.width - 8 )
+        classアイテム(
+                self.GAME           ,
+                アイテムID.弾薬回復 ,
+                X座標               ,
+                -8                  )
+        #┴
+	#────────────────────────────────────
+    def Fn連射(self):
+		#┬
+        #◇┐出現タイミングを確認する
+        if self.GAME.プレイ時間 % self.定数_間隔_連射 != 0: return
+        #　＼（対象外の場合）
+        #　 ↓
+        #　 ▼処理を中断する
+        #│
+        #●弾薬箱を生成する
+        X座標 = pyxel.rndi( 0, pyxel.width - 8 )
+        classアイテム(
+                self.GAME           ,
+                アイテムID.発射_連射 ,
+                X座標               ,
+                -8                  )
         #┴

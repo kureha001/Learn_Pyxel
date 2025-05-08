@@ -2,7 +2,7 @@
 #┃技術評論社 ゲームで学ぶPython！ CHAPTER6:MAGA WING
 #┃処理モジュール
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-from ._定数         import class所有者ID, class効果ID, class効果
+from ._定数         import class所有者ID
 from .ゲーム        import classGame
 from .更新1_移動    import class移動処理
 from .更新2_除外    import class除外処理

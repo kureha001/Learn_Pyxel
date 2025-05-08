@@ -34,9 +34,10 @@ class class移動処理:
         self.Fn自機()
         #│
         #●└┐リスト型オブジェクトを更新する
-        self.Fnリスト(self.GAME.obj標的     )
+        self.Fnリスト(self.GAME.obj敵機     )
+        self.Fnリスト(self.GAME.objアイテム )
         self.Fnリスト(self.GAME.obj弾_自機  )
-        self.Fnリスト(self.GAME.obj弾_標的  )
+        self.Fnリスト(self.GAME.obj弾_敵機  )
         self.Fnリスト(self.GAME.obj爆発     )
 		#┴  ┴
 	#────────────────────────────────────	

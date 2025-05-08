@@ -53,7 +53,7 @@ class class発射処理:
     def Fn標的(self):
 		#┬
 		#◎└┐すべての標的を更新する
-        for tmp標的 in self.GAME.obj標的:
+        for tmp標的 in self.GAME.obj敵機:
 			#│＼（すべての処理を終えた場合）
             #│ ↓
 			#│ ▼繰り返し処理を抜ける
