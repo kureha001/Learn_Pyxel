@@ -68,7 +68,7 @@ class classプレイ:
         #◎└┐すべての弾薬(自機)を描画する
         座標X = 1
         座標Y = pyxel.height - 9
-        for i in range(self.GAME.obj自機.情報.弾数):
+        for i in range(self.GAME.obj自機.FN発射処理.情報.弾数):
 			#│＼（すべての処理を終えた場合）
             #│ ↓
 			#│ ▼繰り返し処理を抜ける

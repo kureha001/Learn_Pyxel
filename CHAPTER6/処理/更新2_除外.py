@@ -31,10 +31,7 @@ class class除外処理:
     def 実行(self):
 		#┬
         #●└┐リスト型オブジェクトを除外する
-        self.Fnリスト(self.GAME.obj敵機     )
         self.Fnリスト(self.GAME.objアイテム )
-        self.Fnリスト(self.GAME.obj弾_自機  )
-        self.Fnリスト(self.GAME.obj弾_敵機  )
         self.Fnリスト(self.GAME.obj爆発     )
 		#┴ 
 	#────────────────────────────────────	

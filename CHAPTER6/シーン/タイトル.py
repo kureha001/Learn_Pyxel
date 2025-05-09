@@ -11,9 +11,9 @@
 #┃　　　│class自機      ： プレイへの移行の際、自機の生成に必要
 #┗━━━┷━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 import  pyxel
-from    ._定数      import classシーンID    as シーンID
-from    共通		import class入力操作    as 入力
-from    キャラクタ	import class自機
+from    ._定数          import classシーンID    as シーンID
+from    共通		    import class入力操作    as 入力
+from    キャラクタ.自機	import class自機
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃Ⅱ．クラス

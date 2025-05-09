@@ -13,13 +13,11 @@
 #┃　　　│class種類      ： 生成する種類を識別するために必要
 #┗━━━┷━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 import  pyxel
-from    シーン      import classシーンID    as シーンID
+from    シーン          import classシーンID    as シーンID
 
-from    キャラクタ	import class標的
-from    キャラクタ	import 敵機ID
-
-from    キャラクタ	import classアイテム
-from    キャラクタ	import アイテムID
+from    キャラクタ.標的 import class標的, 敵機ID
+from    キャラクタ	    import classアイテム
+from    キャラクタ	    import アイテムID
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃Ⅱ．クラス

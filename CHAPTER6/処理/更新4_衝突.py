@@ -12,9 +12,9 @@
 #┃　　　│class種類  ： 相手(アイテム)の識別で必要
 #┗━━━┷━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 import  pyxel
-from    共通		import class汎用    as 共通
-from    キャラクタ	import アイテムID
-from    キャラクタ	import 敵機ID
+from    共通		    import class汎用    as 共通
+from    キャラクタ	    import アイテムID
+from    キャラクタ.標的 import 敵機ID
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃Ⅱ．クラス
@@ -44,6 +44,7 @@ class class衝突処理:
 	#┃１．更新処理
 	#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     def 実行(self):
+        return
 		#┬
         #○弾で攻撃する
         self.Fn攻撃()
@@ -132,10 +133,13 @@ class class衝突処理:
 			#│ ▼繰り返し処理を抜ける
 			#│
             #●衝突状況を確認する
-            if not 共通.Fn衝突判定(arg自分, tmp相手): continue
+            if not 共通.Fn衝突判定(
+                    ( ( arg自分.情報.X , arg自分.情報.Y ) , arg自分.FN衝突処理.仕様.衝突範囲 ),
+                    ( ( tmp相手.情報.X , tmp相手.情報.Y ) , tmp相手.FN衝突処理.仕様.衝突範囲 ) ):
             #│＼（衝突していない場合）
             #│ ↓
             #│ ▼次の相手を処理する
+                continue
             #│
             #●機雷との衝突を処理する
             if self.Fn衝突_機雷(arg手段区分, arg相手区分,arg自分, tmp相手): return True 
