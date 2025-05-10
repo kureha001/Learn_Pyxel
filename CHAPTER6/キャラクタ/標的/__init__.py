@@ -3,4 +3,5 @@
 #┃キャラクター・モジュール
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 from .標的  import class標的
-from .ID    import class敵機ID as 敵機ID
+from .標的  import ID as 敵機ID
+

@@ -9,15 +9,14 @@
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 import pyxel
 from ._定数         import *
-from シーン         import classタイトル, classプレイ, class終了
+from シーン         import *
 from 演出	        import class背景
 
 # 更新処理リストの要素
-from .更新1_移動    import class移動処理
-from .更新2_除外    import class除外処理
-from .更新3_発射    import class発射処理
-from .更新4_衝突    import class衝突処理
-from .更新5_出現    import class出現処理
+from .更新1_移動    import 移動クラス
+from .更新2_発射    import 発射クラス
+from .更新3_衝突    import 衝突クラス
+from .更新4_出現    import 出現クラス
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃Ⅱ．エンティティ・クラス：情報
@@ -64,12 +63,12 @@ class classGame:
         self.情報           = class情報()
     		#┴
         #│
-        #□└┐キャラクタ用インスタンス
-            #□自機
-            #□標的
-            #□弾(自機)
-            #□弾(敵機)
-            #□爆発
+        #〇└┐キャラクタのインスタンスを用意する
+            #≫自機
+            #≫標的
+            #≫弾(自機)
+            #≫弾(敵機)
+            #≫爆発
         self.obj自機        = None
         self.obj敵機        = []
         self.objアイテム    = []
@@ -78,28 +77,22 @@ class classGame:
         self.obj爆発        = [] 
     		#┴
         #│
-        #□└┐更新処理オブジェクト ※処理する順にリスト化
+        #≫処理セット(更新)をオブジェクト化する
         self.FN更新処理 = (
-            #□移動処理
-            #□除外処理
-            #□発射処理
-            #□衝突処理
-            #□出現処理
-                class移動処理(self) ,
-                class除外処理(self) ,
-                class発射処理(self) ,
-                class衝突処理(self) ,
-                class出現処理(self) )
+            移動クラス(self) ,
+            発射クラス(self) ,
+            衝突クラス(self) ,
+            出現クラス(self) )
             #┴
         #│
-        #●シーンをオブジェクト化する
+        #≫処理セット(シーン)をオブジェクト化する
         self.Fシーン = {
-                classタイトル.ID    : classタイトル(self)   ,
-                classプレイ.ID      : classプレイ(self)     ,
-                class終了.ID        : class終了(self)       }
+            シーンID.タイトル   : classタイトル (self),
+            シーンID.プレイ     : classプレイ   (self),
+            シーンID.終了       : class終了     (self)}
         #│
         #●シーンを切替える(タイトル)
-        self.Fシーン[ class終了.ID ].Fn切替()
+        self.Fシーン[ シーンID.終了 ].FN移動.Fn切替()
         #│
         #○ゲームの実行を開始する
         pyxel.run(self.更新処理,self.描画処理)
@@ -148,10 +141,6 @@ class classGame:
 			#│ ▼繰り返し処理を抜ける
 			#│
             #●キャラクタを更新する
-            #┴ 
-        #│
-        #●シーンを更新する        
-        self.Fシーン[ self.情報.シーン ].更新処理()
 		#┴ 	┴
 
 	#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -167,16 +156,17 @@ class classGame:
         #○画面をクリアする
         pyxel.cls(0)
         #│
+        self.obj背景.描画処理()
+        #│
         #●背景・キャラクタを描画する
         self.Fn描画((
-                self.obj背景    ,
                 self.obj自機    ,
                 self.obj敵機    ,
                 self.objアイテム,
                 self.obj弾_自機 ,
                 self.obj弾_敵機 ,
                 self.obj爆発    ,
-                self.Fシーン[ self.情報.シーン] ))
+                self.Fシーン[ self.情報.シーン]))
         #│
         #〇└┐ゲーム情報を描画する
             #〇得点を描画する
@@ -186,7 +176,7 @@ class classGame:
             #┴
         #┴　┴
 	#────────────────────────────────────	
-    def Fn描画(self,引数_処理リスト):
+    def Fn描画(self, 引数_処理リスト):
 		#┬
 		#◎└┐すべてのオブジェクトを描画する
         for tmp処理 in 引数_処理リスト:
@@ -205,13 +195,14 @@ class classGame:
                     #│ ▼繰り返し処理を抜ける
                     #│
                     #●オブジェクトを描画する
-                    tmp要素.描画処理()
+                    tmp要素.FN描画.実行()
                     #┴ 
 
             elif tmp処理 is not None:
             #　├┐（折返しタイミングの場合）
                 #↓
                 #●オブジェクトを描画する
-                tmp処理.描画処理()
+                tmp処理.FN描画.実行()
             #　└┐（その他）
-        #┴　┴　┴
+            #┴　┴
+        #┴

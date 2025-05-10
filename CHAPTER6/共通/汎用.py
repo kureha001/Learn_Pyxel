@@ -49,23 +49,23 @@ class class汎用:
 		):			#【戻り値】	① 衝突あり：True／衝突なし：False
 		#┬
 		#○対象物１の座標範囲を求める
-		tmpObj1_X1 = argObj1[0][0] + argObj1[1][0]
-		tmpObj1_Y1 = argObj1[0][1] + argObj1[1][1]
-		tmpObj1_X2 = argObj1[0][0] + argObj1[1][2]
-		tmpObj1_Y2 = argObj1[0][1] + argObj1[1][3]
+		obj1x1 = argObj1[0][0] + argObj1[1][0]
+		obj1y1 = argObj1[0][1] + argObj1[1][1]
+		obj1x2 = argObj1[0][0] + argObj1[1][2]
+		obj1y2 = argObj1[0][1] + argObj1[1][3]
 		#│
 		#○対象物２の座標範囲を求める
-		tmpObj2_x1 = argObj2[0] + argObj2[1][0]
-		tmpObj2_y1 = argObj2[1] + argObj2[1][1]
-		tmpObj2_x2 = argObj2[0] + argObj2[1][2]
-		tmpObj2_y2 = argObj2[1] + argObj2[1][3]
+		obj2x1 = argObj2[0][0] + argObj2[1][0]
+		obj2y1 = argObj2[0][1] + argObj2[1][1]
+		obj2x2 = argObj2[0][0] + argObj2[1][2]
+		obj2y2 = argObj2[0][1] + argObj2[1][3]
 		#│
 		#◇┐衝突の有無を返す
 		if (
-			tmpObj1_X1 > tmpObj2_x2 or
-			tmpObj1_X2 < tmpObj2_x1 or
-			tmpObj1_Y1 > tmpObj2_y2 or
-			tmpObj1_Y2 < tmpObj2_y1
+			obj1x1 > obj2x2 or
+			obj1x2 < obj2x1 or
+			obj1y1 > obj2y2 or
+			obj1y2 < obj2y1
 		):
 		#　├→（座標範囲が重なっていない場合）
 			#▼『衝突なし』を返す
