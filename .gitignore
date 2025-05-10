@@ -2,13 +2,18 @@
 *.pyxapp
 
 CHAPTER5/__pycache__/
-CHAPTER5/キャラクタ/__pycache__/
 CHAPTER5/演出/__pycache__/
 CHAPTER5/共通/__pycache__/
+CHAPTER5/キャラクタ/__pycache__/
 
 CHAPTER6/__pycache__/
-CHAPTER6/キャラクタ/__pycache__/
 CHAPTER6/共通/__pycache__/
 CHAPTER6/演出/__pycache__/
 CHAPTER6/処理/__pycache__/
 CHAPTER6/シーン/__pycache__/
+CHAPTER6/キャラクタ/__pycache__/
+CHAPTER6/キャラクタ/自機/__pycache__/
+CHAPTER6/キャラクタ/標的/__pycache__/
+CHAPTER6/キャラクタ/アイテム/__pycache__/
+CHAPTER6/キャラクタ/弾/__pycache__/
+CHAPTER6/キャラクタ/爆発/__pycache__/

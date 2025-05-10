@@ -1,11 +1,15 @@
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃技術評論社 ゲームで学ぶPython！ CHAPTER6:MAGA WING
-#┃キャラクター・モジュール
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-#from .自機      import class自機
-from . import 自機
-from . import 標的
-from . import アイテム
+from enum import IntEnum, auto
 
-from .弾        import class弾
-from .爆発.爆発 import class爆発
+class ID(IntEnum):
+	#┬
+	#□シーン
+	タイトル		= 100
+	プレイ			= 200
+	ステージコール	= auto()
+	ボーナス		= auto()
+	ボス対決		= auto()
+	終了			= 300
+	#┴
