@@ -3,7 +3,7 @@
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 import  pyxel
 from    共通	    import class入力操作    as 入力 
-from    処理        import class所有者ID    as 所有者ID 
+from    処理        import *
 from    ..弾        import *
 from    .FN特殊     import 効果ID
 

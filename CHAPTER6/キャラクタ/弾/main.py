@@ -1,10 +1,10 @@
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃キャラクタ：アイテム　※自機・敵機で共用する
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-from    処理    import class所有者ID as 所有者ID
-from    .FN移動 import 移動クラス
-from    .FN衝突 import 衝突クラス
-from    .FN描画 import 描画クラス
+from 処理    import *
+from .FN移動 import 移動クラス
+from .FN衝突 import 衝突クラス
+from .FN描画 import 描画クラス
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃仕様

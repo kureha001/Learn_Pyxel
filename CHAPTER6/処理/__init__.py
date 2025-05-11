@@ -1,5 +1,5 @@
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃処理
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-from .ID    import class所有者ID
+from .ID    import *
 from .main  import 本体 as ゲーム
