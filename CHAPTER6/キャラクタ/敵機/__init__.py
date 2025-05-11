@@ -2,6 +2,6 @@
 #┃技術評論社 ゲームで学ぶPython！ CHAPTER6:MAGA WING
 #┃キャラクター・モジュール
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-from .標的  import class標的
-from .標的  import ID as 敵機ID
+from .main  import 本体 as 敵機
+from .main  import ID   as 敵機ID
 

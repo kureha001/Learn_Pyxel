@@ -2,8 +2,8 @@
 #┃キャラクタ：弾：衝突機能
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 import  pyxel
-from    処理    import class所有者ID    as 所有者ID
-from    ..爆発.爆発  import class爆発
+from    処理        import class所有者ID    as 所有者ID
+from    ..爆発.main import 本体             as 爆発
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃仕様
@@ -82,7 +82,7 @@ class 衝突クラス:
         #　├┐（爆破指定がある場合）
             #↓
             #●爆発を生成する ※音なし
-            class爆発(格納先, 所有者, x + 4, y + 4, 0, 0, r, False)
+            爆発(格納先, 所有者, x + 4, y + 4, 0, 0, r, False)
             #┴
         #　└┐（その他）
             #┴

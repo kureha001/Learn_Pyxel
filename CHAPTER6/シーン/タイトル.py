@@ -4,7 +4,7 @@
 import  pyxel
 from    .ID             import ID
 from    共通		    import class入力操作    as 入力
-from    キャラクタ.自機	import class自機
+from    キャラクタ.自機	import *
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃仕様
@@ -89,7 +89,7 @@ class 移動クラス:
         pyxel.playm(1, loop=True)
         #│
         #●自機を生成する
-        class自機(ゲーム, 56, 140)
+        自機(ゲーム, 56, 140)
         #┴
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

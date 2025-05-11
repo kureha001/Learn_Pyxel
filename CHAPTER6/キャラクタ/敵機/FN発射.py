@@ -4,7 +4,7 @@
 import  pyxel
 from    .ID     import ID
 from    処理    import class所有者ID as 所有者ID 
-from    ..弾    import class弾
+from    ..弾    import *
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃仕様
@@ -131,7 +131,7 @@ class 発射クラス:
             #┴
         #│
         #●弾を生成する
-        class弾(
+        弾(
                 self.基底.GAME  ,
                 所有者ID.標的   ,
                 x1, y1          ,
@@ -152,7 +152,7 @@ class 発射クラス:
             発射角度 = tmp弾数 * 分割角度
             #│
             #●弾を生成する
-            class弾(
+            弾(
                     self.基底.GAME              ,
                     所有者ID.標的               ,
                     self.基底.情報.X            ,

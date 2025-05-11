@@ -1,6 +1,4 @@
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-#┃技術評論社 ゲームで学ぶPython！ CHAPTER6:MAGA WING
-#┃キャラクター・モジュール
+#┃キャラクター：自機
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-from .自機      import class自機
-from .自機      import class自機
+from .main      import 本体 as 自機

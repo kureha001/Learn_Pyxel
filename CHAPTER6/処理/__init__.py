@@ -1,6 +1,5 @@
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-#┃技術評論社 ゲームで学ぶPython！ CHAPTER6:MAGA WING
-#┃処理モジュール
+#┃処理
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-from .ID      import class所有者ID
-from .ゲーム  import classGame
+from .ID    import class所有者ID
+from .main  import 本体 as ゲーム
