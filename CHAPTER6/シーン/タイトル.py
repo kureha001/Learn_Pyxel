@@ -1,10 +1,10 @@
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-#┃技術評論社 ゲームで学ぶPython！ CHAPTER6:MAGA WING
+#┃シーン：タイトル
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 import  pyxel
-from    .ID             import ID
 from    共通		    import class入力操作    as 入力
 from    キャラクタ.自機	import *
+from    ._ID            import *
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃仕様

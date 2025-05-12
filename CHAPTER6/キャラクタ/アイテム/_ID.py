@@ -6,8 +6,7 @@ from    enum import IntEnum, auto
 class ID(IntEnum):
     #┬
     #□└┐機体
-    _開始           = 0    
-    速度UP	        = auto()
+    速度UP	        = 0
     弾薬回復	    = auto()
     シールド回復	= auto()
     ダメージ無し	= auto()
@@ -20,5 +19,4 @@ class ID(IntEnum):
     発射_左右方向   = auto()
     発射_4方向   	= auto()
     発射_8方向   	= auto()
-    _終了           = auto()
     #┴

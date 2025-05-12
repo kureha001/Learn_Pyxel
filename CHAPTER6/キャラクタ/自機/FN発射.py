@@ -2,10 +2,10 @@
 #┃キャラクタ：自機：発射
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 import  pyxel
-from    共通	    import class入力操作    as 入力 
-from    処理        import *
-from    ..弾        import *
-from    .FN特殊     import 効果ID
+from    共通	import class入力操作    as 入力 
+from    処理    import 所有者ID
+from    ..弾    import 弾発射
+from    .FN特殊 import 効果ID
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃仕様
@@ -175,7 +175,7 @@ class 発射クラス:
         #○弾を生成する
         x = self.基底.情報.X + argオフセットX
         y = self.基底.情報.Y + argオフセットY
-        弾(
+        弾発射(
                 self.基底.GAME  ,
                 所有者ID.自機   ,
                 x, y, -90, 5    )
