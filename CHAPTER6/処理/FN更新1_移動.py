@@ -15,9 +15,9 @@ class 移動クラス:
     #┌───────────────────────────────────
     #│初期化
     #└───────────────────────────────────
-    def __init__(self, 引数_生成先): #① 生成先のオブジェクト
+    def __init__(self, 引数_GAME): #① ゲームのオブジェクト
 
-        self.基底 = 引数_生成先
+        self.GAME = 引数_GAME
 
     #┌───────────────────────────────────
     #│機能実行
@@ -29,26 +29,26 @@ class 移動クラス:
         #│
         #●└┐リスト型オブジェクトを更新する
         self.Fn移動((
-                self.基底.obj背景       ,
-                self.基底.obj自機       ,
-                self.基底.obj敵機       ,
-                self.基底.objアイテム   ,
-                self.基底.obj弾_自機    ,
-                self.基底.obj弾_敵機    ,
-                self.基底.obj爆発       ,
-                self.基底.Fシーン[self.基底.情報.シーン]))
+                self.GAME.obj背景       ,
+                self.GAME.obj自機       ,
+                self.GAME.obj敵機       ,
+                self.GAME.objアイテム   ,
+                self.GAME.obj弾_自機    ,
+                self.GAME.obj弾_敵機    ,
+                self.GAME.obj爆発       ,
+                self.GAME.FNシーン[self.GAME.情報.シーン]))
 		#┴ 
 	#────────────────────────────────────	
     def Fn特殊効果(self):
 		#┬
         #○自機の状態を確認する
-        if self.基底.obj自機 is None: return
+        if self.GAME.obj自機 is None: return
         #│＼（存在しない場合）
         #│ ↓
         #│ ▼処理を中断する
         #│
         #●自機を更新する
-        self.基底.obj自機.FN特殊.時間経過()
+        self.GAME.obj自機.FN特殊.時間経過()
         #┴
 	#────────────────────────────────────	
     def Fn移動(self, 引数_処理リスト):
