@@ -2,4 +2,4 @@
 #┃処理
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 from ._ID   import *
-from .main  import ゲーム本体 as ゲーム
+from .main  import ゲーム本体 as ゲーム開始
