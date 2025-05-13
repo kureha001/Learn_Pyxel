@@ -4,7 +4,7 @@
 import  pyxel
 from    共通	import class入力操作    as 入力 
 from    処理    import 所有者ID
-from    .FN特殊 import 効果ID
+from    .FN特殊 import ID               as 効果ID
 from    ..弾    import 弾発射
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

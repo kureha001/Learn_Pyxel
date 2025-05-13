@@ -30,6 +30,7 @@ class 移動クラス:
         self.個体   = 引数_個体
         #│
         #≫データセットを用意する
+        self.ID     = None
         self.仕様   = 仕様クラス()
         self.情報   = None
         #┴
