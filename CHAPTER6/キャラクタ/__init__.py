@@ -4,6 +4,5 @@
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 from . import 自機
 from . import 敵機
-from . import アイテム
 from .弾    import *
 from .爆発  import * 

@@ -5,7 +5,7 @@ import  pyxel
 import  処理._情報
 from    シーン              import シーンID
 from    キャラクタ.敵機     import *    # ID参照、出現指示
-from    キャラクタ.アイテム import *    # ID参照、出現指示
+#from    キャラクタ.アイテム import *    # ID参照、出現指示
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃仕様
