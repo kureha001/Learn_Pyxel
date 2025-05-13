@@ -6,8 +6,9 @@ from enum import IntEnum, auto
 class ID(IntEnum):
     #┬
     #□仕様データ
-    戦闘機1 = 1
-    戦闘機2 = auto()
-    戦闘機3 = auto()
-    機雷    = auto()
+    戦闘機1     = 1
+    戦闘機2     = auto()
+    戦闘機3     = auto()
+    機雷        = auto()
+    アイテム    = auto()
     #┴
