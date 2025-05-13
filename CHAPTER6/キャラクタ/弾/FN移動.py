@@ -10,7 +10,7 @@ from    処理    import *
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 class 仕様クラス:
 
-    def __init__(self,
+    def __init__(self       ,
             引数_発射角度   ,   #① 発射する方向(角度)
             引数_移動速度   ):  #② 移動速度(XYベクトル)
 
@@ -62,8 +62,5 @@ class 移動クラス:
             return
         #│
         #●格納先から削除する
-        if self.個体.仕様.所有者ID == 所有者ID.自機:
-            処理._参照.弾_自機.remove(self.個体)
-        else:
-            処理._参照.弾_敵機.remove(self.個体)
+        self.個体.仕様.格納先.remove(self.個体)
         #┴
