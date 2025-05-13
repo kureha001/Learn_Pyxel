@@ -1,7 +1,7 @@
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃キャラクター：標的：ID
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-from    enum import IntEnum, auto
+from enum import IntEnum, auto
 
 class ID(IntEnum):
     #┬

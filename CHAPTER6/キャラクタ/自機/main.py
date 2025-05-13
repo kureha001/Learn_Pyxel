@@ -2,11 +2,7 @@
 #┃キャラクタ：自機
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 import  pyxel
-
-# ゲーム共通
-import 処理._参照
-
-# このキャラクタ用
+import  処理._参照
 from    .FN移動     import 移動クラス
 from    .FN衝突     import 衝突クラス
 from    .FN特殊     import 特殊クラス
