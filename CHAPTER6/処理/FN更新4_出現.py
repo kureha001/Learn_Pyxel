@@ -95,6 +95,6 @@ class 出現クラス:
         #│
         #●救急箱を生成する
         X座標 = pyxel.rndi(0, pyxel.width - 8)
-        種類ID  = pyxel.rndi(アイテムID.速度UP, アイテムID.ダメージ吸収)
+        種類ID  = pyxel.rndi(アイテムID.ダメージ半減, アイテムID.ダメージ吸収)
         敵機出現(X座標, -8, 種類ID)
        #┴

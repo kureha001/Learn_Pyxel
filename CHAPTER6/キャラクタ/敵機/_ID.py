@@ -5,17 +5,23 @@ from enum import IntEnum, auto
 
 class 機体ID(IntEnum):
 
-    戦闘機1     = 1
+    # 特殊
+    機雷        = 0
+    ブロック    = auto()
+
+    # 戦闘機
+    戦闘機1     = auto()
     戦闘機2     = auto()
     戦闘機3     = auto()
-    機雷        = auto()
+
+    # アイテム
     アイテム    = auto()
 
 
 class アイテムID(IntEnum):
 
     # 補給系
-    弾薬回復	    = 1
+    弾薬回復	    = 0
     シールド回復	= auto()
 
     # 永続効果
@@ -31,7 +37,7 @@ class アイテムID(IntEnum):
     発射_8方向   	= auto()    # 発射_弾数UP は一時無効
 
     # 敵からのダメージを緩和
+    ダメージ半減	= auto()    # ダメージが半減する
     ダメージ無し	= auto()    # ノーダメージになる
-    ダメージ半分	= auto()    # ダメージが半減する
     ダメージ吸収    = auto()    # 敵の攻撃力をシールドに加える
 
