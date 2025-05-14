@@ -2,11 +2,12 @@
 #┃キャラクター：標的
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 import  処理._参照
-from    ._DB    import *
-from    .FN移動 import 移動クラス
-from    .FN衝突 import 衝突クラス
-from    .FN発射 import 発射クラス
-from    .FN描画 import 描画クラス
+from    ._ID_敵機   import ID
+from    ._DB        import *
+from    .FN移動     import 移動クラス
+from    .FN衝突     import 衝突クラス
+from    .FN発射     import 発射クラス
+from    .FN描画     import 描画クラス
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃仕様
@@ -18,17 +19,16 @@ class 仕様クラス:
             引数_難易度 ):  #② 難易度 ※0:アイテム/1～:敵機
 
         self.種類ID = 引数_種類ID
+        self.アイテム区分 = (True) if 引数_難易度 == 0 else (False)
 
-        #□格納先
-        if 引数_難易度 == 0:
-            self.アイテム区分   = True
-            self.難易度制限     = DB.アイテム[ 引数_種類ID ][0]
-            self.持続時間       = DB.アイテム[ 引数_種類ID ][1]
-            self.格納先         = 処理._参照.アイテム
+        if self.アイテム区分:
+            self.格納先     = 処理._参照.アイテム
+            self.難易度制限 = DB.アイテム[ self.種類ID ][0]
+            self.持続時間   = DB.アイテム[ self.種類ID ][1]
 
         else:
-            self.アイテム区分   = False
-            self.格納先         = 処理._参照.敵機
+            self.格納先     = 処理._参照.敵機
+
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃情報
