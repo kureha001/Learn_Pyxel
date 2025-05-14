@@ -1,12 +1,13 @@
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-#┃キャラクタ：敵機ID
+#┃キャラクタ：自機
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-from enum import IntEnum, auto
+from    enum import IntEnum, auto
 
 class ID(IntEnum):
 
-    戦闘機1     = 1
-    戦闘機2     = auto()
-    戦闘機3     = auto()
-    機雷        = auto()
-    アイテム    = auto()
+    追加速度     = 1
+    連射         = 2
+    防御UP       = 3
+    貫通弾       = 4
+    発射数       = 5
+    発射方向     = 6
