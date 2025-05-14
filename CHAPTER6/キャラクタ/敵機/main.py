@@ -2,12 +2,11 @@
 #┃キャラクター：敵機
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 import  処理._参照
-from    ._ID_敵機   import ID
-from    ._DB        import *
-from    .FN移動     import 移動クラス
-from    .FN衝突     import 衝突クラス
-from    .FN発射     import 発射クラス
-from    .FN描画     import 描画クラス
+from    ._DB    import *
+from    .FN移動 import 移動クラス
+from    .FN衝突 import 衝突クラス
+from    .FN発射 import 発射クラス
+from    .FN描画 import 描画クラス
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃仕様

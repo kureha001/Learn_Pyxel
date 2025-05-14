@@ -2,10 +2,10 @@
 #┃キャラクタ：敵機：衝突機能
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 import  処理._情報
-from    処理        import 所有者ID
-from    ._ID_敵機   import ID
-from    ._DB        import *
-from    ..爆発      import *
+from    処理    import 所有者ID
+from    ._ID    import 機体ID
+from    ._DB    import *
+from    ..爆発  import *
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃仕様
@@ -14,9 +14,9 @@ class 仕様クラス:
 
     def __init__(self, 引数_仕様 ): #① 個体の仕様
 
-        キー = (ID.アイテム) if 引数_仕様.アイテム区分 else (引数_仕様.種類ID)
+        キー = (機体ID.アイテム) if 引数_仕様.アイテム区分 else (引数_仕様.種類ID)
 
-        if キー == ID.アイテム:
+        if キー == 機体ID.アイテム:
             self.衝突範囲   = (0, 0, 7, 7)
             self.点数       = 0
 

@@ -4,7 +4,7 @@
 import  pyxel
 from    共通	import class入力操作    as 入力 
 from    処理    import 所有者ID
-from    .FN特殊 import ID               as 効果ID
+from    ._ID    import 効果ID
 from    ..弾    import 弾発射
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -69,7 +69,7 @@ class 発射クラス:
         if 効果ID.発射数 in 発動リスト:
         #　├┐（特殊効果が登録されている場合）
             #↓
-            発射数 = 発動リスト[効果ID.発射数]
+            発射数 = 発動リスト[ 効果ID.発射数 ]
         else:
         #　└┐（その他）
             #↓

@@ -3,10 +3,10 @@
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 import  pyxel
 import  処理._参照
-from    処理        import 所有者ID
-from    ._ID_敵機   import ID
-from    ._DB        import *
-from    ..弾        import 弾発射
+from    処理    import 所有者ID
+from    ._ID    import 機体ID
+from    ._DB    import *
+from    ..弾    import 弾発射
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃仕様
@@ -15,7 +15,7 @@ class 仕様クラス:
 
     def __init__(self, 引数_仕様 ): #① 個体の仕様
 
-        キー = (ID.アイテム) if 引数_仕様.アイテム区分 else (引数_仕様.種類ID)
+        キー = (機体ID.アイテム) if 引数_仕様.アイテム区分 else (引数_仕様.種類ID)
 
         self.衝突範囲   = (0, 0, 7, 7)
         self.間隔       = DB.敵機[ キー ][2][0]
