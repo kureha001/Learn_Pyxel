@@ -3,8 +3,7 @@
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 import  処理._情報
 from    処理    import 所有者ID
-from    ._ID    import 機体ID
-from    ._DB    import *
+from    .DB     import *
 from    ..爆発  import *
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

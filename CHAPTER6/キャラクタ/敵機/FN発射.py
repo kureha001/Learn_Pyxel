@@ -4,8 +4,7 @@
 import  pyxel
 import  処理._参照
 from    処理    import 所有者ID
-from    ._ID    import 機体ID
-from    ._DB    import *
+from    .DB     import *
 from    ..弾    import 弾発射
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

@@ -2,4 +2,4 @@
 #┃キャラクター：自機
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 from .main  import 本体 as 自機登場
-from ._ID   import *
+from .DB   import *

@@ -3,8 +3,9 @@
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 import  pyxel
 import  処理._情報
-from    シーン              import シーンID
-from    キャラクタ.敵機     import *
+from    シーン          import シーンID
+from    キャラクタ.自機 import アイテムID
+from    キャラクタ.敵機 import *
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃仕様

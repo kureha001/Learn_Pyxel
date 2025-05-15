@@ -3,5 +3,4 @@
 #┃キャラクター・モジュール
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 from .main  import 本体 as 敵機出現
-from ._ID   import *
-from ._DB   import *
+from .DB   import *

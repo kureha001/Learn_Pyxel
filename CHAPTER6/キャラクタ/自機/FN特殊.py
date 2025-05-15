@@ -3,8 +3,7 @@
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 import  pyxel
 import  処理._情報
-from    ._ID    import 効果ID
-from    ..敵機  import アイテムID, DB
+from    .DB    import *
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃情報

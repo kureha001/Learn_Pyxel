@@ -2,7 +2,7 @@
 #┃キャラクター：敵機
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 import  処理._参照
-from    ._DB    import *
+from    .DB    import *
 from    .FN移動 import 移動クラス
 from    .FN衝突 import 衝突クラス
 from    .FN発射 import 発射クラス
