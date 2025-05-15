@@ -10,6 +10,7 @@
 import  pyxel
 from    シーン          import *
 from    背景	        import *
+import  処理.DB
 import  処理._参照
 from    .FN更新1_移動   import 移動クラス
 from    .FN更新2_発射   import 発射クラス
@@ -127,13 +128,13 @@ class ゲーム本体:
                 処理._参照.弾_自機 ,
                 処理._参照.弾_敵機 ,
                 処理._参照.爆発    ,
-                処理._参照.FNシーン[ 処理._情報.シーン]))
+                処理._参照.FNシーン[ 処理.DB.シーン]))
         #│
         #〇└┐ゲーム情報を描画する
             #〇得点を描画する
             #〇難易度を描画する
-        pyxel.text( 5, 2, f"SCORE:{ 処理._情報.得点   }", 7)
-        pyxel.text(85, 2, f"LEVEL:{ 処理._情報.難易度 }", 7)
+        pyxel.text( 5, 2, f"SCORE:{ 処理.DB.得点   }", 7)
+        pyxel.text(85, 2, f"LEVEL:{ 処理.DB.難易度 }", 7)
             #┴
         #┴　┴
 	#────────────────────────────────────	
