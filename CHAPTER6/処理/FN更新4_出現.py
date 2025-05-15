@@ -93,6 +93,8 @@ class 出現クラス:
         #　 ↓
         #　 ▼処理を中断する
         #│
+#        self.難易度制限 = DB.アイテム[ self.種類ID ][0]
+#        self.出現率     = DB.アイテム[ self.種類ID ][1]
         #●救急箱を生成する
         X座標 = pyxel.rndi(0, pyxel.width - 8)
         種類ID  = pyxel.rndi(アイテムID.ダメージ半減, アイテムID.ダメージ吸収)
