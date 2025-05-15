@@ -8,9 +8,9 @@
 #┃Ⅰ.インポート
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 import  pyxel
+import  main.DB
 from    シーン          import *
-from    背景	        import *
-import  処理.DB
+from    背景	        import 背景作成
 from    .FN更新1_移動   import 移動クラス
 from    .FN更新2_発射   import 発射クラス
 from    .FN更新3_衝突   import 衝突クラス
@@ -38,7 +38,7 @@ class ゲーム本体:
         self.初期化_処理セット()
         #│
         #≫シーンを切替える(タイトル)
-        処理.DB.FNシーン[ シーンID.終了 ].FN移動.Fn切替()
+        main.DB.FNシーン[ シーンID.終了 ].FN移動.Fn切替()
         #│
         #○処理セットが機能するよう登録する
         pyxel.run(self.更新処理,self.描画処理)
@@ -71,20 +71,20 @@ class ゲーム本体:
     def 初期化_処理セット(self):
 		#┬
         #≫更新処理をオブジェクト化する（リスト型）
-        処理.DB.FN更新 = (
+        main.DB.FN更新 = (
             移動クラス() ,
             発射クラス() ,
             衝突クラス() ,
             出現クラス() )
         #│
         #≫シーン処理をオブジェクト化する（辞書型）
-        処理.DB.FNシーン = {
+        main.DB.FNシーン = {
             シーンID.タイトル   : タイトルクラス(self),
             シーンID.プレイ     : プレイクラス  (self),
             シーンID.終了       : 終了クラス    (self)}
         #│
         #≫背景をオブジェクト化する（単独型）
-        処理.DB.obj背景     = 背景作成()
+        main.DB.obj背景     = 背景作成()
         #┴
 
 	#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -97,7 +97,7 @@ class ゲーム本体:
     def 更新処理(self):
 		#┬
         #◎└┐キャラクタを更新する
-        for tmp処理 in 処理.DB.FN更新: tmp処理.実行()
+        for tmp処理 in main.DB.FN更新: tmp処理.実行()
 			#│＼（すべての処理を終えた場合）
             #│ ↓
 			#│ ▼繰り返し処理を抜ける
@@ -120,20 +120,20 @@ class ゲーム本体:
         #│
         #●背景・キャラクタを描画する
         self.Fn描画((
-                処理.DB.obj背景    ,
-                処理.DB.obj自機    ,
-                処理.DB.obj敵機    ,
-                処理.DB.objアイテム,
-                処理.DB.obj弾_自機 ,
-                処理.DB.obj弾_敵機 ,
-                処理.DB.obj爆発    ,
-                処理.DB.FNシーン[ 処理.DB.シーン]))
+                main.DB.obj背景    ,
+                main.DB.obj自機    ,
+                main.DB.obj敵機    ,
+                main.DB.objアイテム,
+                main.DB.obj弾_自機 ,
+                main.DB.obj弾_敵機 ,
+                main.DB.obj爆発    ,
+                main.DB.FNシーン[ main.DB.シーン]))
         #│
         #〇└┐ゲーム情報を描画する
             #〇得点を描画する
             #〇難易度を描画する
-        pyxel.text( 5, 2, f"SCORE:{ 処理.DB.得点   }", 7)
-        pyxel.text(85, 2, f"LEVEL:{ 処理.DB.難易度 }", 7)
+        pyxel.text( 5, 2, f"SCORE:{ main.DB.得点   }", 7)
+        pyxel.text(85, 2, f"LEVEL:{ main.DB.難易度 }", 7)
             #┴
         #┴　┴
 	#────────────────────────────────────	

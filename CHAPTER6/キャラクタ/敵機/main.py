@@ -1,7 +1,7 @@
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃キャラクター：敵機
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-import  処理.DB
+import  main.DB
 from    .FN移動 import 移動クラス
 from    .FN衝突 import 衝突クラス
 from    .FN発射 import 発射クラス
@@ -23,8 +23,8 @@ class 仕様クラス:
         self.アイテム区分 = (True) if 引数_難易度 == 0 else (False)
         #│
         #○個体オブジェクトの格納先をセットする
-        if self.アイテム区分: self.格納先 = 処理.DB.objアイテム
-        else                : self.格納先 = 処理.DB.obj敵機
+        if self.アイテム区分: self.格納先 = main.DB.objアイテム
+        else                : self.格納先 = main.DB.obj敵機
         #┴
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃情報
@@ -62,7 +62,6 @@ class 本体:
         #≫処理セットを用意する
         self.FN移動 = 移動クラス(self)
         self.FN衝突 = 衝突クラス(self)
-        self.FN特殊 = None
         self.FN発射 = 発射クラス(self)
         self.FN描画 = 描画クラス(self)
         #│

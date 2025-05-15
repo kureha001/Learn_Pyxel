@@ -2,11 +2,11 @@
 #┃シーン：タイトル
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 import  pyxel
-from    共通		    import class入力操作    as 入力
-import  処理.DB
-from    キャラクタ.自機	import 自機登場
-from    特殊効果	    import 特殊効果作成
-from    .DB             import シーンID
+import  main.DB
+from    .DB         import シーンID
+from    キャラクタ  import 自機登場
+from    特殊効果	import 特殊効果作成
+from    共通		import class入力操作    as 入力
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃仕様
@@ -76,15 +76,15 @@ class 移動クラス:
         #│ ▼処理を中断する
         #│
         #○シーンを『プレイ』に切替える
-        処理.DB.シーン = シーンID.プレイ
+        main.DB.シーン = シーンID.プレイ
         #│
         #○└┐ゲーム情報をリセットする
             #○得点を0点にする
             #○プレイ時間を1カウントにする
             #○難易度を１にする
-        処理.DB.得点        = 0
-        処理.DB.プレイ時間  = 1
-        処理.DB.難易度      = 1
+        main.DB.得点        = 0
+        main.DB.プレイ時間  = 1
+        main.DB.難易度      = 1
         #│
         #○プレイ用のBGMを鳴らす
         pyxel.stop()

@@ -1,7 +1,7 @@
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃キャラクタ：アイテム　※自機・敵機で共用する
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-import  処理.DB
+import  main.DB
 from    .FN移動     import 移動クラス
 from    .FN衝突     import 衝突クラス
 from    .FN描画     import 描画クラス
@@ -26,12 +26,12 @@ class 仕様クラス:
         #│
         #○撃墜可否をセットする
         #○個体オブジェクトの格納先をセットする
-        if self.所有者ID == 処理.DB.所有者ID.自機:
+        if self.所有者ID == main.DB.所有者ID.自機:
             self.撃墜可否   = False
-            self.格納先     = 処理.DB.obj弾_自機
+            self.格納先     = main.DB.obj弾_自機
         else:
             self.撃墜可否   = True
-            self.格納先     = 処理.DB.obj弾_敵機
+            self.格納先     = main.DB.obj弾_敵機
         #┴
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃情報
@@ -70,8 +70,6 @@ class 本体:
         #≫処理セットを用意する
         self.FN移動 = 移動クラス(self, 引数_発射角度, 引数_移動速度)
         self.FN衝突 = 衝突クラス(self, 引数_破壊力)
-        self.FN特殊 = None
-        self.FN発射 = None
         self.FN描画 = 描画クラス(self)
         #│
         #●格納先インスタンス(リスト)にオブジェクト化する

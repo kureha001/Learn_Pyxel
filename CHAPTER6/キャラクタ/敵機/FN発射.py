@@ -2,7 +2,7 @@
 #┃キャラクタ：敵機：発射機能
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 import  pyxel
-import  処理.DB
+import  main.DB
 from    .DB     import 機体ID, 敵機DB
 from    ..弾    import 弾発射
 
@@ -89,7 +89,7 @@ class 発射クラス:
         破壊力 = self.仕様.破壊力
 
         #◇┐角度を求める
-        if 処理.DB.obj自機 is None: 
+        if main.DB.obj自機 is None: 
         #　├┐（自機が存在しない場合）
             #↓
             #▼90度を返す
@@ -99,14 +99,14 @@ class 発射クラス:
         #　└┐（その他）
             #↓
             #▼自機の方角を返す
-            x2 = 処理.DB.obj自機.情報.X
-            y2 = 処理.DB.obj自機.情報.Y
+            x2 = main.DB.obj自機.情報.X
+            y2 = main.DB.obj自機.情報.Y
             発射角度 = pyxel.atan2((y2 - y1), (x2 - x1))
             #┴
         #│
         #●弾を生成する
         弾発射(
-                処理.DB.所有者ID.敵機   ,
+                main.DB.所有者ID.敵機   ,
                 x1, y1                  ,
                 発射角度                ,
                 self.仕様.速度          ,
@@ -130,7 +130,7 @@ class 発射クラス:
             #│
             #●弾を生成する
             弾発射(
-                    処理.DB.所有者ID.敵機   ,
+                    main.DB.所有者ID.敵機   ,
                     self.個体.情報.X        ,
                     self.個体.情報.Y        ,
                     発射角度                ,

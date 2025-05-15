@@ -2,7 +2,7 @@
 #┃キャラクタ：自機
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 import  pyxel
-import  処理.DB
+import  main.DB
 from    .FN移動     import 移動クラス
 from    .FN衝突     import 衝突クラス
 from    .FN発射     import 発射クラス
@@ -14,7 +14,7 @@ from    .FN描画     import 描画クラス
 class 仕様クラス:
     #┬
     #○ＩＤをセットする
-    機体区分 = 処理.DB.所有者ID.自機
+    機体区分 = main.DB.所有者ID.自機
     #┴
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -53,5 +53,5 @@ class 本体:
         self.FN描画 = 描画クラス(self)
         #│
         #●本体で用意したインスタンスに生成
-        処理.DB.obj自機  = self
+        main.DB.obj自機  = self
         #┴

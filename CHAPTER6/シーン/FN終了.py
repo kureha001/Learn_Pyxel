@@ -2,7 +2,7 @@
 #┃シーン：終了
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 import  pyxel
-import  処理.DB
+import  main.DB
 from    .DB import シーンID
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -69,7 +69,7 @@ class 移動クラス:
     def 実行(self):
 		#┬
         #○爆発状況を確認する
-        if  ( len(処理.DB.obj爆発) > 0 ): return
+        if  ( len(main.DB.obj爆発) > 0 ): return
         #│＼（爆発中の場合）
         #│ ↓
         #│ ▼処理を中断する
@@ -105,17 +105,17 @@ class 移動クラス:
         ゲーム = self.基底.GAME
         #│
         #○シーンを『タイトル』に切替える
-        処理.DB.シーン = シーンID.タイトル
+        main.DB.シーン = シーンID.タイトル
         #│
         #○└┐インスタンスを初期化する
             #●敵機を抹消する
             #●アイテムを抹消する
             #●弾(自分)を抹消する
             #●弾(標的)を抹消する
-        処理.DB.obj敵機.clear()
-        処理.DB.objアイテム.clear()
-        処理.DB.obj弾_自機.clear()
-        処理.DB.obj弾_敵機.clear()
+        main.DB.obj敵機.clear()
+        main.DB.objアイテム.clear()
+        main.DB.obj弾_自機.clear()
+        main.DB.obj弾_敵機.clear()
             #┴
         #│
         #○待ち開始をオンにする

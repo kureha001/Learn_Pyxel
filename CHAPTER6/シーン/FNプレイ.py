@@ -2,9 +2,9 @@
 #┃シーン：プレイ
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 import  pyxel
-import  処理.DB
-from    特殊効果    import 効果ID
+import  main.DB
 from    .DB         import シーンID
+from    特殊効果    import 効果ID
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃仕様
@@ -66,21 +66,21 @@ class 移動クラス:
         #〇リファレンスを用意する
         ゲーム = self.基底.GAME
 
-        if 処理.DB.obj自機.情報.シールド <= 0:
+        if main.DB.obj自機.情報.シールド <= 0:
         #│ ＼（自機が存在しない場合）
             #↓
             #○自機を削除する
             #○シーンを『終了』に切替える
             #▼処理を中断する
-            処理.DB.obj自機     = None
-            処理.DB.obj特殊処理 = None
-            処理.DB.シーン = シーンID.終了
+            main.DB.obj自機     = None
+            main.DB.obj特殊処理 = None
+            main.DB.シーン = シーンID.終了
             return
         #│
         #○プレイ時間をカウントアップする
         #○15秒毎に難易度をセットする
-        処理.DB.プレイ時間 += 1
-        処理.DB.難易度 = 処理.DB.プレイ時間 // 450 + 1
+        main.DB.プレイ時間 += 1
+        main.DB.難易度 = main.DB.プレイ時間 // 450 + 1
         #┴
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -101,13 +101,13 @@ class 描画クラス:
     def 実行(self):
 		#┬
         #〇リファレンスを用意する
-        if 処理.DB.obj自機 is None: return
+        if main.DB.obj自機 is None: return
         #│＼（自機が存在しない場合）
         #│ ↓
         #│ ▼処理を中断する
         #│
         #○効果発動の登録状況を用意する
-        発動中 = 処理.DB.obj特殊効果.情報.発動中
+        発動中 = main.DB.obj特殊効果.情報.発動中
         #│
         #○残りのシールドを描画する
         キー = 効果ID.防御
@@ -116,7 +116,7 @@ class 描画クラス:
         if ダメージ倍率 == 0.5  : 色 = 2
         if ダメージ倍率 == 0    : 色 = 11
         if ダメージ倍率 == -1   : 色 = 8
-        数量 = int(処理.DB.obj自機.情報.シールド)
+        数量 = int(main.DB.obj自機.情報.シールド)
         pyxel.rect(0, pyxel.height - 12, 数量, 2, 色)
         pyxel.rect(0, pyxel.height - 10, 数量, 1, 7 )
         #│
@@ -124,7 +124,7 @@ class 描画クラス:
         座標X   = 1
         座標Y   = pyxel.height - 8
         画像X   = (4) if 効果ID.貫通弾 in 発動中 else (0)
-        数量 = 処理.DB.obj自機.FN発射.情報.弾数
+        数量 = main.DB.obj自機.FN発射.情報.弾数
         for i in range(数量):
 			#│＼（すべての処理を終えた場合）
             #│ ↓
