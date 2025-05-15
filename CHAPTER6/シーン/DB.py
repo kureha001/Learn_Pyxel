@@ -1,9 +1,9 @@
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-#┃技術評論社 ゲームで学ぶPython！ CHAPTER6:MAGA WING
+#┃シーン処理：データベース
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 from enum import IntEnum, auto
 
-class ID(IntEnum):
+class シーンID(IntEnum):
 	#┬
 	#□シーン
 	タイトル				= 100

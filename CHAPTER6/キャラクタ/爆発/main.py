@@ -2,7 +2,7 @@
 #┃キャラクタ：爆発　※自機・敵機で共用する
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 import  pyxel
-import  処理._参照
+import  処理.DB
 from    .FN移動 import 移動クラス
 from    .FN描画 import 描画クラス
 
@@ -56,7 +56,7 @@ class 本体:
         self.FN描画 = 描画クラス(self)
         #│
         #●格納先インスタンス(リスト)にオブジェクト化する
-        処理._参照.爆発.append(self)
+        処理.DB.obj爆発.append(self)
         #│
         #○爆発音を鳴らす
         if 引数_爆発音有無: pyxel.play( 0, 2, resume = True ) 

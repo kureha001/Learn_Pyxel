@@ -3,7 +3,7 @@
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 import  pyxel
 from    共通    import class入力操作    as 入力 
-from    .FN特殊    import 効果ID
+from    .DB     import 効果ID
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃仕様
