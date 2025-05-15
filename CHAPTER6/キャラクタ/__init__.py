@@ -6,3 +6,4 @@ from . import 自機
 from . import 敵機
 from . import 弾
 from . import 爆発
+from .DB import *

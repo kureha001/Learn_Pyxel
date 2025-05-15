@@ -3,8 +3,8 @@
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 import  pyxel
 import  処理.DB
-from    キャラクタ.自機 import 効果ID
-from    .DB             import シーンID
+from    キャラクタ  import 効果ID
+from    .DB         import シーンID
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃仕様

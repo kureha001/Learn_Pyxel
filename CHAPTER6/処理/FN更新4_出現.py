@@ -4,7 +4,7 @@
 import  pyxel
 import  処理.DB
 from    シーン          import シーンID
-from    キャラクタ.自機 import アイテムID
+from    キャラクタ      import アイテムID
 from    キャラクタ.敵機 import 敵機出現, 機体ID
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
