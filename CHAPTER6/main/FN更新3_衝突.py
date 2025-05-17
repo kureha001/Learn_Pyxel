@@ -248,7 +248,6 @@ class 衝突クラス:
         #●弾(自機)を壊滅する
         #●弾(敵機)を壊滅する
         self.Fn機雷_機能(main.DB.obj敵機     ) 
-        self.Fn機雷_機能(main.DB.objアイテム ) 
         self.Fn機雷_機能(main.DB.obj弾_自機  ) 
         self.Fn機雷_機能(main.DB.obj弾_敵機  ) 
         #┴

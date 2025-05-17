@@ -82,8 +82,7 @@ class 衝突クラス:
             所有者 = main.DB.所有者ID.なし
             x = self.個体.情報.X + 4
             y = self.個体.情報.Y + 4
-            vy  = self.個体.FN移動.仕様.速度Y * 0.2
-            爆発開始(所有者, x,y, 0,vy, r, False)
+            爆発開始(所有者, x, y, r, False)
             #┴
         #　└┐（その他）
             #┴
