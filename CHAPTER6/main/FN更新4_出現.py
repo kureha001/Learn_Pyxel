@@ -7,6 +7,7 @@ from    collections import defaultdict
 from    特殊効果    import *
 from    シーン      import シーンID
 from    キャラクタ  import 敵機出現, 機体ID
+import  キャラクタ.敵機.DB as 敵機
 import  main.DB
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -48,17 +49,25 @@ class 出現クラス:
     def Fn敵機(self):
 		#┬
         #◇┐出現タイミングを確認する
-        間隔_敵機 = max(60 - main.DB.難易度 * 10, 30)
+        間隔_敵機 = max(60 - main.DB.難易度 * 6, 20)
         if main.DB.プレイ時間 % 間隔_敵機 != 0: return
         #　＼（対象外の場合）
         #　 ↓
         #　 ▼処理を中断する
         #│
         #●ランダムな機種で敵機を生成する
-        X座標   = pyxel.rndi(0, pyxel.width - 8)
-        種類ID  = pyxel.rndi(機体ID.戦闘機1, 機体ID.戦闘機3)
-        難易度  = main.DB.難易度
-        敵機出現( X座標, -8, 種類ID, 難易度)
+        X座標       = pyxel.rndi(0, pyxel.width - 8)
+
+        難易度      = main.DB.難易度
+        確認結果    = False
+        while 確認結果 == False:
+            種類ID      = pyxel.rndi(機体ID.板, 機体ID.アイテム - 1)
+            DBデータ    = 敵機.敵機DB[ 種類ID ][0]
+            DB下限      = DBデータ[0]
+            DB上限      = (難易度) if DBデータ[1] ==0 else (DBデータ[1])
+            確認結果    = (DB下限 <= 難易度) and (難易度 <= DB上限)
+
+        敵機出現( X座標, -8, 種類ID, False)
         #┴
 	#────────────────────────────────────
     def Fn機雷(self):
@@ -72,11 +81,11 @@ class 出現クラス:
         #●機雷を生成する
         X座標   = pyxel.rndi(0, pyxel.width - 8)
         種類ID  = 機体ID.機雷
-        難易度  = pyxel.rndi(3, 5) 
-        敵機出現(X座標, -8, 種類ID, 難易度)
+        敵機出現(X座標, -8, 種類ID, False)
         #┴
+
     #────────────────────────────────────
-    def Fn補充(self, 引数_間隔, 引数_種類ID):
+    def Fn補充(self, 引数_間隔, 引数_アイテムID):
 		#┬
         #○出現タイミングを確認する
         if main.DB.プレイ時間 % 引数_間隔 != 0: return
@@ -85,15 +94,16 @@ class 出現クラス:
         #　 ▼処理を中断する
         #│
         #○難易度を確認する
-        DBデータ = アイテムDB[引数_種類ID]
-        if DBデータ[1][0] > main.DB.難易度: return
+        DB難易度 = アイテムDB[引数_アイテムID][1][0]
+        if DB難易度 > main.DB.難易度: return
         #　＼（難易度不足の場合）
         #　 ↓
         #　 ▼処理を中断する
         #│
         #●補給アイテムを生成する
         X座標 = pyxel.rndi(0, pyxel.width - 8)
-        敵機出現(X座標, -8, 引数_種類ID)
+        敵機出現(X座標, -8, 引数_アイテムID, True)
+
 	#────────────────────────────────────
     def Fnアイテム(self):
 		#┬
@@ -104,12 +114,12 @@ class 出現クラス:
         #　 ▼処理を中断する
         #│
         #●アイテムを抽選する
-        追加アイテムID = self.Fnアイテム_選定()
-        if 追加アイテムID is None: return
+        アイテムID = self.Fnアイテム_選定()
+        if アイテムID is None: return
         #│
         #●アイテムを生成する
         X座標 = pyxel.rndi(0, pyxel.width - 8)
-        敵機出現(X座標, -8, 追加アイテムID)
+        敵機出現(X座標, -8, アイテムID, True)
        #┴
 	#────────────────────────────────────
     def Fnアイテム_選定(self):

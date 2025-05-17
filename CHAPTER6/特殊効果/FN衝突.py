@@ -57,7 +57,7 @@ class 衝突クラス:
         #　├┐（アイテムIDが『シールド』の場合）
             #↓
             #○シールドを最大まで回復する
-            main.DB.obj自機.情報.シールド = pyxel.width
+            main.DB.obj自機.FN衝突.情報.シールド = pyxel.width
             #┴
         #　└┐（その他）
         #┴　┴
