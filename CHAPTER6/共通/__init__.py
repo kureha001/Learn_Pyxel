@@ -3,3 +3,4 @@
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 from .汎用      import class汎用
 from .入力操作  import class入力操作
+from .座標変換  import *
