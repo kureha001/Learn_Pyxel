@@ -70,7 +70,10 @@ class 移動クラス:
         ゲーム = self.基底.GAME
         #│
         #○シーン進行指示を確認する
-        if 入力.Funワンキー() != -1: return
+        人数確認 = 0
+        if pyxel.btn(pyxel.KEY_1): 人数確認 = 1
+        if pyxel.btn(pyxel.KEY_2): 人数確認 = 2
+        if 人数確認 == 0: return
         #│＼（ユーザ操作の指示がされていない場合）
         #│ ↓
         #│ ▼処理を中断する
@@ -78,27 +81,26 @@ class 移動クラス:
         #○シーンを『プレイ』に切替える
         main.DB.シーン = シーンID.プレイ
         #│
-        #○└┐ゲーム情報をリセットする
-            #○得点を0点にする
-            #○プレイ時間を1カウントにする
-            #○難易度を１にする
+        #○ゲーム情報をリセットする
         main.DB.得点        = 0
         main.DB.プレイ時間  = 1
         main.DB.難易度      = 1
         #│
-        #○プレイ用のBGMを鳴らす
-        pyxel.stop()
-        pyxel.playm(1, loop=True)
-        #│
         #●自機を生成する
-#        自機登場(56, 140)
-        main.DB.人数 = 2
+        main.DB.人数 = 人数確認
         位置間隔 = int(pyxel.width / (main.DB.人数 + 1))
         for tmpNo in range(main.DB.人数):
             自機登場( tmpNo, 位置間隔 * (tmpNo + 1), 140)
-
+        #│
+        #●自機共通の情報オブジェクトを生成する
         main.DB.obj自機共通 = 自機共通生成()
+        #│
+        #●特殊効果オブジェクトを生成する
         特殊効果作成()
+        #│
+        #○プレイ用のBGMを鳴らす
+        pyxel.stop()
+        pyxel.playm(1, loop=True)
         #┴
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -120,7 +122,7 @@ class 描画クラス:
 		#┬
         #〇画面を描画する
         pyxel.blt(0, 18, 2, 0, 0, 120, 120, 15)
-        描画文字 = "Press [SPACE] or [UP]Button"
-        pyxel.text(8, 148, 描画文字, 5)
-        pyxel.text(7, 147, 描画文字, 7)
+        描画文字 = "How Many Players? ([1]or[2])"
+        pyxel.text(6, 148, 描画文字, 5)
+        pyxel.text(5, 147, 描画文字, 7)
         #┴

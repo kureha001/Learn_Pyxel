@@ -81,7 +81,7 @@ class 移動クラス:
             #│
             #○自機を削除する
             #○シーンを『終了』に切替える
-            main.DB.obj自機     = None
+            main.DB.obj自機     = []
             main.DB.obj自機共通 = None
             main.DB.obj特殊効果 = None
             main.DB.シーン = シーンID.終了
