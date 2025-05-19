@@ -121,8 +121,21 @@ class 描画クラス:
     def 実行(self):
 		#┬
         #〇画面を描画する
-        pyxel.blt(0, 18, 2, 0, 0, 120, 120, 15)
-        描画文字 = "How Many Players? ([1]or[2])"
-        pyxel.text(6, 148, 描画文字, 5)
-        pyxel.text(5, 147, 描画文字, 7)
+        pyxel.blt(0, 0, 2, 0, 0, 120, 120, 15)
+
+        描画文字 = "How Many Players? "
+        pyxel.text(27, 106, 描画文字, 5)
+        pyxel.text(26, 105, 描画文字, 7)
+
+        描画文字 = "Hit Any"
+        pyxel.text(11, 125, 描画文字, 5)
+        pyxel.text(10, 124, 描画文字, 7)
+
+        描画文字 = "Key    [1] or [2]"
+        pyxel.text(46, 121, 描画文字, 8)
+        pyxel.text(45, 120, 描画文字, 7)
+
+        描画文字 = "Button [A] or [B]"
+        pyxel.text(46, 129, 描画文字, 8)
+        pyxel.text(45, 128, 描画文字, 7)
         #┴

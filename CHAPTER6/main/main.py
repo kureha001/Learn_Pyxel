@@ -113,8 +113,9 @@ class ゲーム本体:
                 main.DB.FNシーン[ main.DB.シーン])) # ※ シーンに合わせて変更
         #│
         #〇ゲーム情報（得点／難易度）を描画する
-        pyxel.text( 5, 2, f"SCORE:{ main.DB.得点   }", 7)
-        pyxel.text(85, 2, f"LEVEL:{ main.DB.難易度 }", 7)
+        pyxel.text( 5, 2, f"SCORE:{ main.DB.得点        }", 7)
+        pyxel.text(42, 2, f"COUNT:{ main.DB.プレイ時間  }", 7)
+        pyxel.text(85, 2, f"LEVEL:{ main.DB.難易度      }", 7)
         #┴
 	#────────────────────────────────────	
     def Fn描画(self, 引数_処理リスト):
