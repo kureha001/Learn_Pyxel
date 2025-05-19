@@ -1,5 +1,6 @@
-*.html
 *.pyxapp
+*.exe
+*.html
 
 CHAPTER5/__pycache__/
 CHAPTER5/演出/__pycache__/
@@ -17,3 +18,4 @@ CHAPTER6/シーン/__pycache__/
 CHAPTER6/背景/__pycache__/
 CHAPTER6/特殊効果/__pycache__/
 CHAPTER6/共通/__pycache__/
+CHAPTER6/build/
