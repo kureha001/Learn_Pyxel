@@ -3,8 +3,9 @@
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 import  pyxel
 import  main.DB
-from    .DB         import シーンID
-from    特殊効果    import 効果ID
+from    .DB             import シーンID
+from    特殊効果        import 効果ID
+from    キャラクタ.爆発 import 爆発開始
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃仕様
@@ -65,22 +66,36 @@ class 移動クラス:
 		#┬
         #〇リファレンスを用意する
         ゲーム = self.基底.GAME
-
-        if main.DB.obj自機.FN衝突.情報.シールド <= 0:
-        #│ ＼（自機が存在しない場合）
+        #│
+        #
+        if main.DB.obj自機共通.情報.シールド <= 0:
+        #│ ＼（シールドが切れた場合）
             #↓
-            #○自機を削除する
             #○シーンを『終了』に切替える
-            #▼処理を中断する
-            main.DB.obj自機     = None
-            main.DB.obj特殊処理 = None
             main.DB.シーン = シーンID.終了
+            #│
+            #●大きめの爆発を生成する
+            所有者 = main.DB.所有者ID.自機
+            for tmp自機 in main.DB.obj自機:
+                x = tmp自機.情報.X + 4
+                y = tmp自機.情報.Y - 2
+                爆発開始(所有者, x+6, y+10, 15, False)
+                爆発開始(所有者, x+2, y-2 , 15, False)
+            #│
+            #○自機を削除する
+            main.DB.obj自機     = []
+            main.DB.obj自機共通 = None
+            main.DB.obj特殊効果 = None
+            #│
+            #▼処理を中断する
             return
+        #　└┐（その他）
+            #┴            
         #│
         #○プレイ時間をカウントアップする
         #○15秒毎に難易度をセットする
         main.DB.プレイ時間 += 1
-        main.DB.難易度 = main.DB.プレイ時間 // 600 + 1
+        main.DB.難易度 = main.DB.プレイ時間 // main.DB.難易度間隔 + 1
         #┴
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -101,13 +116,16 @@ class 描画クラス:
     def 実行(self):
 		#┬
         #〇リファレンスを用意する
-        if main.DB.obj自機 is None: return
+        if len(main.DB.obj自機) == 0: return
         #│＼（自機が存在しない場合）
         #│ ↓
         #│ ▼処理を中断する
         #│
         #○効果発動の登録状況を用意する
         発動中 = main.DB.obj特殊効果.情報.発動中
+        #│
+        共通情報 = main.DB.obj自機共通.情報
+        画面縦長 = pyxel.height
         #│
         #○残りのシールドを描画する
         キー = 効果ID.防御
@@ -116,15 +134,15 @@ class 描画クラス:
         if ダメージ倍率 == 0.5  : 色 = 2
         if ダメージ倍率 == 0    : 色 = 11
         if ダメージ倍率 == -1   : 色 = 8
-        数量 = int(main.DB.obj自機.FN衝突.情報.シールド)
-        pyxel.rect(0, pyxel.height - 12, 数量, 2, 色)
-        pyxel.rect(0, pyxel.height - 10, 数量, 1, 7 )
+        数量 = int(共通情報.シールド)
+        pyxel.rect(0, 画面縦長 - 12, 数量, 2, 色)
+        pyxel.rect(0, 画面縦長 - 10, 数量, 1, 7 )
         #│
         #◎└┐残りの弾薬を描画する
         座標X   = 1
-        座標Y   = pyxel.height - 8
+        座標Y   = 画面縦長 - 8
         画像X   = (4) if 効果ID.貫通弾 in 発動中 else (0)
-        数量 = main.DB.obj自機.FN発射.情報.弾数
+        数量 = int(共通情報.弾数)
         for i in range(数量):
 			#│＼（すべての処理を終えた場合）
             #│ ↓
