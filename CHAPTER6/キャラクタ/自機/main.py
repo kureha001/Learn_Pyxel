@@ -14,12 +14,6 @@ class 仕様クラス:
 
     def __init__(self,引数_番号): #① プレイヤ番号
         #┬
-        #○ＩＤをセットする
-        self.機体区分        = main.DB.所有者ID.自機
-        #│
-        #○個体オブジェクトの格納先をセットする
-        self.格納先 = main.DB.obj自機
-        #│
         #○プレイヤ番号をセットする
         self.番号 = 引数_番号
         #┴
@@ -60,5 +54,5 @@ class 本体:
         self.FN描画 = 描画クラス(self)
         #│
         #●本体で用意したインスタンスに生成
-        self.仕様.格納先.append(self)
+        main.DB.obj自機.append(self)
         #┴

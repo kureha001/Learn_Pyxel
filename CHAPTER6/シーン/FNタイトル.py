@@ -86,14 +86,14 @@ class 移動クラス:
         main.DB.プレイ時間  = 1
         main.DB.難易度      = 1
         #│
+        #●自機共通の情報オブジェクトを生成する
+        main.DB.obj自機共通 = 自機共通生成()
+        #│
         #●自機を生成する
         main.DB.人数 = 人数確認
         位置間隔 = int(pyxel.width / (main.DB.人数 + 1))
         for tmpNo in range(main.DB.人数):
             自機登場( tmpNo, 位置間隔 * (tmpNo + 1), 140)
-        #│
-        #●自機共通の情報オブジェクトを生成する
-        main.DB.obj自機共通 = 自機共通生成()
         #│
         #●特殊効果オブジェクトを生成する
         特殊効果作成()
