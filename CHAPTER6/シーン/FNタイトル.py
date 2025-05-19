@@ -3,10 +3,10 @@
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 import  pyxel
 import  main.DB
-from    .DB         import シーンID
-from    キャラクタ  import 自機登場
-from    特殊効果	import 特殊効果作成
-from    共通		import class入力操作    as 入力
+from    .DB             import シーンID
+from    キャラクタ.自機 import 自機登場, 自機共通生成
+from    特殊効果	    import 特殊効果作成
+from    共通		    import class入力操作    as 入力
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃仕様
@@ -91,9 +91,14 @@ class 移動クラス:
         pyxel.playm(1, loop=True)
         #│
         #●自機を生成する
-        自機登場(56, 140)
-        特殊効果作成()
+#        自機登場(56, 140)
+        main.DB.人数 = 3
+        位置間隔 = int(pyxel.width / (main.DB.人数 + 1))
+        for tmpNo in range(main.DB.人数):
+            自機登場( 位置間隔 * (tmpNo + 1), 140)
 
+        main.DB.obj自機共通 = 自機共通生成()
+        特殊効果作成()
         #┴
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
