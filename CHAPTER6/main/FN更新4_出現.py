@@ -53,9 +53,14 @@ class 出現クラス:
         #◇┐出現タイミングを確認する
         if not main.DB.ボスシーン: return
         if len(main.DB.obj敵機) != 0: return
+        if len(main.DB.objアイテム) != 0: return
         #　＼（対象外の場合）
         #　 ↓
         #　 ▼処理を中断する
+        #│
+        #●特殊効果を解除(英ぞ気宇は残る)
+        main.DB.obj特殊効果.FN移動.強制解除()
+        main.DB.obj自機共通.情報.シールド = pyxel.width
         #│
         ボス    = []
         難易度  = main.DB.難易度

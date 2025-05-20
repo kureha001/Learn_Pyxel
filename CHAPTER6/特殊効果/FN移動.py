@@ -39,3 +39,12 @@ class 移動クラス:
             tmp辞書[key] = (残り時間, 値)
 
         self.個体.情報.発動中 = tmp辞書
+
+    def 強制解除(self):
+		#┬
+        #◎無期限以外のものに対し、残り時間を減らす
+        tmp辞書 = {}
+        for key, (残り時間, 値) in self.個体.情報.発動中.items():
+            if 残り時間 != 0: continue
+            tmp辞書[key] = (残り時間, 値)
+        self.個体.情報.発動中 = tmp辞書
