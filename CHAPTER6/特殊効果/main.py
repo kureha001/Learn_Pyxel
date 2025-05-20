@@ -31,7 +31,4 @@ class 本体():
         #≫処理セットを用意する
         self.FN移動 = 移動クラス(self)
         self.FN衝突 = 衝突クラス(self)
-        #│
-        #●本体で用意したインスタンスに生成
-        main.DB.obj特殊効果  = self
         #┴
