@@ -104,9 +104,9 @@ class ゲーム本体:
         #●画面に各種オブジェクトを描画する
         self.Fn描画((
                 main.DB.obj背景    ,
-                main.DB.obj自機    ,
                 main.DB.obj敵機    ,
                 main.DB.objアイテム,
+                main.DB.obj自機    ,
                 main.DB.obj弾_自機 ,
                 main.DB.obj弾_敵機 ,
                 main.DB.obj爆発    ,
@@ -114,6 +114,7 @@ class ゲーム本体:
         #│
         #〇ゲーム情報（得点／難易度）を描画する
         pyxel.text( 5, 2, f"SCORE:{ main.DB.得点        }", 7)
+        pyxel.text(40, 2, f"DBG:{ len(main.DB.obj敵機)  }", 7)
         pyxel.text(85, 2, f"LEVEL:{ main.DB.難易度      }", 7)
         #┴
 	#────────────────────────────────────	
