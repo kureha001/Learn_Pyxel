@@ -1,12 +1,11 @@
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃シーン：タイトル
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-import  pyxel
-import  main.DB
-from    .DB             import シーンID
-from    キャラクタ.自機 import 自機登場, 自機共通生成
-from    特殊効果	    import 特殊効果作成
-from    共通		    import class入力操作    as 入力
+import pyxel
+import main.DB
+from   .DB             import シーンID
+from   キャラクタ.自機 import 自機登場, 自機共通生成
+from   特殊効果	       import 特殊効果作成
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃仕様

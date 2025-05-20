@@ -1,9 +1,9 @@
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃更新機能：衝突
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-import  main.DB
-from    キャラクタ  import 機体ID
-from    共通		import class汎用 as 共通
+import main.DB
+from   キャラクタ import 機体ID
+from   共通		  import class汎用 as 共通
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃メイン

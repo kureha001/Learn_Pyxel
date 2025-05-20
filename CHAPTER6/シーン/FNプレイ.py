@@ -1,11 +1,11 @@
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃シーン：プレイ
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-import  pyxel
-import  main.DB
-from    .DB             import シーンID
-from    特殊効果        import 効果ID
-from    キャラクタ.爆発 import 爆発開始
+import pyxel
+import main.DB
+from   .DB             import シーンID
+from   特殊効果        import 効果ID
+from   キャラクタ.爆発 import 爆発開始
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃仕様

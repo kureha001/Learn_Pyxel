@@ -3,14 +3,14 @@
 #┠─────────────────────────────────────
 #┃処理（ゲーム本体）
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-import  pyxel
-import  main.DB
-from    シーン          import *
-from    背景	        import 背景作成
-from    .FN更新1_移動   import 移動クラス
-from    .FN更新2_発射   import 発射クラス
-from    .FN更新3_衝突   import 衝突クラス
-from    .FN更新4_出現   import 出現クラス
+import pyxel
+import main.DB
+from   シーン        import *
+from   背景	         import 背景作成
+from   .FN更新1_移動 import 移動クラス
+from   .FN更新2_発射 import 発射クラス
+from   .FN更新3_衝突 import 衝突クラス
+from   .FN更新4_出現 import 出現クラス
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃メイン
