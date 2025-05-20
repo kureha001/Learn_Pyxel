@@ -15,7 +15,7 @@ import  main.DB
 class 仕様:
 
     #□1つのレベルで出現させる回数
-    機雷        = 1
+    機雷        = 1.2
     弾          = 2.2
     シールド    = 0.7
     アイテム    = 1.7
@@ -44,6 +44,43 @@ class 出現クラス:
         self.Fn補充( 仕様.弾       , アイテムID.弾薬       )
         self.Fn補充( 仕様.シールド , アイテムID.シールド   )
         self.Fnアイテム()
+
+        self.Fnボス()
+        #┴
+	#────────────────────────────────────
+    def Fnボス(self):
+		#┬
+        #◇┐出現タイミングを確認する
+        if not main.DB.ボスシーン: return
+        if len(main.DB.obj敵機) != 0: return
+        if len(main.DB.objアイテム) != 0: return
+        #　＼（対象外の場合）
+        #　 ↓
+        #　 ▼処理を中断する
+        #│
+        #●特殊効果を解除(英ぞ気宇は残る)
+        main.DB.obj特殊効果.FN移動.強制解除()
+        main.DB.obj自機共通.情報.シールド = pyxel.width
+        #│
+        ボス    = []
+        難易度  = main.DB.難易度
+        for 種類ID in 敵機.ボスDB:
+
+            DBデータ = 敵機.ボスDB[ 種類ID ][0]
+            DB下限      = DBデータ[0]
+            DB上限      = (難易度) if DBデータ[1] ==0 else (DBデータ[1])
+
+            if (DB下限 <= 難易度) and (難易度 <= DB上限):
+                ボス.append(種類ID)
+
+        #●ランダムな機種で敵機を生成する
+        出現数 = len(ボス)
+        if 出現数 == 0: return
+        間隔 = int((pyxel.width - 48) / (出現数 + 1))
+        for tmp出現数 in range(出現数):
+            X座標   = 間隔 * (tmp出現数 + 1)
+            種類ID  = ボス[ tmp出現数 ]
+            敵機出現( X座標, -48, 種類ID, False, True)
         #┴
 	#────────────────────────────────────
     def Fn敵機(self):
@@ -57,7 +94,6 @@ class 出現クラス:
         #│
         #●ランダムな機種で敵機を生成する
         X座標       = pyxel.rndi(0, pyxel.width - 8)
-
         難易度      = main.DB.難易度
         確認結果    = False
         while 確認結果 == False:
