@@ -1,10 +1,10 @@
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃キャラクタ：敵機：発射機能
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-import  pyxel
-import  main.DB
-from    .DB     import 機体ID, 敵機DB,ボスDB
-from    ..弾    import 弾発射
+import pyxel
+import main.DB
+from   .DB  import 機体ID, 敵機DB, ボスDB
+from   ..弾 import 弾発射
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃仕様

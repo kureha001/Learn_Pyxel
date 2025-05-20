@@ -1,13 +1,13 @@
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃更新機能：出現
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-import  pyxel
-import  random
-from    特殊効果    import *
-from    シーン      import シーンID
-from    キャラクタ  import 敵機出現, 機体ID
-import  キャラクタ.敵機.DB as 敵機
-import  main.DB
+import pyxel
+import random
+import main.DB
+from   特殊効果   import アイテムID, アイテムDB
+from   シーン     import シーンID
+from   キャラクタ import 敵機出現, 機体ID
+import キャラクタ.敵機.DB as 敵機
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃仕様

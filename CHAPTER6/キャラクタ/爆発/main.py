@@ -1,10 +1,10 @@
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃キャラクタ：爆発　※自機・敵機で共用する
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-import  pyxel
-import  main.DB
-from    .FN移動 import 移動クラス
-from    .FN描画 import 描画クラス
+import pyxel
+import main.DB
+from   .FN移動 import 移動クラス
+from   .FN描画 import 描画クラス
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃仕様
