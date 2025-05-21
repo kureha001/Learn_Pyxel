@@ -149,7 +149,7 @@ class 描画クラス:
     def 実行(self):
 		#┬
         #〇リファレンスを用意する
-        if len(main.DB.obj自機) == 0: return
+        if not main.DB.obj自機: return
         #│＼（自機が存在しない場合）
         #│ ↓
         #│ ▼処理を中断する

@@ -65,7 +65,7 @@ class 移動クラス:
         情報 = self.基底.情報
         #│
         #○爆発状況を確認する
-        if  ( len(main.DB.obj爆発) > 0 ): return
+        if  main.DB.obj爆発: return
         #│＼（爆発中の場合）
         #│ ↓
         #│ ▼処理を中断する

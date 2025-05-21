@@ -118,7 +118,7 @@ class 発射クラス:
     def Fn発射_単発(self):
 		#┬
         #○時期の状況を確認する
-        if len(main.DB.obj自機) == 0: return
+        if not main.DB.obj自機: return
         #│＼（自機が『存在しない』の場合）
         #│ ↓
         #│ ▼処理を中断する
