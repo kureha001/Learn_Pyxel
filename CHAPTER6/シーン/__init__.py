@@ -1,8 +1,7 @@
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-#┃技術評論社 ゲームで学ぶPython！ CHAPTER6:MAGA WING
-#┃シーン・モジュール
+#┃シーン
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-from .DB          import *
-from .FNタイトル  import 本体 as タイトルクラス
-from .FNプレイ    import 本体 as プレイクラス
-from .FN終了      import 本体 as 終了クラス
+from .DB                import *
+from .タイトル画面.main   import 本体 as タイトル画面
+from .プレイ画面.main     import 本体 as プレイ画面
+from .終了画面.main       import 本体 as 終了画面
