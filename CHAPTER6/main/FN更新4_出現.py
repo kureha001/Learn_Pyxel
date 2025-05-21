@@ -59,6 +59,11 @@ class 出現クラス:
         #○ボスシーンを『ボス対戦』に進行する
         main.DB.ボスシーン = シーンID.ボス対決
         #│
+        #●キャラクタを消滅する
+        main.DB.Fnキャラクタ壊滅(main.DB.obj敵機    )
+        main.DB.Fnキャラクタ壊滅(main.DB.objアイテム)
+        main.DB.Fnキャラクタ壊滅(main.DB.obj弾_敵機 )
+        #│
         #●特殊効果を解除(永続は残る)
         main.DB.obj特殊効果.FN移動.強制解除()
         main.DB.obj自機共通.情報.シールド = pyxel.width
