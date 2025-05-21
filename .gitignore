@@ -7,15 +7,22 @@ CHAPTER5/演出/__pycache__/
 CHAPTER5/共通/__pycache__/
 CHAPTER5/キャラクタ/__pycache__/
 
+CHAPTER6/build/
 CHAPTER6/__pycache__/
+
 CHAPTER6/main/__pycache__/
+
 CHAPTER6/キャラクタ/
 CHAPTER6/キャラクタ/自機/__pycache__/
 CHAPTER6/キャラクタ/敵機/__pycache__/
 CHAPTER6/キャラクタ/弾/__pycache__/
 CHAPTER6/キャラクタ/爆発/__pycache__/
+
 CHAPTER6/シーン/__pycache__/
+CHAPTER6/シーン/プレイ画面/__pycache__/
+CHAPTER6/シーン/タイトル画面/__pycache__/
+CHAPTER6/シーン/終了画面/__pycache__/
+
 CHAPTER6/背景/__pycache__/
 CHAPTER6/特殊効果/__pycache__/
 CHAPTER6/共通/__pycache__/
-CHAPTER6/build/
