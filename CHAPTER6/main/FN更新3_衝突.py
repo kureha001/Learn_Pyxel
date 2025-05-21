@@ -174,13 +174,12 @@ class 衝突クラス:
             arg相手     ):  #③ 相手のオブジェクト(敵機,弾)
 		#┬
         #○条件を確認する
-        if arg相手.仕様.アイテム区分: return
-        if arg相手.仕様.ボス区分: return
-        if arg相手.仕様.種類ID != 機体ID.機雷:
+        if arg相手.仕様.アイテム区分            : return False
+        if arg相手.仕様.ボス区分                : return False
+        if arg相手.仕様.種類ID != 機体ID.機雷   : return False
         #│＼（相手が機雷ではない場合）
         #│ ↓
         #│ ▼『空振り』を返す
-            return False
         #│
         #◇┐起爆するを消滅する
         if arg手段区分:
@@ -240,7 +239,7 @@ class 衝突クラス:
             #●自機にダメージ(体当たり)を与える
             #●相手にダメージ(体当たり)を与える
             arg自分.FN衝突.実行( arg相手.FN衝突.仕様.威力 )
-            arg相手.FN衝突.実行( main.DB.obj自機共通.仕様.衝突の威力 )
+            arg相手.FN衝突.実行( main.DB.obj自機共通.仕様.威力_体当たり )
             #┴ 
         else:
         #　└┐（その他）
