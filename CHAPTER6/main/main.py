@@ -5,10 +5,10 @@
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 import pyxel
 import main.DB
-from   シーン        import *
-from   背景	         import 背景作成
-from   .更新処理     import 更新処理
-from   .描画処理     import 描画処理
+from   シーン    import *
+from   背景	     import 背景作成
+from   .更新処理 import 更新処理
+from   .描画処理 import 描画処理
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃メイン
@@ -18,7 +18,7 @@ class 本体:
     #│初期化
     #└───────────────────────────────────
     def __init__(self):
-		#┬
+        #┬
         #○Pyxel(画面/音楽)を初期化する
         self.初期化_リソース()
         #│
@@ -30,17 +30,17 @@ class 本体:
         #│
         #○フレーム処理に、処理セットを登録する
         pyxel.run(self.FN更新処理.実行, self.FN描画処理.実行)
-		#┴
+        #┴
 	#────────────────────────────────────	
     def 初期化_リソース(self):
-		#┬
-		#○画面を初期化する
+        #┬
+        #○画面を初期化する
         pyxel.init(120, 160, title="Mega Wing  Ver.2025/05/03-02")
-		#│
-		#○リソースファイルを読み込む
+        #│
+        #○リソースファイルを読み込む
         pyxel.load("../リソース/改造版.pyxres")
-		#│
-		#○Soundデータを登録する
+        #│
+        #○Soundデータを登録する
         pyxel.sounds[50].mml(
                 "t100 @1 o2 q7 v7 l4" +
                 "l8d4a4g2.fed4c<b->c<a>e4d1.a4>" +
@@ -52,13 +52,13 @@ class 本体:
                 "<dafadbgbdbgbdb-g+b-c" +
                 "+aeadaeac+aea<b>ac+adafadbgbd>c" +
                 "<a>c<db-fb-e>c<a>c<daf+adaf+adaf+a" )
-		#│
-		#○Musicデータを登録する
+        #│
+        #○Musicデータを登録する
         pyxel.musics[7].set([50],[51])
-		#┴
+        #┴
 	#────────────────────────────────────	
     def 初期化_処理セット(self):
-		#┬
+        #┬
         #≫更新処理をオブジェクト化する
         self.FN更新処理 = 更新処理()
         #│
