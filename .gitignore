@@ -11,6 +11,12 @@ CHAPTER6/build/
 CHAPTER6/__pycache__/
 
 CHAPTER6/main/__pycache__/
+CHAPTER6/main/更新処理/__pycache__/
+CHAPTER6/main/更新処理/FN移動/__pycache__/
+CHAPTER6/main/更新処理/FN衝突/__pycache__/
+CHAPTER6/main/更新処理/FN発射/__pycache__/
+CHAPTER6/main/更新処理/FN出現/__pycache__/
+CHAPTER6/main/描画処理/__pycache__/
 
 CHAPTER6/キャラクタ/
 CHAPTER6/キャラクタ/自機/__pycache__/
@@ -25,4 +31,5 @@ CHAPTER6/シーン/終了画面/__pycache__/
 
 CHAPTER6/背景/__pycache__/
 CHAPTER6/特殊効果/__pycache__/
+
 CHAPTER6/共通/__pycache__/
