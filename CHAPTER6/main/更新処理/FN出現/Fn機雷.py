@@ -19,7 +19,7 @@ def Fn機雷(引数_間隔):
     #│ ▼処理を中断する
     #│
     #●機雷を生成する
-    X座標   = pyxel.rndi(0, pyxel.width - 8)
+    X座標   = pyxel.rndi(0, pyxel.width - main.DB.キャラ幅.通常)
     種類ID  = 機体ID.機雷
     敵機出現(X座標, -8, 種類ID, False)
     #┴

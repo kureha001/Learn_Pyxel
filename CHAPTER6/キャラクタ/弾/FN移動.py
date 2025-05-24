@@ -2,6 +2,7 @@
 #┃キャラクタ：弾：移動機能
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 import pyxel
+import main.DB
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃仕様
@@ -58,8 +59,9 @@ class 移動クラス:
     def Fn場外(self):
         #┬
         #●座標を確認する
-        確認X = (self._情報.X > -8 and self._情報.X < pyxel.width   )
-        確認Y = (self._情報.Y > -8 and self._情報.Y < pyxel.height  )
+        キャラ幅 = main.DB.キャラ幅.通常
+        確認X = (self._情報.X > -キャラ幅 and self._情報.X < pyxel.width   )
+        確認Y = (self._情報.Y < pyxel.height)
         if 確認X and 確認Y: return
         #│＼（画面内の場合）
         #│ ↓

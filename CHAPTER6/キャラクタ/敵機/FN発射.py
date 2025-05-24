@@ -123,8 +123,10 @@ class 発射クラス:
         #│ ↓
         #│ ▼処理を中断する
         #│
-        x1 = self._情報.X + self._仕様.オフセット
-        y1 = self._情報.Y + self._仕様.オフセット
+        d = (main.DB.キャラ幅.ボス - main.DB.キャラ幅.通常) if self._仕様.ボス区分 else (0)
+        d = d // 2
+        x1 = self._情報.X + d
+        y1 = self._情報.Y + d
         #│
         #◎└┐自機に向けて発射する
         for tmp自機 in main.DB.obj自機:
@@ -151,8 +153,10 @@ class 発射クラス:
     def Fn発射_複数発(self):
         #┬
         #○基本情報を用意する
-        x1 = self._情報.X + self._仕様.オフセット
-        y1 = self._情報.Y + self._仕様.オフセット
+        d = (main.DB.キャラ幅.ボス - main.DB.キャラ幅.通常) if self._仕様.ボス区分 else (0)
+        d = d // 2
+        x1 = self._情報.X + d
+        y1 = self._情報.Y + d
         分割角度 = 360 / self.仕様.弾数
         #│
         #◎└┐多方向に発射する

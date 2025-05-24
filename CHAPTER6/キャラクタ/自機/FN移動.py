@@ -98,7 +98,7 @@ class 移動クラス:
         #│
         #○画面内に収めるよう補正する
         x = max(x, 0)
-        x= min(x, pyxel.width  - 8)
+        x= min(x, pyxel.width - main.DB.キャラ幅.通常)
         y = max(y, 10) 
         y = min(y, pyxel.height - 20)
         #│

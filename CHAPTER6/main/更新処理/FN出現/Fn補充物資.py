@@ -30,6 +30,6 @@ def Fn補充物資(
     #│ ▼処理を中断する
     #│
     #●補給アイテムを生成する
-    X座標 = pyxel.rndi(0, pyxel.width - 8)
+    X座標 = pyxel.rndi(0, pyxel.width - main.DB.キャラ幅.通常)
     敵機出現(X座標, -8, 引数_アイテムID, True)
     #┴
