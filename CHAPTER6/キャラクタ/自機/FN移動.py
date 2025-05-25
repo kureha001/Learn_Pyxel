@@ -4,7 +4,7 @@
 import pyxel
 import main.DB
 from   特殊効果 import 効果ID
-from   共通     import class入力操作 as 入力 
+from   共通部品 import class入力操作 as 入力 
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃メイン
