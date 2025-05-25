@@ -4,7 +4,7 @@
 import pyxel
 import main.DB
 from   特殊効果 import 効果ID
-from   ..弾     import 弾発射
+from   ..弾     import 弾生成
 from   共通	    import class入力操作 as 入力 
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -132,12 +132,12 @@ class 発射クラス:
             argオフセットX,
             argオフセットY):
         #┬
-        #○弾を生成する
+        #≫弾を生成する
         x = self._情報.X + argオフセットX
         y = self._情報.Y + argオフセットY
         徹甲弾区分 = 効果ID.貫通弾 in self.特情.発動中
         威力 = self.共仕.威力_弾
-        弾発射( main.DB.所有者ID.自機, x, y, -90, 5, 徹甲弾区分, 威力 )
+        弾生成( main.DB.所有者ID.自機, x, y, -90, 5, 徹甲弾区分, 威力 )
         #│
         #○発射音を鳴らす
         pyxel.play(3, 0)

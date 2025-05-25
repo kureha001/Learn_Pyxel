@@ -4,7 +4,7 @@
 import pyxel
 import main.DB
 from   ..DB            import シーンID
-from   キャラクタ.爆発 import 爆発開始
+from   キャラクタ.爆発 import 爆発生成
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃データセット：仕様
@@ -101,10 +101,10 @@ class 移動クラス:
         main.DB.ボスシーン = シーンID.ボス登場
         #│
         #●アイテム以外のキャラクタを消滅する
-        main.DB.Fnキャラクタ壊滅(main.DB.obj敵機    )
-        main.DB.Fnキャラクタ壊滅(main.DB.objアイテム)
-        main.DB.Fnキャラクタ壊滅(main.DB.obj弾_自機 )
-        main.DB.Fnキャラクタ壊滅(main.DB.obj弾_敵機 )
+        main.DB.Fnキャラ壊滅(main.DB.obj敵機    )
+        main.DB.Fnキャラ壊滅(main.DB.objアイテム)
+        main.DB.Fnキャラ壊滅(main.DB.obj弾_自機 )
+        main.DB.Fnキャラ壊滅(main.DB.obj弾_敵機 )
         #│
         #●特殊効果を解除(永続は残す)
         main.DB.obj特殊効果.FN移動.強制解除()
@@ -138,7 +138,7 @@ class 移動クラス:
                 xr = pyxel.rndi(-10,10)
                 yr = pyxel.rndi(-10,10)
                 r = pyxel.rndi(5,9)
-                爆発開始(所有者, x+xr, y+yr, r)
+                爆発生成(所有者, x+xr, y+yr, r)
             #┴　┴
         #│
         #○自機を消滅する ※弾が残る場合を考慮し、特殊効果・自機共通は残す
