@@ -86,5 +86,5 @@ class 移動クラス:
         #│ ＼（最大半径を超えた場合）
             #↓
             #○この個体を削除する
-            main.DB.obj爆発.remove(self._個体)
+            if self._個体 in main.DB.obj爆発: main.DB.obj爆発.remove(self._個体)
         #┴ ┴

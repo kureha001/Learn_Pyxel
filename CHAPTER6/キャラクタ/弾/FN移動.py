@@ -63,8 +63,8 @@ class 移動クラス:
         #┬
         #●座標を確認する
         キャラ幅 = main.DB.キャラ幅.通常
-        確認X = (self._情報.X > -キャラ幅 and self._情報.X < pyxel.width   )
-        確認Y = (self._情報.Y < pyxel.height)
+        確認X = ((self._情報.X > -キャラ幅) and (self._情報.X < pyxel.width))
+        確認Y = ((self._情報.Y > -キャラ幅) and (self._情報.Y < pyxel.height))
         if 確認X and 確認Y: return
         #│＼（画面内の場合）
         #│ ↓
