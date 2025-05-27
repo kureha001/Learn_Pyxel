@@ -104,5 +104,5 @@ class 移動クラス:
         #　└┐（その他）
             #↓
             #●この個体を削除する
-            self._仕様.格納先.remove(self._個体)
+            if self._個体 in self._仕様.格納先: self._仕様.格納先.remove(self._個体)
         #┴　┴
