@@ -27,15 +27,7 @@ class 描画クラス:
         pyxel.text(27, 106, 描画文字, 5)
         pyxel.text(26, 105, 描画文字, 7)
 
-        描画文字 = "Hit Any"
-        pyxel.text(11, 125, 描画文字, 5)
-        pyxel.text(10, 124, 描画文字, 7)
-
-        描画文字 = "Key    [1] or [2]"
-        pyxel.text(46, 121, 描画文字, 8)
-        pyxel.text(45, 120, 描画文字, 7)
-
-        描画文字 = "Button [A] or [B]"
-        pyxel.text(46, 129, 描画文字, 8)
-        pyxel.text(45, 128, 描画文字, 7)
+        描画文字 = "Hit Any Key [1] or [2]"
+        pyxel.text(18, 125, 描画文字, 8)
+        pyxel.text(17, 124, 描画文字, 7)
         #┴
