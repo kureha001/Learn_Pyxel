@@ -6,7 +6,7 @@
 #┃※シールドが切れた際、オブジェクトを削除する
 #┃※爆発オブジェクトを生成する直接のトリガとなる
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-import pyxel
+import random
 import main.DB
 from   ..爆発 import 爆発生成
 
@@ -107,9 +107,9 @@ class 衝突クラス:
                 #│ ▼繰り返し処理を抜ける
                 #│
                 #≫ランダムな位置・大きさで爆発する
-                xr = pyxel.rndi(-22,22)
-                yr = pyxel.rndi(-22,22)
-                r = pyxel.rndi(6,12)
+                xr = random.randint(-22,22)
+                yr = random.randint(-22,22)
+                r = random.randint(6,12)
                 self.Fn爆発(r, xr, yr)
             #┴　┴
         else: self.Fn爆発(8)
