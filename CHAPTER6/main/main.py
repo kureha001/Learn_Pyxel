@@ -38,7 +38,7 @@ class 本体:
     def 初期化_リソース(self):
         #┬
         #○画面を初期化する
-        pyxel.init(120, 160, title="Mega Wing  Ver.2025/05/03-02")
+        pyxel.init(main.DB.画面幅,main.DB.画面高, title="Mega Wing  Ver.2025/05/03-02")
         #│
         #○リソースファイルを読み込む
         pyxel.load("../リソース/改造版.pyxres")

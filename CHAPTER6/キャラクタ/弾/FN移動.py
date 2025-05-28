@@ -5,7 +5,7 @@
 #┃・下位にデータセット･クラス(仕様)を持つ
 #┃※画面外に移動した際、オブジェクトを削除する
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-import pyxel
+import pyxel # 三角関数を利用
 import main.DB
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -63,8 +63,8 @@ class 移動クラス:
         #┬
         #●座標を確認する
         キャラ幅 = main.DB.キャラ幅.通常
-        確認X = ((self._情報.X > -キャラ幅) and (self._情報.X < pyxel.width))
-        確認Y = ((self._情報.Y > -キャラ幅) and (self._情報.Y < pyxel.height))
+        確認X = ((self._情報.X > -キャラ幅) and (self._情報.X < main.DB.画面幅))
+        確認Y = ((self._情報.Y > -キャラ幅) and (self._情報.Y < main.DB.画面高))
         if 確認X and 確認Y: return
         #│＼（画面内の場合）
         #│ ↓

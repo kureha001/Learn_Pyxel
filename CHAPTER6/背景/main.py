@@ -5,7 +5,8 @@
 #┃・下位にデータセット･クラス(仕様｜情報)を持つ
 #┃・下位に機能クラス(移動｜描画)をもつ
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-import pyxel
+import pyxel #ランダム関数を利用
+import main.DB
 from   .FN移動 import 移動クラス
 from   .FN描画 import 描画クラス
 
@@ -33,8 +34,8 @@ class 情報クラス:
             #│ ▼繰り返し処理を抜ける
             #│
             #○位置をセットする
-            座標X = pyxel.rndi(0, pyxel.width  - 1  )  
-            座標Y = pyxel.rndi(0, pyxel.height - 1  )  
+            座標X = pyxel.rndi(0, main.DB.画面幅  - 1  )  
+            座標Y = pyxel.rndi(0, main.DB.画面高 - 1  )  
             #│
             #○速度をセットする
             速度Y = pyxel.rndf(0.5, 0.8             ) 

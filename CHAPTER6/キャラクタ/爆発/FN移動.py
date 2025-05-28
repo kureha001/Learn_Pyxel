@@ -6,7 +6,7 @@
 #┃※画面外に移動した際、オブジェクトを削除する
 #┃※最大サイズに達した際、オブジェクトを削除する
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-import pyxel
+import pyxel #フレームカウント参照に仕様
 import main.DB
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -62,8 +62,8 @@ class 移動クラス:
         x = self._情報.X
         y = self._情報.Y
         r = self.仕様.最大半径
-        確認X = (x < -r or x > r + pyxel.width  )
-        確認Y = (y < -r or y > r + pyxel.height )
+        確認X = (x < -r or x > r + main.DB.画面幅  )
+        確認Y = (y < -r or y > r + main.DB.画面高 )
         if 確認X or 確認Y:
         #│ ＼（画面内の場合）
             #↓

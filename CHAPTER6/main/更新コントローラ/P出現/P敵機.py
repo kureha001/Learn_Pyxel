@@ -3,10 +3,10 @@
 #┠─────────────────────────────────────
 #┃敵機オブジェクトのアクション・メソッドで通常敵を出現させる。
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-import pyxel
+import pyxel #ランダム関数を利用
 import random
 import main.DB
-from   キャラクタ import 敵機生成, 機体ID
+from   キャラクタ import 敵機生成
 import キャラクタ.敵機.DB as 敵機
 
 #┌───────────────────────────────────
@@ -36,7 +36,7 @@ def Pアクション_敵機():
     種類ID = random.choice( 一覧[0] )
     #│
     #≫アクション・メソッドで敵機を生成する
-    X座標 = pyxel.rndi(0, pyxel.width - main.DB.キャラ幅.通常)
+    X座標 = pyxel.rndi(0, main.DB.画面幅 - main.DB.キャラ幅.通常)
     Y座標 = main.DB.キャラ幅.通常 * -2
     敵機生成( X座標,Y座標, 種類ID, False)
     #┴

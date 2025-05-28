@@ -4,7 +4,7 @@
 #┃更新コントローラが移動プロセスで実行するアクション・メソッド
 #┃・下位にデータセット･クラス(仕様｜情報)を持つ
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-import pyxel
+import pyxel # フレームカウントの参照、ランダム関数で利用
 import main.DB
 from   ..DB            import シーンID
 from   キャラクタ.爆発 import 爆発生成
@@ -119,7 +119,7 @@ class 移動クラス:
             #〇シールドを満タンにする
             #〇弾を満タンにする
             main.DB.obj特殊効果.FN移動.強制解除()
-            main.DB.obj自機共通.情報.シールド = pyxel.width
+            main.DB.obj自機共通.情報.シールド = main.DB.画面幅
             main.DB.obj自機共通.情報.弾数 = main.DB.obj自機共通.仕様.積載量
             #┴
         elif main.DB.ボスシーン == シーンID.ボス対決:
@@ -134,7 +134,7 @@ class 移動クラス:
                 #│
                 #〇シールドを満タンにする
                 #〇弾を満タンにする
-                main.DB.obj自機共通.情報.シールド = pyxel.width
+                main.DB.obj自機共通.情報.シールド = main.DB.画面幅
                 main.DB.obj自機共通.情報.弾数 = main.DB.obj自機共通.仕様.積載量
             #　└┐（その他）
             #┴　┴
