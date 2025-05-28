@@ -3,6 +3,7 @@
 #┠─────────────────────────────────────
 #┃アイテム・オブジェクトのアクション・メソッドで特殊効果を出現させる
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+import pyxel #ランダム関数を利用
 import random
 import main.DB
 from   特殊効果   import アイテムDB
@@ -25,7 +26,7 @@ def Pアクション_特殊(引数_間隔):
     if アイテムID is None: return
     #│
     #≫アクション・メソッドでアイテム(特殊効果)を生成する
-    X座標 = random.randint(0, main.DB.画面幅 - main.DB.キャラ幅.通常)
+    X座標 = pyxel.rndi(0, main.DB.画面幅 - main.DB.キャラ幅.通常)
     敵機生成(X座標, -8, アイテムID, True)
     #┴
 

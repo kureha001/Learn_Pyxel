@@ -4,8 +4,7 @@
 #┃更新コントローラが移動プロセスで実行するアクション・メソッド
 #┃・下位にデータセット･クラス(仕様｜情報)を持つ
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-import pyxel # フレームカウントの参照で利用
-import random
+import pyxel # フレームカウントの参照、ランダム関数で利用
 import main.DB
 from   ..DB            import シーンID
 from   キャラクタ.爆発 import 爆発生成
@@ -165,9 +164,9 @@ class 移動クラス:
                 #│ ▼繰り返し処理を抜ける
                 #│
                 #○用意した座標周辺にランダムな位置・大きさで爆発する
-                xr = random.randint(-10,10)
-                yr = random.randint(-10,10)
-                r = random.randint(5,9)
+                xr = pyxel.rndi(-10,10)
+                yr = pyxel.rndi(-10,10)
+                r = pyxel.rndi(5,9)
                 爆発生成(x+xr, y+yr, r)
             #┴　┴
         #│
