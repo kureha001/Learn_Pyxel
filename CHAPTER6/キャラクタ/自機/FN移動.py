@@ -4,7 +4,6 @@
 #┃更新コントローラが移動プロセスで実行するアクション・メソッド
 #┃・下位にデータセット･クラス(仕様)を持つ
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-import pyxel
 import main.DB
 from   特殊効果 import 効果ID
 from   共通部品 import class入力操作 as 入力 
@@ -97,9 +96,9 @@ class 移動クラス:
         #│
         #○画面内に収めるよう補正する
         x = max(x, 0)
-        x= min(x, pyxel.width - main.DB.キャラ幅.通常)
+        x= min(x, main.DB.画面幅 - main.DB.キャラ幅.通常)
         y = max(y, 10) 
-        y = min(y, pyxel.height - 20)
+        y = min(y, main.DB.画面高 - 20)
         #│
         #○補正予定の座標で確定する
         self._情報.X = x

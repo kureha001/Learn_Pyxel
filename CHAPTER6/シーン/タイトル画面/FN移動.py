@@ -60,7 +60,7 @@ class 移動クラス:
         #│
         #◎└┐人数分の自機を登場する
         main.DB.人数 = 引数_プレイヤー数
-        位置間隔 = int(pyxel.width / (main.DB.人数 + 1))
+        位置間隔 = int(main.DB.画面幅 / (main.DB.人数 + 1))
         for tmpNo in range(main.DB.人数):
             #│＼（すべての処理を終えた場合）
             #│ ↓

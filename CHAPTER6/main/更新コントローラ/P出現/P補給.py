@@ -31,6 +31,6 @@ def Pアクション_補給(
     #│ ▼処理を中断する
     #│
     #≫アクション・メソッドでアイテム(給物資)を生成する
-    X座標 = pyxel.rndi(0, pyxel.width - main.DB.キャラ幅.通常)
+    X座標 = pyxel.rndi(0, main.DB.画面幅 - main.DB.キャラ幅.通常)
     敵機生成(X座標, -8, 引数_アイテムID, True)
     #┴
