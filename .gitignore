@@ -18,7 +18,7 @@ CHAPTER6/main/更新コントローラ/P発射/__pycache__/
 CHAPTER6/main/更新コントローラ/P出現/__pycache__/
 CHAPTER6/main/描画コントローラ/__pycache__/
 
-CHAPTER6/キャラクタ/
+CHAPTER6/キャラクタ/__pycache__/
 CHAPTER6/キャラクタ/自機/__pycache__/
 CHAPTER6/キャラクタ/敵機/__pycache__/
 CHAPTER6/キャラクタ/弾/__pycache__/
@@ -31,5 +31,4 @@ CHAPTER6/シーン/終了画面/__pycache__/
 
 CHAPTER6/背景/__pycache__/
 CHAPTER6/特殊効果/__pycache__/
-
 CHAPTER6/共通部品/__pycache__/
