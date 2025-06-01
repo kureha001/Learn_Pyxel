@@ -40,11 +40,11 @@ class 本体:
                 main.DB.obj弾_自機 ,
                 main.DB.obj弾_敵機 ,
                 main.DB.obj爆発    ,
-                main.DB.FNシーン[ main.DB.シーン]))
+                main.DB.FNシーン[ main.DB.ゲーム.シーン]))
         #│
         #〇ゲーム情報（得点／難易度）を描画する
-        pyxel.text( 5, 2, f"SCORE:{ main.DB.得点   }", 7)
-        pyxel.text(82, 2, f"LEVEL:{ main.DB.難易度 }", 7)
+        pyxel.text( 5, 2, f"SCORE:{ main.DB.ゲーム.得点   }", 7)
+        pyxel.text(82, 2, f"LEVEL:{ main.DB.ゲーム.難易度 }", 7)
         #┴
 
     #│機能実行

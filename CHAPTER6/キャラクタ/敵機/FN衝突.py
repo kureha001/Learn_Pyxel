@@ -87,7 +87,7 @@ class 衝突クラス:
             self.Fn爆破()
             #│
             #○スコアを加算する
-            main.DB.得点 += self.仕様.点数
+            main.DB.ゲーム.得点 += self.仕様.点数
             #│
             #●格納先から削除する
             if self._個体 in self._仕様.格納先: self._仕様.格納先.remove(self._個体)

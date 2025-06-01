@@ -24,7 +24,7 @@ class 本体:
                 main.DB.obj弾_自機    ,
                 main.DB.obj弾_敵機    ,
                 main.DB.obj爆発       ,
-                main.DB.FNシーン[ main.DB.シーン ]))
+                main.DB.FNシーン[ main.DB.ゲーム.シーン ]))
         #┴ 
 
 #┌───────────────────────────────────

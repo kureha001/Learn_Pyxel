@@ -15,7 +15,7 @@ from   キャラクタ import 敵機生成
 def Pアクション_特殊(引数_間隔):
     #┬
     #〇出現タイミングを確認する
-    タイミング判定  = (main.DB.プレイ時間 % 引数_間隔 == 0)
+    タイミング判定  = (main.DB.ゲーム.プレイ時間 % 引数_間隔 == 0)
     if not タイミング判定: return
     #│＼（出現時間が未到来の場合）
     #│ ↓
@@ -50,7 +50,7 @@ def act特殊_選定():
         DBデータ    = DBレコード[2][1]
         #│
         #〇属性を確認する
-        if DB出現条件 > main.DB.難易度 or DB持続性 == 永続ID    : continue
+        if DB出現条件 > main.DB.ゲーム.難易度 or DB持続性 == 永続ID: continue
         #│＼（難易度制限が不一致 or 使い切り の場合）
         #│ ↓
         #│ ▼処理を中断する
@@ -60,13 +60,13 @@ def act特殊_選定():
         #　├┐（効果が永続する場合）
             #↓
             #〇アイテムDBの上限設定を確認する
-            if DBデータ is None                                 : continue
+            if DBデータ is None: continue
             #│＼（空の場合）
             #│ ↓
             #│ ▼次をサーチする
             #│
             #〇アイテムDBの上限設定を確認する
-            if not isinstance(DBデータ, tuple)                  : continue
+            if not isinstance(DBデータ, tuple): continue
             #│＼（上限設定が無い場合）
             #│ ↓
             #│ ▼次をサーチする
@@ -79,7 +79,7 @@ def act特殊_選定():
             #〇属性を確認する
             chk上限付   = isinstance(登録済データ[1], (int, float))
             chk上限到達 = 登録済データ[1] >= 上限値
-            if chk上限付 and chk上限到達                        : continue 
+            if chk上限付 and chk上限到達: continue 
             #│＼（上限に足している場合）
             #│ ↓
             #│ ▼次をサーチする
