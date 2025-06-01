@@ -6,12 +6,12 @@
 #┃・下位に機能クラス(移動｜衝突｜発射｜描画)をもつ
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 import pyxel # ランダム関数を利用
-import main.DB
-from   .DB     import 機体ID, 敵機DB, ボスDB
-from   .FN移動 import 移動クラス
-from   .FN衝突 import 衝突クラス
-from   .FN発射 import 発射クラス
-from   .FN描画 import 描画クラス
+import  main.DB
+from   .DB      import 機体ID, 敵機DB, ボスDB
+from   .FN移動  import 移動クラス
+from   .FN衝突  import 衝突クラス
+from   .FN発射  import 発射クラス
+from   .FN描画  import 描画クラス
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃データセット：仕様
@@ -53,16 +53,16 @@ class 仕様クラス:
 
         #□衝突範囲
         if self.アイテム区分:
-            ゆとり = 0
-            幅 = main.DB.キャラ幅.通常 - 1
+            ゆとり  = 0
+            幅      = main.DB.仕様.キャラ幅.通常 - 1
             #┴
         elif self.ボス区分:
-            ゆとり = main.DB.キャラ幅.ボス // 3
-            幅 = main.DB.キャラ幅.ボス
+            ゆとり  = main.DB.仕様.キャラ幅.ボス // 3
+            幅      = main.DB.仕様.キャラ幅.ボス
             #┴
         else:
             ゆとり = 1
-            幅 = main.DB.キャラ幅.通常 - 1
+            幅      = main.DB.仕様.キャラ幅.通常 - 1
         self.衝突範囲 = (0+ゆとり,0+ゆとり, 幅-ゆとり,幅-ゆとり)
         #┴
 

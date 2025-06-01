@@ -3,11 +3,11 @@
 #┠─────────────────────────────────────
 #┃更新コントローラが発射プロセスで実行するアクション・メソッド
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-import pyxel #フレームカウント参照に仕様
-import main.DB
-from   特殊効果 import 効果ID
-from   ..弾     import 弾生成
-from   共通部品	import class入力操作 as 入力 
+import  pyxel #フレームカウント参照に仕様
+import  main.DB
+from    特殊効果    import 効果ID
+from    ..弾        import 弾生成
+from    共通部品    import class入力操作 as 入力 
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃メイン
@@ -53,7 +53,7 @@ class 発射クラス:
         self.Fn発射()
         #│
         #○弾を減らす
-        self.共情.弾数 -= (1) if main.DB.人数 == 0 else (0.85)
+        self.共情.弾数 -= (1) if main.DB.情報.人数 == 0 else (0.85)
         #│
         #○発射可能までの時間をリセットする
         self.共情.発射制限 = self.共仕.発射間隔
@@ -100,7 +100,7 @@ class 発射クラス:
     def Fn発射(self):
         #┬
         #○基本情報を用意する
-        所有者      = main.DB.所有者ID.自機
+        所有者      = main.仕様.所有者ID.自機
         x           = self._情報.X 
         y           = self._情報.Y
         威力        = self.共仕.威力_弾

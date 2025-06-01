@@ -4,9 +4,9 @@
 #┃更新コントローラが発射プロセスで実行するアクション・メソッド
 #┃・下位にデータセット･クラス(仕様)を持つ
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-import pyxel # 逆三角関数で利用 ※Python.mathの透過処理が不明
-import main.DB
-from   ..弾 import 弾生成
+import  pyxel # 逆三角関数で利用 ※Python.mathの透過処理が不明
+import  main.DB
+from    ..弾    import 弾生成
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃仕様
@@ -52,7 +52,7 @@ class 発射クラス:
     def 実行(self):
         #┬
         #◇┐ボスの狙い撃ちを発射する
-        発射間隔 = max(17 - int(main.DB.ゲーム.難易度/2), 10)
+        発射間隔 = max(17 - int(main.DB.情報.難易度/2), 10)
         if self._仕様.ボス区分 and not self.Fn発射禁止( 発射間隔 ):
         #　├┐（ボスで発射タイミングの場合）
             #↓
@@ -115,8 +115,8 @@ class 発射クラス:
         #│ ↓
         #│ ▼処理を中断する
         #│
-        所有者 = main.DB.所有者ID.敵機
-        d = (main.DB.キャラ幅.ボス - main.DB.キャラ幅.通常) if self._仕様.ボス区分 else (0)
+        所有者 = main.DB.仕様.所有者ID.敵機
+        d = (main.DB.仕様.キャラ幅.ボス - main.DB.仕様.キャラ幅.通常) if self._仕様.ボス区分 else (0)
         d = d // 2
         x1 = self._情報.X + d
         y1 = self._情報.Y + d
@@ -142,7 +142,7 @@ class 発射クラス:
     def Fn発射_複数発(self):
         #┬
         #○基本情報を用意する
-        d = (main.DB.キャラ幅.ボス - main.DB.キャラ幅.通常) if self._仕様.ボス区分 else (0)
+        d = (main.DB.仕様.キャラ幅.ボス - main.DB.仕様.キャラ幅.通常) if self._仕様.ボス区分 else (0)
         d = d // 2
         x1 = self._情報.X + d
         y1 = self._情報.Y + d
@@ -158,7 +158,7 @@ class 発射クラス:
             発射角度 = tmp弾数 * 分割角度 - self.仕様.角度
             #│
             #≫弾を生成する
-            所有者 = main.DB.所有者ID.敵機
+            所有者 = main.DB.仕様.所有者ID.敵機
             弾生成(
                     所有者          ,
                     x1, y1          ,

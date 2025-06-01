@@ -4,10 +4,10 @@
 #┃移動プロセス➡発射プロセス➡衝突プロセス➡出現プロセスの順に
 #┃実行する
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-from   .P移動 import P移動生成
-from   .P発射 import P発射生成
-from   .P衝突 import P衝突生成
-from   .P出現 import P出現生成
+from .P移動 import P移動生成
+from .P発射 import P発射生成
+from .P衝突 import P衝突生成
+from .P出現 import P出現生成
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃メイン
