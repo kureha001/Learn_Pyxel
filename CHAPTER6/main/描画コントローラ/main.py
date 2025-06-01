@@ -5,7 +5,6 @@
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 import  pyxel # 画面消去、テキスト描画に利用
 import  main.DB 
-from    main.DB import 情報 
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃メイン
@@ -34,11 +33,11 @@ class 本体:
                 main.DB.obj弾_自機 ,
                 main.DB.obj弾_敵機 ,
                 main.DB.obj爆発    ,
-                main.DB.objシーン[ 情報.シーン]))
+                main.DB.objシーン[ main.DB.情報.シーン]))
         #│
         #〇ゲーム情報（得点／難易度）を描画する
-        pyxel.text( 5, 2, f"SCORE:{ 情報.得点   }", 7)
-        pyxel.text(82, 2, f"LEVEL:{ 情報.難易度 }", 7)
+        pyxel.text( 5, 2, f"SCORE:{ main.DB.情報.得点   }", 7)
+        pyxel.text(82, 2, f"LEVEL:{ main.DB.情報.難易度 }", 7)
         #┴
 
     #│機能実行

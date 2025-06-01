@@ -7,7 +7,7 @@ import  pyxel #フレームカウント参照に仕様
 import  main.DB
 from    特殊効果    import 効果ID
 from    ..弾        import 弾生成
-from    共通部品    import class入力操作 as 入力 
+from    汎用部品    import 入力操作 
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃メイン
@@ -65,9 +65,9 @@ class 発射クラス:
     def Fn可否確認(self): #【戻り値】 True:不許可／False：許可
         #┬
         #●発射指示を確認する
-        結果 = 入力.Fun走査(
-            入力.IDボタン_キー[self._仕様.番号]  ,
-            入力.IDボタン_パッド[self._仕様.番号])
+        結果 = 入力操作.走査(
+            入力操作.IDボタン_キー[self._仕様.番号]  ,
+            入力操作.IDボタン_パッド[self._仕様.番号])
         #│
         #●発射方法を求める
         発射法 = (1) if 効果ID.連射 in self.特情.発動中 else (-1)

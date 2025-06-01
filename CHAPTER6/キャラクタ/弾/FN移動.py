@@ -63,8 +63,8 @@ class 移動クラス:
         #┬
         #●座標を確認する
         キャラ幅 = main.DB.仕様.キャラ幅.通常
-        確認X = ((self._情報.X > -キャラ幅) and (self._情報.X < main.DB.仕様.環境.画面幅))
-        確認Y = ((self._情報.Y > -キャラ幅) and (self._情報.Y < main.DB.仕様.環境.画面高))
+        確認X = ((self._情報.X > -キャラ幅) and (self._情報.X < main.DB.仕様.基本.画面幅))
+        確認Y = ((self._情報.Y > -キャラ幅) and (self._情報.Y < main.DB.仕様.基本.画面高))
         if 確認X and 確認Y: return
         #│＼（画面内の場合）
         #│ ↓

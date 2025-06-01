@@ -1,6 +1,6 @@
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃共通モジュール
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-from .汎用      import class汎用
-from .入力操作  import class入力操作
+from .位置関係  import *
+from .入力操作  import *
 from .座標変換  import *

@@ -5,7 +5,6 @@
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 import  pyxel
 import  main.DB
-from    main.DB import 仕様 
 from    .更新コントローラ   import 更新コントローラ生成
 from    .描画コントローラ   import 描画コントローラ生成
 from    シーン              import *
@@ -40,8 +39,8 @@ class 本体:
         #┬
         #○画面を初期化する
         pyxel.init(
-                仕様.環境.画面幅,
-                仕様.環境.画面高,
+                main.DB.仕様.基本.画面幅,
+                main.DB.仕様.基本.画面高,
                 title="Mega Wing  Ver.2025/06/01-00")
         #│
         #○リソースファイルを読み込む
