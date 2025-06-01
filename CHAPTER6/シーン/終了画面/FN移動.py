@@ -4,7 +4,7 @@
 #┃更新コントローラが移動プロセスで実行するアクション・メソッド
 #┃・下位にデータセット･クラス(仕様｜情報)を持つ
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-import pyxel # フレームの参照、音楽に利用
+import pyxel # フレームの参照
 import main.DB
 from   ..DB import シーンID
 
@@ -57,9 +57,8 @@ class 移動クラス:
         if self.情報.開始時間 == 0:
         #　├┐（待ちを開始する場合）
             #↓
-            #○終了用のBGMを鳴らす
-            pyxel.stop()
-            pyxel.playm(7, loop=True)
+            #●BGMを鳴らす
+            main.DB.BGM.自動選択()
             #│
             #○持続カウントを開始する
             self.情報.開始時間   = pyxel.frame_count
@@ -98,8 +97,8 @@ class 移動クラス:
         main.DB.obj弾_敵機.clear()
             #┴
         #│
-        #○タイトル用のBGMを鳴らす
         #○開始時間を初期化する
-        pyxel.playm(0, loop=True)
+        #●BGMを鳴らす
         self.情報.開始時間 = 0
+        main.DB.BGM.自動選択()
         #┴

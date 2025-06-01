@@ -26,7 +26,7 @@ def Pアクション_特殊(引数_間隔):
     if アイテムID is None: return
     #│
     #≫アクション・メソッドでアイテム(特殊効果)を生成する
-    X座標 = pyxel.rndi(0, main.DB.画面幅 - main.DB.キャラ幅.通常)
+    X座標 = pyxel.rndi(0, main.DB.環境.画面幅 - main.DB.キャラ幅.通常)
     敵機生成(X座標, -main.DB.キャラ幅.ボス, アイテムID, True)
     #┴
 

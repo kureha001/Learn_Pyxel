@@ -117,7 +117,7 @@ class 移動クラス:
             #〇シールドを満タンにする
             #〇弾を満タンにする
             main.DB.obj特殊効果.FN移動.強制解除()
-            main.DB.obj自機共通.情報.シールド = main.DB.画面幅
+            main.DB.obj自機共通.情報.シールド = main.DB.環境.画面幅
             main.DB.obj自機共通.情報.弾数 = main.DB.obj自機共通.仕様.積載量
             #┴
         elif main.DB.ボスシーン == シーンID.ボス対決:
@@ -132,7 +132,7 @@ class 移動クラス:
                 #│
                 #〇シールドを満タンにする
                 #〇弾を満タンにする
-                main.DB.obj自機共通.情報.シールド = main.DB.画面幅
+                main.DB.obj自機共通.情報.シールド = main.DB.環境.画面幅
                 main.DB.obj自機共通.情報.弾数 = main.DB.obj自機共通.仕様.積載量
             #　└┐（その他）
             #┴　┴
@@ -161,5 +161,5 @@ class 移動クラス:
         main.DB.obj自機 = []
         #│
         #●爆発音を鳴らす
-        main.DB.Fn爆発音(2)
+        main.DB.効果音.爆発(2)
         #┴

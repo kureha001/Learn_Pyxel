@@ -96,9 +96,9 @@ class 移動クラス:
         #│
         #○画面内に収めるよう補正する
         x = max(x, 0)
-        x= min(x, main.DB.画面幅 - main.DB.キャラ幅.通常)
+        x= min(x, main.DB.環境.画面幅 - main.DB.キャラ幅.通常)
         y = max(y, 10) 
-        y = min(y, main.DB.画面高 - 20)
+        y = min(y, main.DB.環境.画面高 - 20)
         #│
         #○補正予定の座標で確定する
         self._情報.X = x

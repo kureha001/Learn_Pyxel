@@ -34,8 +34,8 @@ class 情報クラス:
             #│ ▼繰り返し処理を抜ける
             #│
             #○位置をセットする
-            座標X = pyxel.rndi(0, main.DB.画面幅  - 1  )  
-            座標Y = pyxel.rndi(0, main.DB.画面高 - 1  )  
+            座標X = pyxel.rndi(0, main.DB.環境.画面幅  - 1  )  
+            座標Y = pyxel.rndi(0, main.DB.環境.画面高 - 1  )  
             #│
             #○速度をセットする
             速度Y = pyxel.rndf(0.5, 0.8             ) 

@@ -3,7 +3,7 @@
 #┠─────────────────────────────────────
 #┃更新コントローラが移動プロセスで実行するアクション・メソッド
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-import pyxel # 音楽、キー入力に利用
+import pyxel # キー入力に利用
 import main.DB
 from   ..DB            import シーンID
 from   キャラクタ.自機 import 自機生成, 自機共通生成
@@ -60,7 +60,7 @@ class 移動クラス:
         #│
         #◎└┐人数分の自機を登場する
         main.DB.人数 = 引数_プレイヤー数
-        位置間隔 = int(main.DB.画面幅 / (main.DB.人数 + 1))
+        位置間隔 = int(main.DB.環境.画面幅 / (main.DB.人数 + 1))
         for tmpNo in range(main.DB.人数):
             #│＼（すべての処理を終えた場合）
             #│ ↓
@@ -70,7 +70,6 @@ class 移動クラス:
             自機生成( tmpNo, 位置間隔 * (tmpNo + 1), 140)
             #┴
         #│
-        #○プレイ用のBGMを鳴らす
-        pyxel.stop()
-        pyxel.playm(1, loop=True)
+        #●BGMを鳴らす
+        main.DB.BGM.自動選択()
         #┴

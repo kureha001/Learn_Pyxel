@@ -49,11 +49,11 @@ class 描画クラス:
         #│
         #○残りのシールドを描画する
         数量 = int(共通情報.シールド)
-        pyxel.rect(0, main.DB.画面高 - 12, 数量, 3, 7)
+        pyxel.rect(0, main.DB.環境.画面高 - 12, 数量, 3, 7)
         #│
         #◎└┐残りの弾薬を描画する
         座標X   = 1
-        座標Y   = main.DB.画面高 - 8
+        座標Y   = main.DB.環境.画面高 - 8
         画像X   = (4) if 効果ID.貫通弾 in 発動中 else (0)
         数量 = int(共通情報.弾数)
         for i in range(数量):
