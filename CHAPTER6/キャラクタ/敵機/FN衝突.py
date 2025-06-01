@@ -118,6 +118,7 @@ class 衝突クラス:
             #●大爆発する
             x = self._情報.X + self.仕様.爆発オフセット
             y = self._情報.Y
+            main.DB.爆発.大爆発(x, y, 22, 14)
             #┴
         else: self.Fn爆発(8)
         #　└┐（その他）

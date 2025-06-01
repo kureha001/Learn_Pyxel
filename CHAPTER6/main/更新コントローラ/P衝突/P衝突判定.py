@@ -43,9 +43,9 @@ def P衝突判定_攻撃(
             #↓
             #●敵機・弾(自機)・弾(敵機)を壊滅する
             #▼弾が『破壊された』を返す
-            main.DB.Fnキャラ壊滅(main.DB.obj敵機    )
-            main.DB.Fnキャラ壊滅(main.DB.obj弾_自機 )
-            main.DB.Fnキャラ壊滅(main.DB.obj弾_敵機 )
+            main.DB.爆発.壊滅(main.DB.obj敵機    )
+            main.DB.爆発.壊滅(main.DB.obj弾_自機 )
+            main.DB.爆発.壊滅(main.DB.obj弾_敵機 )
             return True
         #│
         #●弾で攻撃する

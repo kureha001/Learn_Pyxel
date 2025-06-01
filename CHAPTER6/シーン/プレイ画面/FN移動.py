@@ -110,8 +110,8 @@ class 移動クラス:
             main.DB.ゲーム.ボスシーン = シーンID.ボス登場
             #│
             #●敵機・アイテムを消滅する
-            main.DB.Fnキャラ壊滅(main.DB.obj敵機    )
-            main.DB.Fnキャラ壊滅(main.DB.objアイテム)
+            main.DB.爆発.壊滅(main.DB.obj敵機    )
+            main.DB.爆発.壊滅(main.DB.objアイテム)
             #│
             #●特殊効果を解除(永続は残す)
             #〇シールドを満タンにする
@@ -155,7 +155,7 @@ class 移動クラス:
             d = main.DB.obj自機共通.仕様.爆発オフセット
             x = tmp自機.情報.X + d
             y = tmp自機.情報.Y
-            main.DB.Fn大爆発(x, y, 4, 6)
+            main.DB.爆発.大爆発(x, y, 4, 6)
         #│
         #○自機を消滅する ※弾が残る場合を考慮し、特殊効果・自機共通は残す
         main.DB.obj自機 = []
