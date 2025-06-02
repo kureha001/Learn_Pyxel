@@ -43,22 +43,6 @@ class 開始:
         #│
         #○リソースファイルを読み込む
         pyxel.load("./リソース.pyxres")
-        #│
-        #○Soundデータを登録する
-        pyxel.sounds[50].mml(
-                "t100 @1 o2 q7 v7 l4" +
-                "l8d4a4g2.fed4c<b->c<a>e4d1.a4>" +
-                "c4<b2.gfe4fga1&a1d4a4g2.fed4c<b->c<a>e4d1." )
-        pyxel.sounds[51].mml(
-                "t100 @0 o1 q7 v4 l2" +
-                "l8dafadbgbd>c<a>c<db-fb-e>c<a>c" +
-                "<daf+adaf+agb-a>c" +
-                "<dafadbgbdbgbdb-g+b-c" +
-                "+aeadaeac+aea<b>ac+adafadbgbd>c" +
-                "<a>c<db-fb-e>c<a>c<daf+adaf+adaf+a" )
-        #│
-        #○Musicデータを登録する
-        pyxel.musics[7].set([50],[51])
         #┴
 
     #┌───────────────────────────────────

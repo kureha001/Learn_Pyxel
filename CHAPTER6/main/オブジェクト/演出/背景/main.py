@@ -38,7 +38,7 @@ class 情報クラス:
             座標Y = pyxel.rndi(0, DS.仕様.基本.画面高 - 1)  
             #│
             #○速度をセットする
-            速度Y = pyxel.rndf(0.5, 0.8             ) 
+            速度Y = pyxel.rndf(0.4, 1.0) 
             #│
             #○星を追加する
             self.星.append((座標X, 座標Y, 速度Y))
