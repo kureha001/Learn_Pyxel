@@ -5,7 +5,7 @@
 #┃・下位にデータセット･クラス(仕様｜情報)を持つ
 #┃・下位に機能クラス(移動｜衝突｜発射｜描画)をもつ
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-import  pyxel # ランダム関数を利用
+import  pyxel
 from    main.データセット   import データセット as DS
 from   .DB                  import 機体ID, 敵機DB, ボスDB
 from   .FN移動              import 移動クラス
