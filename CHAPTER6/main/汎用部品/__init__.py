@@ -1,6 +1,6 @@
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-#┃処理
+#┃共通モジュール
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-from .GAME          import 開始
-from .データセット  import *
-from .GAME共通      import *
+from .位置関係  import *
+from .入力操作  import *
+from .座標変換  import *

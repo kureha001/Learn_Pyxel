@@ -1,6 +1,10 @@
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-#┃処理
+#┃データセット
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-from .GAME          import 開始
-from .データセット  import *
-from .GAME共通      import *
+from  .DSコンテナ   import *
+from  .DS仕様       import *
+from  .DS情報       import *
+
+obj  = コンテナクラス()
+仕様 = 仕様クラス()
+情報 = 情報クラス()
