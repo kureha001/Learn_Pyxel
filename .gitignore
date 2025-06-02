@@ -1,6 +1,7 @@
 *.pyxapp
 *.exe
 *.html
+BGM/
 
 CHAPTER5/__pycache__/
 CHAPTER5/演出/__pycache__/
