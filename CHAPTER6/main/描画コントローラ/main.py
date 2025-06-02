@@ -3,8 +3,8 @@
 #┠─────────────────────────────────────
 #┃各オブジェクトのアクション・メソッドを実行する
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-import  pyxel # 画面消去、テキスト描画に利用
-import  main.DB 
+import  pyxel
+from    main.データセット import データセット as DS
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃メイン
@@ -26,18 +26,18 @@ class 本体:
         #│
         #●描画アクションを実行する
         self.Pアクション((
-                main.DB.obj背景    ,
-                main.DB.obj敵機    ,
-                main.DB.objアイテム,
-                main.DB.obj自機    ,
-                main.DB.obj弾_自機 ,
-                main.DB.obj弾_敵機 ,
-                main.DB.obj爆発    ,
-                main.DB.objシーン[ main.DB.情報.シーン]))
+                DS.obj.背景    ,
+                DS.obj.敵機    ,
+                DS.obj.アイテム,
+                DS.obj.自機    ,
+                DS.obj.弾_自機 ,
+                DS.obj.弾_敵機 ,
+                DS.obj.爆発    ,
+                DS.obj.シーン[ DS.情報.シーン]))
         #│
         #〇ゲーム情報（得点／難易度）を描画する
-        pyxel.text( 5, 2, f"SCORE:{ main.DB.情報.得点   }", 7)
-        pyxel.text(82, 2, f"LEVEL:{ main.DB.情報.難易度 }", 7)
+        pyxel.text( 5, 2, f"SCORE:{ DS.情報.得点   }", 7)
+        pyxel.text(82, 2, f"LEVEL:{ DS.情報.難易度 }", 7)
         #┴
 
     #│機能実行

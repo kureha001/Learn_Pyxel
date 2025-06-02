@@ -3,12 +3,13 @@
 #┠─────────────────────────────────────
 #┃各オブジェクトのアクション・メソッドを実行する
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-from   特殊効果 import アイテムID
-from  .P敵機    import *
-from  .Pボス    import *
-from  .P機雷    import *
-from  .P補給    import *
-from  .P特殊    import *
+from main.データセット  import データセット as DS
+from 特殊効果           import アイテムID
+from .P敵機             import *
+from .Pボス             import *
+from .P機雷             import *
+from .P補給             import *
+from .P特殊             import *
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃仕様
@@ -16,7 +17,7 @@ from  .P特殊    import *
 class 仕様:
     #┬
     #□レベル内で出現する間隔
-    間隔        = main.DB.仕様.基本.難易度間隔
+    間隔        = DS.仕様.基本.難易度間隔
     機雷        = int(間隔 / 1.4)
     弾          = int(間隔 / 2.2)
     シールド    = int(間隔 / 0.7)
@@ -33,8 +34,8 @@ class 本体:
     def 実行(self):
         #┬
         #○シーンを確認する
-        if main.DB.情報.シーン != シーンID.プレイ画面: return
-        if main.DB.情報.プレイ時間 < 60              : return
+        if DS.情報.シーン != シーンID.プレイ画面: return
+        if DS.情報.プレイ時間 < 60              : return
         #│＼（対象外の場合）
         #│ ↓
         #│ ▼繰処理を中断する

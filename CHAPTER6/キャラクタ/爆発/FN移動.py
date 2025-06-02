@@ -7,7 +7,7 @@
 #┃※最大サイズに達した際、オブジェクトを削除する
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 import  pyxel #フレームカウント参照に仕様
-import  main.DB
+from    main.データセット import データセット as DS
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃仕様
@@ -62,14 +62,14 @@ class 移動クラス:
         x = self._情報.X
         y = self._情報.Y
         r = self.仕様.最大半径
-        確認X = (x < -r or x > r + main.DB.仕様.基本.画面幅  )
-        確認Y = (y < -r or y > r + main.DB.仕様.基本.画面高 )
+        確認X = (x < -r or x > r + DS.仕様.基本.画面幅  )
+        確認Y = (y < -r or y > r + DS.仕様.基本.画面高 )
         if 確認X or 確認Y:
         #│ ＼（画面内の場合）
             #↓
             #○この個体を削除する
             #▼処理を中断する
-            main.DB.obj爆発.remove(self._個体)
+            DS.obj.爆発.remove(self._個体)
             return
         #│
         #○拡大タイミングを確認する
@@ -86,5 +86,5 @@ class 移動クラス:
         #│ ＼（最大半径を超えた場合）
             #↓
             #○この個体を削除する
-            if self._個体 in main.DB.obj爆発: main.DB.obj爆発.remove(self._個体)
+            if self._個体 in DS.obj.爆発: DS.obj.爆発.remove(self._個体)
         #┴ ┴

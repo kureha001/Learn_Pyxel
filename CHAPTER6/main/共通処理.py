@@ -2,7 +2,7 @@
 #┃処理ID：データベース
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 import pyxel
-import main.DB
+import CHAPTER6.main.GAME as GAME
 
 from   キャラクタ.爆発 import 爆発生成
 from   シーン import シーンID
@@ -78,7 +78,7 @@ class 効果音():
 class BGM():
 
     def 自動選択():
-        シーン = main.DB.情報.シーン
+        シーン = GAME.情報.シーン
         if   シーン == シーンID.タイトル画面: BGM.タイトル()
         elif シーン == シーンID.プレイ画面  : BGM.プレイ()
         elif シーン == シーンID.終了画面    : BGM.終了()

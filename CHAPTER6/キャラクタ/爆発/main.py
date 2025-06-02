@@ -4,9 +4,9 @@
 #┃自機と敵機で利用する爆発オブジェクト用クラス
 #┃・下位にデータセット･クラス(仕様｜情報)を持つ
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-import main.DB
-from   .FN移動 import 移動クラス
-from   .FN描画 import 描画クラス
+from main.データセット  import データセット as DS
+from .FN移動            import 移動クラス
+from .FN描画            import 描画クラス
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃データセット：情報
@@ -42,5 +42,5 @@ class 本体:
         self.FN描画 = 描画クラス(self)
         #│
         #○用意済みのインスタンスに生成する
-        main.DB.obj爆発.append(self)
+        DS.obj.爆発.append(self)
         #┴

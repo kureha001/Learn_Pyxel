@@ -7,5 +7,5 @@
 #┃EXE化                 ： pyxel app2exe CHAPTER6.pyxapp
 #┃リソースエディタ起動  ： pyxel edit ".\リソース\改造版.pyxres"
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-from main import ゲーム開始
-ゲーム開始()
+import main
+main.開始()

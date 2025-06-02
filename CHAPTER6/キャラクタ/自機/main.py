@@ -5,11 +5,11 @@
 #┃・下位にデータセット･クラス(仕様｜情報)を持つ
 #┃・下位に機能クラス(移動｜衝突｜発射｜描画)をもつ
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-import main.DB
-from  .FN移動 import 移動クラス
-from  .FN衝突 import 衝突クラス
-from  .FN発射 import 発射クラス
-from  .FN描画 import 描画クラス
+from main.データセット  import データセット as DS
+from .FN移動            import 移動クラス
+from .FN衝突            import 衝突クラス
+from .FN発射            import 発射クラス
+from .FN描画            import 描画クラス
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃データセット：仕様
@@ -58,5 +58,5 @@ class 本体:
         self.FN描画 = 描画クラス(self)
         #│
         #○用意済みのインスタンスに生成する
-        main.DB.obj自機.append(self)
+        DS.obj.自機.append(self)
         #┴

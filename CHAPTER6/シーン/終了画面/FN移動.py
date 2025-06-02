@@ -4,9 +4,10 @@
 #┃更新コントローラが移動プロセスで実行するアクション・メソッド
 #┃・下位にデータセット･クラス(仕様｜情報)を持つ
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-import pyxel # フレームの参照
-import main.共通処理
-from   ..DB import シーンID
+import  pyxel
+import  main.共通処理
+from    main.データセット   import データセット as DS
+from    ..DB                import シーンID
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃仕様
@@ -48,7 +49,7 @@ class 移動クラス:
     def 実行(self):
         #┬
         #○爆発状況を確認する
-        if  main.DB.obj爆発: return
+        if  DS.obj.爆発: return
         #│＼（爆発中の場合）
         #│ ↓
         #│ ▼処理を中断する
@@ -84,17 +85,17 @@ class 移動クラス:
     def Fn次シーン準備(self):
         #┬
         #○シーンを『タイトル画面』に進行する
-        main.DB.情報.シーン = シーンID.タイトル画面
+        DS.情報.シーン = シーンID.タイトル画面
         #│
         #○└┐インスタンスを初期化する
             #●敵機を抹消する
             #●アイテムを抹消する
             #●弾(自分)を抹消する
             #●弾(標的)を抹消する
-        main.DB.obj敵機.clear()
-        main.DB.objアイテム.clear()
-        main.DB.obj弾_自機.clear()
-        main.DB.obj弾_敵機.clear()
+        DS.obj.敵機.clear()
+        DS.obj.アイテム.clear()
+        DS.obj.弾_自機.clear()
+        DS.obj.弾_敵機.clear()
             #┴
         #│
         #○開始時間を初期化する

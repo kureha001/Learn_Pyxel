@@ -4,10 +4,10 @@
 #┃更新コントローラが発射プロセスで実行するアクション・メソッド
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 import  pyxel #フレームカウント参照に仕様
-import  main.DB
-from    特殊効果    import 効果ID
-from    ..弾        import 弾生成
-from    汎用部品    import 入力操作 
+from    main.データセット   import データセット as DS
+from    特殊効果            import 効果ID
+from    ..弾                import 弾生成
+from    汎用部品            import 入力操作 
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃メイン
@@ -24,9 +24,9 @@ class 発射クラス:
         self._情報  = 引数_個体.情報
         #│
         #○外部オブジェクトのリファレンスを用意する
-        self.共仕   = main.DB.obj自機共通.仕様
-        self.共情   = main.DB.obj自機共通.情報
-        self.特情   = main.DB.obj特殊効果.情報
+        self.共仕   = DS.obj.自機共通.仕様
+        self.共情   = DS.obj.自機共通.情報
+        self.特情   = DS.obj.特殊効果.情報
         #┴
 
     #┌───────────────────────────────────
@@ -53,7 +53,7 @@ class 発射クラス:
         self.Fn発射()
         #│
         #○弾を減らす
-        self.共情.弾数 -= (1) if main.DB.情報.人数 == 0 else (0.85)
+        self.共情.弾数 -= (1) if DS.情報.人数 == 0 else (0.85)
         #│
         #○発射可能までの時間をリセットする
         self.共情.発射制限 = self.共仕.発射間隔
@@ -100,7 +100,7 @@ class 発射クラス:
     def Fn発射(self):
         #┬
         #○基本情報を用意する
-        所有者      = main.仕様.所有者ID.自機
+        所有者      = DS.仕様.所有者ID.自機
         x           = self._情報.X 
         y           = self._情報.Y
         威力        = self.共仕.威力_弾

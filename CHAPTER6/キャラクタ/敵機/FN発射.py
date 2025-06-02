@@ -4,9 +4,9 @@
 #┃更新コントローラが発射プロセスで実行するアクション・メソッド
 #┃・下位にデータセット･クラス(仕様)を持つ
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-import  pyxel # 逆三角関数で利用 ※Python.mathの透過処理が不明
-import  main.DB
-from    ..弾    import 弾生成
+import  pyxel
+from    main.データセット   import データセット as DS
+from    ..弾                import 弾生成
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃仕様
@@ -52,7 +52,7 @@ class 発射クラス:
     def 実行(self):
         #┬
         #◇┐ボスの狙い撃ちを発射する
-        発射間隔 = max(17 - int(main.DB.情報.難易度/2), 10)
+        発射間隔 = max(17 - int(DS.情報.難易度/2), 10)
         if self._仕様.ボス区分 and not self.Fn発射禁止( 発射間隔 ):
         #　├┐（ボスで発射タイミングの場合）
             #↓
@@ -110,20 +110,20 @@ class 発射クラス:
     def Fn発射_単発(self):
         #┬
         #○時期の状況を確認する
-        if not main.DB.obj自機: return
+        if not DS.obj.自機: return
         #│＼（自機が『存在しない』の場合）
         #│ ↓
         #│ ▼処理を中断する
         #│
-        所有者 = main.DB.仕様.所有者ID.敵機
-        d = (main.DB.仕様.キャラ幅.ボス - main.DB.仕様.キャラ幅.通常) if self._仕様.ボス区分 else (0)
+        所有者 = DS.仕様.所有者ID.敵機
+        d = (DS.仕様.キャラ幅.ボス - DS.仕様.キャラ幅.通常) if self._仕様.ボス区分 else (0)
         d = d // 2
         x1 = self._情報.X + d
         y1 = self._情報.Y + d
         #│
-        自機ID = pyxel.rndi(0,len(main.DB.obj自機)-1)
-        x2 = main.DB.obj自機[自機ID].情報.X
-        y2 = main.DB.obj自機[自機ID].情報.Y
+        自機ID = pyxel.rndi(0,len(DS.obj.自機)-1)
+        x2 = DS.obj.自機[自機ID].情報.X
+        y2 = DS.obj.自機[自機ID].情報.Y
         発射角度 = pyxel.atan2((y2 - y1), (x2 - x1))
         #│
         #●弾を生成する
@@ -142,7 +142,7 @@ class 発射クラス:
     def Fn発射_複数発(self):
         #┬
         #○基本情報を用意する
-        d = (main.DB.仕様.キャラ幅.ボス - main.DB.仕様.キャラ幅.通常) if self._仕様.ボス区分 else (0)
+        d = (DS.仕様.キャラ幅.ボス - DS.仕様.キャラ幅.通常) if self._仕様.ボス区分 else (0)
         d = d // 2
         x1 = self._情報.X + d
         y1 = self._情報.Y + d
@@ -158,7 +158,7 @@ class 発射クラス:
             発射角度 = tmp弾数 * 分割角度 - self.仕様.角度
             #│
             #≫弾を生成する
-            所有者 = main.DB.仕様.所有者ID.敵機
+            所有者 = DS.仕様.所有者ID.敵機
             弾生成(
                     所有者          ,
                     x1, y1          ,
