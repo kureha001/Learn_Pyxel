@@ -2,11 +2,11 @@
 #┃ゲーム本体
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 import  pyxel
-from    main.データセット  import データセット as DS
-from    .更新コントローラ   import 更新コントローラ生成
-from    .描画コントローラ   import 描画コントローラ生成
-from    シーン              import *
-from    背景	            import 背景生成
+from    .データセット           import データセット as DS
+from    .コントローラ.更新      import 更新コントローラ生成
+from    .コントローラ.描画      import 描画コントローラ生成
+from    .オブジェクト.シーン    import *
+from    .オブジェクト.演出.背景 import 背景生成
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #┃メイン

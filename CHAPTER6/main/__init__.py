@@ -3,4 +3,4 @@
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 from .GAME          import 開始
 from .データセット  import *
-from .共通処理      import *
+from .GAME共通      import *
