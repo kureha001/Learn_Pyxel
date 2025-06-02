@@ -37,7 +37,7 @@ class 本体:
         #│
         #〇ゲーム情報（得点／難易度）を描画する
         pyxel.text( 5, 2, f"SCORE:{ DS.情報.得点   }", 7)
-        pyxel.text(82, 2, f"LEVEL:{ DS.情報.難易度 }", 7)
+        pyxel.text(82, 2, f"STAGE:{ DS.情報.難易度 }", 7)
         #┴
 
     #│機能実行
