@@ -26,23 +26,27 @@ class 移動クラス:
     def 実行(self):
         #┬
         #○プレイヤー数をキー入力する
-        プレイヤー数 = 0
-        if pyxel.btn(pyxel.KEY_1)   : プレイヤー数 = 1
-        if pyxel.btn(pyxel.KEY_2)   : プレイヤー数 = 2
-        if プレイヤー数 == 0        : return
+        if pyxel.btn(pyxel.KEY_1)   : DS.情報.人数 = 1
+        if pyxel.btn(pyxel.KEY_2)   : DS.情報.人数 = 2
+        #│
+        if pyxel.btn(pyxel.KEY_K)   : DS.情報.操作手段 = 0
+        if pyxel.btn(pyxel.KEY_J)   : DS.情報.操作手段 = 1
+        if pyxel.btn(pyxel.KEY_M)   : DS.情報.操作手段 = 2
+        #│
+        if DS.情報.人数     is None: return
+        if DS.情報.操作手段 is None: return
         #│＼（キー入力が無い場合）
         #│ ↓
         #│ ▼処理を中断する
         #│
         #●次のシーン『プレイ画面』に進行する
-        self.Fn次シーン準備( プレイヤー数 )
+        self.Fn次シーン準備()
         #┴
 
     #┌───────────────────────────────────
     #│次シーンの前準備
     #└───────────────────────────────────
-    def Fn次シーン準備(self     ,
-            引数_プレイヤー数   ):  #① プレイヤーの人数
+    def Fn次シーン準備(self):
         #┬
         #○シーンを『プレイ画面』に進行する
         #○ボスシーンを初期化する
@@ -60,7 +64,6 @@ class 移動クラス:
         DS.obj.特殊効果 = 特殊効果生成()        
         #│
         #◎└┐人数分の自機を登場する
-        DS.情報.人数 = 引数_プレイヤー数
         位置間隔 = int(DS.仕様.基本.画面幅 / (DS.情報.人数 + 1))
         for tmpNo in range(DS.情報.人数):
             #│＼（すべての処理を終えた場合）

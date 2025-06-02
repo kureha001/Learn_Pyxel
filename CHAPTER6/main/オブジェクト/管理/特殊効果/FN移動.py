@@ -52,6 +52,11 @@ class 移動クラス:
             tmp辞書[key] = (残り時間, 値)
             #┴
         #│
+        #●タイトル画面のBGMを鳴らす
+        chk既存 = (効果ID.防御 in self._情報.発動中)
+        chk最新 = (効果ID.防御 not in tmp辞書)
+        if chk既存 and chk最新: 共通処理.BGM.自動選択()
+        #│
         #○リストアップした内容で上書きする
         self._情報.発動中 = tmp辞書
         #┴

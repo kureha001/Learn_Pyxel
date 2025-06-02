@@ -10,13 +10,13 @@ class 入力操作:
 	
 	#┬
 	#□└┐移動(キー)
-	定数_移動_キー = (
+	ID移動_キー = (
 		(pyxel.KEY_UP, pyxel.KEY_DOWN, pyxel.KEY_LEFT, pyxel.KEY_RIGHT	),
 		(pyxel.KEY_8 , pyxel.KEY_2   , pyxel.KEY_4   , pyxel.KEY_6		)
 	)
 
 	#□└┐移動(パッド)
-	定数_移動_パッド = (
+	ID移動_パッド = (
 		(	pyxel.GAMEPAD1_BUTTON_DPAD_UP,
 			pyxel.GAMEPAD1_BUTTON_DPAD_DOWN,
 			pyxel.GAMEPAD1_BUTTON_DPAD_LEFT,
@@ -78,10 +78,7 @@ class 入力操作:
 	#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 	#┃操作を走査
 	#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-	def 走査(
-		argキー,		#① 定数_ボタン_キー
-		argパッド		#② 定数_ボタン_パッド
-		):
+	def 走査(引数_走査セット):
 		#┬
 		#○結果を初期化する
 		概要 = [ False, False ]
@@ -89,8 +86,9 @@ class 入力操作:
 		#│
 		#◎└┐すべての箇所を測定する
 		for i in range(4):
-			#○ひとつずつ測定する
-			測定[i] = 入力操作.走査_個別(argキー[i], argパッド[i])
+			if	 pyxel.btn (引数_走査セット[i])	: 測定[i] = 1
+			elif pyxel.btnr(引数_走査セット[i])	: 測定[i] = -1
+			else								: 測定[i] = 0
 			#┴
 		#│
 		#◎└┐概要を求める
@@ -101,20 +99,3 @@ class 入力操作:
 		#│
 		#▼結果を返す
 		return (概要,測定)
-	#────────────────────────────────────	
-	def 走査_個別(
-		argキー,
-		argパッド
-	):
-		#┬
-		#○結果を初期化する
-		測定 = 0
-		#│
-		#○計測する（押されているか）
-		if	 pyxel.btn (argキー		): 測定 = 1
-		elif pyxel.btn (argパッド	): 測定 = 1
-		elif pyxel.btnr(argキー		): 測定 = -1
-		elif pyxel.btnr(argパッド	): 測定 = -1
-		#│
-		#▼結果を返す
-		return 測定

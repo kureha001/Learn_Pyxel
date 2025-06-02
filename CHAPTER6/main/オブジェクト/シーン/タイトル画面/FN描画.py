@@ -21,13 +21,40 @@ class 描画クラス:
     def 実行(self):
         #┬
         #〇画面を描画する
-        pyxel.blt(0, 0, 2, 0, 0, 120, 120, 15)
+        pyxel.blt(1,5, 2, 0,0, 15*8-1,11*8-1, 15)
 
-        描画文字 = "How Many Players? "
-        pyxel.text(27, 106, 描画文字, 5)
-        pyxel.text(26, 105, 描画文字, 7)
+        左1   = 28
+        左2   = 45
+        改行 = 8
 
-        描画文字 = "Hit Any Key [1] or [2]"
-        pyxel.text(18, 125, 描画文字, 8)
-        pyxel.text(17, 124, 描画文字, 7)
+        描画文字 = "<< Controller >>"
+        縦 = 95
+        pyxel.text(左1  , 縦  , 描画文字, 5)
+        pyxel.text(左1-1, 縦-1, 描画文字, 7)
+
+        描画文字 = "[K]:Keyboard"
+        縦 += 改行
+        pyxel.text(左2-1, 縦, 描画文字, 7)
+
+        描画文字 = "[J]:JoyPad"
+        縦 += 改行
+        pyxel.text(左2-1, 縦, 描画文字, 7)
+
+        描画文字 = "[M]:MMP"
+        縦 += 改行
+        pyxel.text(左2-1, 縦, 描画文字, 7)
+
+
+        描画文字 = "<<   Player   >>"
+        縦 += 15
+        pyxel.text(左1  , 縦  , 描画文字, 5)
+        pyxel.text(左1-1, 縦-1, 描画文字, 7)
+
+        描画文字 = "[1]:Single"
+        縦 += 改行
+        pyxel.text(左2-1, 縦, 描画文字, 7)
+
+        描画文字 = "[2]:Dobles"
+        縦 += 改行
+        pyxel.text(左2-1, 縦, 描画文字, 7)
         #┴
