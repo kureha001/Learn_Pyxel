@@ -11,3 +11,4 @@ class 情報クラス:
         self.得点       = 0
         self.人数       = None
         self.操作手段   = None
+        self.音楽データ = None
