@@ -59,7 +59,7 @@ class 描画クラス:
         if DS.情報.人数 == 1:pyxel.text(左2, 縦, 描画文字, 8)
         pyxel.text(左2-1, 縦, 描画文字, 7)
 
-        描画文字 = "[2]:Dobles"
+        描画文字 = "[2]:Doubles"
         縦 += 改行
         if DS.情報.人数 == 2:pyxel.text(左2, 縦, 描画文字, 8)
         pyxel.text(左2-1, 縦, 描画文字, 7)
