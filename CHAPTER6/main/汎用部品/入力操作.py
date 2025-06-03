@@ -86,15 +86,14 @@ class 入力操作:
 		#│
 		#◎└┐すべての箇所を測定する
 		for i in range(4):
-			if	 pyxel.btn (引数_走査セット[i])	: 測定[i] = 1
-			elif pyxel.btnr(引数_走査セット[i])	: 測定[i] = -1
-			else								: 測定[i] = 0
-			#┴
-		#│
-		#◎└┐概要を求める
-		for i in  測定:
-			if i ==  1: 概要[0] = True
-			if i == -1: 概要[1] = True
+
+			if	 pyxel.btn (引数_走査セット[i]):
+				測定[i] = 1
+				概要[0] = True
+
+			elif pyxel.btnr(引数_走査セット[i]):
+				測定[i] = -1
+				概要[1] = True
 			#┴
 		#│
 		#▼結果を返す
