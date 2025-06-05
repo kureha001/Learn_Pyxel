@@ -10,5 +10,7 @@ class 情報クラス:
         self.難易度     = 0
         self.得点       = 0
         self.人数       = None
-        self.操作手段   = None
         self.音楽データ = None
+        self.操作手段   = None
+        self.MMP中央値   = 500
+        self.MMP反応率   = 5

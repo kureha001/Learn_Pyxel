@@ -78,6 +78,26 @@ class 移動クラス:
         if pyxel.btnr(pyxel.KEY_M):
             DS.情報.操作手段 = 2
             共通処理.効果音.アイテム取得()
+        #│
+        if pyxel.btnr(pyxel.KEY_UP):
+            DS.情報.MMP中央値 += 5
+            if DS.情報.MMP中央値 > 1020 : DS.情報.MMP中央値 = 0
+            共通処理.効果音.アイテム取得()
+        #│
+        if pyxel.btnr(pyxel.KEY_DOWN):
+            DS.情報.MMP中央値 -= 5
+            if DS.情報.MMP中央値 < 0    : DS.情報.MMP中央値 = 1020
+            共通処理.効果音.アイテム取得()
+        #│
+        if pyxel.btnr(pyxel.KEY_LEFT):
+            DS.情報.MMP反応率 -= 1
+            if DS.情報.MMP反応率 < 1    : DS.情報.MMP反応率 = 20
+            共通処理.効果音.アイテム取得()
+        #│
+        if pyxel.btnr(pyxel.KEY_RIGHT):
+            DS.情報.MMP反応率 += 1
+            if DS.情報.MMP反応率 > 20   : DS.情報.MMP反応率 = 0
+            共通処理.効果音.アイテム取得()
         #┴
 
     #┌───────────────────────────────────
