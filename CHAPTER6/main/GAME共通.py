@@ -103,7 +103,11 @@ class 操作手段():
     ID_発射 = 1
 
     MMP     = None
-    MMP_ON  = [ [False,False,False,False] , [False,False,False,False] ]
+    MMP_ON  = [
+            [False,False,False,False],
+            [False,False,False,False],
+            [False,False,False,False]
+            ]
     MMP_BTN = ( (20,100) , (800,900) , (300,400) , (100,200) )
 
 	#────────────────────────────────────

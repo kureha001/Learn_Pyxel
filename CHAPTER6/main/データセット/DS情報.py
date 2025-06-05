@@ -9,7 +9,7 @@ class 情報クラス:
         self.プレイ時間 = 0
         self.難易度     = 0
         self.得点       = 0
-        self.人数       = None
+        self.人数       = 0
         self.音楽データ = None
         self.操作手段   = None
         self.MMP中央値   = 500

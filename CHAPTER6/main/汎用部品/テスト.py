@@ -17,7 +17,7 @@ import time
 #====================================================== 
 #┬
 #〇モードを選択する。1:アナログ１回／2:PWM出力／3:デジタル出力
-mode = 0
+mode = 2
 #│
 #〇MMPを実体化する。
 MMP = mmpPeter.mmp(
@@ -77,6 +77,7 @@ elif mode == 2:
             for No in (pwmNo):
                 #○ＰＷＭ出力する。
                 MMP.digital_PWM( No, angle )
+                print(No, angle)
             #○時間待ちする。
             time.sleep(move[3])
 
