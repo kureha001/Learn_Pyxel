@@ -17,7 +17,7 @@ import time
 #====================================================== 
 #┬
 #〇モードを選択する。1:アナログ１回／2:PWM出力／3:デジタル出力
-mode = 2
+mode = 0
 #│
 #〇MMPを実体化する。
 MMP = mmpPeter.mmp(
@@ -25,7 +25,7 @@ MMP = mmpPeter.mmp(
     argMmpAnaPins   = 1,                # 使用するHC4067のPin数
     argMmpAdrPins   = (10,11,12,13),    # RP2040-Zero
     #argMmpAdrPins   = (2,3,4,5),        # Arduino
-    argRundNum      = 20                # アナログ値の丸め
+    argRundNum      = 10                # アナログ値の丸め
     )
 #│
 #〇MMPを接続する。
@@ -36,8 +36,8 @@ MMP.autoConnect()
 if mode == 0:
     #〇繰り返しテスト（先頭と最終のチャンネルのみ表示）
     MMP.analog_Test(
-        argLoop = 100,      # アドレス切替回数
-        argWait = 0.05,     # ウェイト(秒)
+        argLoop = 200,      # アドレス切替回数
+        argWait = 0.2,     # ウェイト(秒)
         argAll  = True      # True:全件表示／False:先頭末尾のみ表示
         )
 
