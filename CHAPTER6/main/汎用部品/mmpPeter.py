@@ -232,10 +232,19 @@ class mmp:
     # デジタル入出力
     #=====================================================================
     #---------------------------------------------------------------------
-    # ＰＷＭ(PCA9685)
+    # ＰＷＭ(PCA9685)：PWM値指定
     #---------------------------------------------------------------------
-    def digital_PWM(self, argPort, argValue):
+    def PWM_VALUE(self, argPort, argValue):
         data = "PWM:%02x:%01x!" % (argPort, argValue)
+        self.ser.write(str.encode(data))
+        data    = self.ser.read(5)
+        data2   = data.decode('utf-8')
+        data3   = data2.replace('!', '')
+    #---------------------------------------------------------------------
+    # ＰＷＭ(PCA9685)：角度指定
+    #---------------------------------------------------------------------
+    def PWM_ANGLE(self, argPort, argValue):
+        data = "PWA:%02x:%01x!" % (argPort, argValue)
         self.ser.write(str.encode(data))
         data    = self.ser.read(5)
         data2   = data.decode('utf-8')
