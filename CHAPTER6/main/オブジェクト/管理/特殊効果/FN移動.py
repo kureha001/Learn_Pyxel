@@ -4,6 +4,7 @@
 #┃更新コントローラが移動プロセスで実行するアクション・メソッド
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 import  main.GAME共通       as 共通処理
+import  pyxel
 from    main.データセット   import データセット as DS
 from    .DB                 import *
 
@@ -84,9 +85,9 @@ class 移動クラス:
             #┴
         #│
         #●BGMを切替える
-        chk既存 = (効果ID.防御 in self._情報.発動中)
-        chk最新 = (効果ID.防御 not in tmp辞書)
-        if chk既存 and chk最新: 共通処理.BGM.自動選択()
+#        chk既存 = (効果ID.防御 in self._情報.発動中)
+#        chk最新 = (効果ID.防御 not in tmp辞書)
+#        if chk既存 and chk最新: 共通処理.BGM.自動選択()
         #│
         #○リストアップした内容で上書きする
         self._情報.発動中 = tmp辞書

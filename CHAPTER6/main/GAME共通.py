@@ -76,19 +76,13 @@ class BGM_DFP():
         elif シーン == シーンID.終了画面  : BGM_DFP.演奏(3)
 	#────────────────────────────────────
     def 演奏(引数_ファイル番号):
-        入出力.MMP.DFP_Stop(1)
-        time.sleep(0.5)
         入出力.MMP.DFP_PlayFolderTrack(1,1,引数_ファイル番号)
 	#────────────────────────────────────
     def 指定曲ザコ():
-        入出力.MMP.DFP_Stop(1)
-        time.sleep(0.5)
-        入出力.MMP.DFP_PlayFolderTrack(1,2,DS.情報.難易度)
+        入出力.MMP.DFP_PlayFolderTrack(1,2,min(16,DS.情報.難易度))
 	#────────────────────────────────────
     def 指定曲ボス():
-        入出力.MMP.DFP_Stop(1)
-        time.sleep(0.5)
-        入出力.MMP.DFP_PlayFolderTrack(1,3,DS.情報.難易度-1)
+        入出力.MMP.DFP_PlayFolderTrack(1,3,min(16,DS.情報.難易度-1))
 
 class BGM_JSON():
 	#────────────────────────────────────
@@ -163,7 +157,6 @@ class 入出力():
 
         elif DS.情報.操作手段 == 2:
 
-            入出力.MMP.analog_IN_Each(引数_番号)
             if   引数_種類 == 入出力.ID_発射: 結果 = 入出力.MMP_発射(引数_番号)
             elif 引数_種類 == 入出力.ID_移動: 結果 = 入出力.MMP_移動(引数_番号)
         
