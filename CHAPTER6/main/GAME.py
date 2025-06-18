@@ -3,6 +3,7 @@
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 import  pyxel
 from    .データセット           import データセット as DS
+import  main.GAME共通                   as 共通処理
 from    .コントローラ.更新      import 更新コントローラ生成
 from    .コントローラ.描画      import 描画コントローラ生成
 from    .オブジェクト.シーン    import *
@@ -39,10 +40,13 @@ class 開始:
         pyxel.init(
                 DS.仕様.基本.画面幅,
                 DS.仕様.基本.画面高,
-                title="Mega Wing  Ver.2025/06/02-00")
+                title="Mega Wing  Ver.2025/06/18-00")
         #│
         #○リソースファイルを読み込む
         pyxel.load("./リソース.pyxres")
+        #│
+        #〇MMPを初期化する
+        共通処理.入出力.MMP_初期化()
         #┴
 
     #┌───────────────────────────────────
