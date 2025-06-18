@@ -40,7 +40,7 @@ class 開始:
         pyxel.init(
                 DS.仕様.基本.画面幅,
                 DS.仕様.基本.画面高,
-                title="Mega Wing  Ver.2025/06/02-00")
+                title="Mega Wing  Ver.2025/06/18-00")
         #│
         #○リソースファイルを読み込む
         pyxel.load("./リソース.pyxres")
