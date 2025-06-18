@@ -149,13 +149,11 @@ elif mode == 320:
 
     機器番号 = 1 # 1 or 2
 
-    print("・１曲目を再生")
-#    print(MMP.DFP_Play(機器番号,1))
-    print(MMP.DFP_PlayFolderTrack(機器番号,3,1))
-    time.sleep(5)
+    print("・フォルダーのトラックを再生")
+    print(MMP.DFP_PlayFolderTrackLoop(機器番号,2,5))
 
-    print("・停止")
-    print(MMP.DFP_Stop(機器番号))
+#    print("・停止")
+#    print(MMP.DFP_Stop(機器番号))
 #│
 #〇MMPを切断する。
 MMP.通信切断

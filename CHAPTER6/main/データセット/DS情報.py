@@ -11,6 +11,7 @@ class 情報クラス:
         self.得点       = 0
         self.人数       = 0
         self.音楽データ = None
+        self.再生時間   = None
         self.操作手段   = None
-        self.MMP中央値   = 450
-        self.MMP反応率   = 10
+        self.MMP中央値  = 450
+        self.MMP反応率  = 10

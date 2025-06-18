@@ -4,7 +4,10 @@
 #┃移動プロセス➡発射プロセス➡衝突プロセス➡出現プロセスの順に
 #┃実行する
 #┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+import  pyxel
+from    main.データセット import データセット as DS
 import  main.GAME共通 as 共通処理
+from    main.オブジェクト.シーン.DB import シーンID
 from .P移動 import P移動生成
 from .P発射 import P発射生成
 from .P衝突 import P衝突生成
@@ -34,6 +37,17 @@ class 本体:
         #┬
         共通処理.入出力.MMP.アナログ読取()
 #        print("取得値：",共通処理.入出力.MMP.mmpAnaVal)
+
+        if pyxel.frame_count % 30 == 0 and DS.情報.再生時間 is not None:
+            DS.情報.再生時間 -= 1
+            if DS.情報.再生時間 == 0:
+                if DS.情報.シーン == シーンID.タイトル画面 or DS.情報.シーン == シーンID.終了画面:
+                    共通処理.BGM_DFP.自動選択()
+                elif DS.情報.ボスシーン is None:
+                    共通処理.BGM_DFP.指定曲ザコ()
+                else:
+                    共通処理.BGM_DFP.指定曲ボス()
+
         #◎└┐アクションを実行する
         for 各アクション in self.アクション一覧:
             #│＼（すべての処理を終えた場合）
